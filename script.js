@@ -18,6 +18,10 @@ const products = [
     discount: 29,
     badge: 'sale',
     image: 'images/saree1.jpg',
+<<<<<<< HEAD
+=======
+    fallback: 'https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=600&q=85&auto=format&fit=crop',
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     description: 'A magnificent Kanjivaram silk saree featuring intricate zari border work and vibrant jewel tones. Handwoven by master artisans in Tamil Nadu, this piece is a timeless addition to any wardrobe.',
     tags: ['Silk', 'Zari Border', 'Wedding', 'Handwoven'],
     fabric: 'Pure Mulberry Silk',
@@ -31,6 +35,10 @@ const products = [
     discount: 21,
     badge: 'sale',
     image: 'images/saree2.jpg',
+<<<<<<< HEAD
+=======
+    fallback: 'https://images.unsplash.com/photo-1727430228383-aa1fb59db8bf?w=600&q=85&auto=format&fit=crop',
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     description: 'Opulent Banarasi brocade with real gold-tone zari weaving, perfect for weddings and grand celebrations. A timeless heirloom piece steeped in Varanasi heritage.',
     tags: ['Banarasi', 'Brocade', 'Zari', 'Wedding'],
     fabric: 'Pure Silk Brocade',
@@ -44,6 +52,10 @@ const products = [
     discount: null,
     badge: 'new',
     image: 'images/saree3.jpg',
+<<<<<<< HEAD
+=======
+    fallback: 'https://images.unsplash.com/photo-1745482036066-5d215ed6b910?w=600&q=85&auto=format&fit=crop',
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     description: 'Lightweight Chanderi saree crafted from a cotton-silk blend. Perfect for daily elegance — breathable, beautiful, and effortlessly graceful.',
     tags: ['Chanderi', 'Cotton-Silk', 'Daily Wear', 'Lightweight'],
     fabric: 'Chanderi Cotton-Silk',
@@ -57,6 +69,10 @@ const products = [
     discount: 19,
     badge: 'trend',
     image: 'images/saree4.jpg',
+<<<<<<< HEAD
+=======
+    fallback: 'https://images.unsplash.com/photo-1745482036066-5d215ed6b910?w=600&q=85&auto=format&fit=crop',
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     description: 'Shimmering organza saree with hand-embroidered floral motifs. This party-perfect piece catches the light beautifully and makes every entrance unforgettable.',
     tags: ['Organza', 'Embroidered', 'Party', 'Sheer'],
     fabric: 'Pure Organza',
@@ -70,6 +86,10 @@ const products = [
     discount: 20,
     badge: 'sale',
     image: 'images/saree5.jpg',
+<<<<<<< HEAD
+=======
+    fallback: 'https://images.unsplash.com/photo-1750008564980-46ad2279cd89?w=600&q=85&auto=format&fit=crop',
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     description: 'An exquisite double-ikat Patola saree, handcrafted using a centuries-old Gujarati weaving technique. A prestigious choice for the modern bride who values heritage.',
     tags: ['Patola', 'Double Ikat', 'Bridal', 'Heritage'],
     fabric: 'Pure Silk',
@@ -83,6 +103,10 @@ const products = [
     discount: null,
     badge: 'new',
     image: 'images/saree6.jpg',
+<<<<<<< HEAD
+=======
+    fallback: 'https://images.unsplash.com/photo-1749226368932-691097aa86c9?w=600&q=85&auto=format&fit=crop',
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     description: 'Crisp, comfortable handloom linen saree ideal for office, college, or casual outings. Available in earthy tones with simple woven borders.',
     tags: ['Linen', 'Handloom', 'Daily Wear', 'Office'],
     fabric: 'Pure Handloom Linen',
@@ -96,6 +120,10 @@ const products = [
     discount: 16,
     badge: 'trend',
     image: 'images/saree7.jpg',
+<<<<<<< HEAD
+=======
+    fallback: 'https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=600&q=85&auto=format&fit=crop',
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     description: 'Contemporary designer georgette saree with digital floral prints and contrast blouse piece. The perfect fusion of tradition and modernity.',
     tags: ['Georgette', 'Designer', 'Printed', 'Modern'],
     fabric: 'Premium Georgette',
@@ -109,6 +137,10 @@ const products = [
     discount: null,
     badge: 'new',
     image: 'images/saree8.jpg',
+<<<<<<< HEAD
+=======
+    fallback: 'https://images.unsplash.com/photo-1727430228383-aa1fb59db8bf?w=600&q=85&auto=format&fit=crop',
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     description: 'Soft, lustrous Mysore crepe silk with a distinctive sheen. Lightweight enough for all-day comfort, elegant enough for evening occasions.',
     tags: ['Crepe Silk', 'Mysore', 'Elegant', 'Versatile'],
     fabric: 'Mysore Crepe Silk',
@@ -122,6 +154,10 @@ const products = [
     discount: 17,
     badge: null,
     image: 'images/saree9.jpg',
+<<<<<<< HEAD
+=======
+    fallback: 'https://images.unsplash.com/photo-1745482039058-92017fb981cf?w=600&q=85&auto=format&fit=crop',
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     description: 'Iconic Kerala Kasavu saree in pristine white with a traditional golden zari border. A symbol of South Indian elegance, perfect for festivals and ceremonies.',
     tags: ['Kasavu', 'Cotton', 'Traditional', 'Kerala'],
     fabric: 'Handloom Cotton',
@@ -135,6 +171,10 @@ const products = [
     discount: 15,
     badge: 'sale',
     image: 'images/saree10.jpg',
+<<<<<<< HEAD
+=======
+    fallback: 'https://images.unsplash.com/photo-1753981031189-27bb7bd1c079?w=600&q=85&auto=format&fit=crop',
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     description: 'Luxurious silk saree with a stunning velvet border and stone-work embellishments. A showstopper for brides who want to make a statement.',
     tags: ['Velvet Border', 'Bridal', 'Silk', 'Embellished'],
     fabric: 'Silk with Velvet Border',
@@ -148,6 +188,10 @@ const products = [
     discount: 18,
     badge: 'trend',
     image: 'images/saree11.jpg',
+<<<<<<< HEAD
+=======
+    fallback: 'https://images.unsplash.com/photo-1637257690620-c8d88c418353?w=600&q=85&auto=format&fit=crop',
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     description: 'All-over sequin embroidered saree that glistens under every light. Perfect for cocktail parties, receptions, and festive evenings.',
     tags: ['Sequin', 'Party Wear', 'Embroidered', 'Glam'],
     fabric: 'Net with Sequin Work',
@@ -161,6 +205,10 @@ const products = [
     discount: null,
     badge: 'new',
     image: 'images/saree12.jpg',
+<<<<<<< HEAD
+=======
+    fallback: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600&q=85&auto=format&fit=crop',
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     description: 'Handcrafted block print cotton saree from Rajasthan — vibrant jaipur prints on breathable cotton. Ideal for breezy summer days and casual occasions.',
     tags: ['Block Print', 'Cotton', 'Rajasthan', 'Casual'],
     fabric: 'Pure Cotton',
@@ -366,7 +414,11 @@ function updateCartUI() {
     container.innerHTML = cart.map(item => `
       <div class="cart-item" data-id="${item.id}">
         <img src="${item.image}" alt="${item.name}"
+<<<<<<< HEAD
              onerror="this.onerror=null; this.src='images/saree1.jpg'" />
+=======
+             onerror="this.onerror=null; this.src='${item.fallback || 'https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=150&q=70'}'" />
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
         <div class="cart-item-info">
           <div class="cart-item-name">${item.name}</div>
           <div class="cart-item-price">${formatPrice(item.price)}</div>
@@ -449,7 +501,11 @@ function updateWishlistUI() {
     container.innerHTML = wishlisted.map(item => `
       <div class="wishlist-item" data-id="${item.id}">
         <img src="${item.image}" alt="${item.name}"
+<<<<<<< HEAD
              onerror="this.onerror=null; this.src='images/saree1.jpg'" />
+=======
+             onerror="this.onerror=null; this.src='${item.fallback || 'https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=150&q=70'}'" />
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
         <div class="wishlist-item-info">
           <div class="wishlist-item-name">${item.name}</div>
           <div class="wishlist-item-price">${formatPrice(item.price)}</div>
@@ -498,7 +554,12 @@ function getFilteredProducts() {
 
 /** Generate HTML for a product card */
 function productCardHTML(product) {
+<<<<<<< HEAD
   const { id, name, category, price, originalPrice, discount, badge, image } = product;
+=======
+  const { id, name, category, price, originalPrice, discount, badge, image, fallback } = product;
+  const imgFall = fallback || 'https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=600&q=80';
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
   const heartSymbol = isWishlisted(id) ? '♥' : '♡';
   const heartActive  = isWishlisted(id) ? 'active' : '';
 
@@ -516,7 +577,11 @@ function productCardHTML(product) {
     <article class="product-card reveal" data-id="${id}" data-category="${category}" aria-label="${name}">
       <div class="product-image-wrapper">
         <img src="${image}" alt="${name}" loading="lazy"
+<<<<<<< HEAD
              onerror="this.onerror=null; this.src='images/saree1.jpg'" />
+=======
+             onerror="this.onerror=null; this.src='${imgFall}'" />
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
         ${badgeHTML}
         <button class="wishlist-heart ${heartActive}" data-id="${id}"
                 aria-label="Add ${name} to wishlist" aria-pressed="${isWishlisted(id)}"
@@ -584,7 +649,11 @@ function renderCollections() {
     <button class="collection-card reveal" data-filter="${col.filter}"
             aria-label="Browse ${col.name}">
       <img src="${col.image}" alt="${col.name}" loading="lazy"
+<<<<<<< HEAD
            onerror="this.src='images/saree1.jpg'" />
+=======
+           onerror="this.src='https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=400&q=80'" />
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
       <div class="collection-card-overlay">
         <h3>${col.name}</h3>
         <span>${col.subtitle}</span>
@@ -604,7 +673,11 @@ function renderGallery() {
     <div class="gallery-item reveal" tabindex="0" role="img"
          aria-label="CB Trendz saree photo ${idx + 1}">
       <img src="${url}" alt="CB Trendz saree look ${idx + 1}" loading="lazy"
+<<<<<<< HEAD
            onerror="this.src='images/saree1.jpg'" />
+=======
+           onerror="this.src='https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=400&q=80'" />
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
       <div class="gallery-item-overlay">
         <span>♥</span>
       </div>
@@ -635,7 +708,11 @@ function openQuickView(productId) {
   content.innerHTML = `
     <div class="qv-image">
       <img src="${product.image}" alt="${product.name}"
+<<<<<<< HEAD
            onerror="this.onerror=null; this.src='images/saree1.jpg'" />
+=======
+           onerror="this.onerror=null; this.src='${product.fallback || 'https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=600&q=80'}'" />
+>>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
     </div>
     <div class="qv-details">
       <span class="qv-category">${product.category.charAt(0).toUpperCase() + product.category.slice(1)} Saree</span>
