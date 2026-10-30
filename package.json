@@ -1,0 +1,29 @@
+{
+  "name": "cb-trendz",
+  "version": "1.0.0",
+  "description": "CB TRENDZ Luxury Sarees E-Commerce Backend & Payment Gateway Server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dineshkumar13042005-sketch/cb-trendz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dineshkumar13042005-sketch/cb-trendz/issues"
+  },
+  "homepage": "https://github.com/dineshkumar13042005-sketch/cb-trendz#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "razorpay": "^2.9.8"
+  }
+}

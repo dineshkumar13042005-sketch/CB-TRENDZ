@@ -3,59 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="CB TRENDZ – Premium Indian Saree Boutique. Discover timeless sarees crafted for every beautiful occasion." />
-  <title>CB TRENDZ | Sarees & Ethnic Wear</title>
+  <meta name="description" content="CB TRENDZ – Ladies Fashion & Accessories. Premium Indian Sarees for Every Mood and Moment." />
+  <title>CB TRENDZ | Sarees • Ladies Fashion & Accessories</title>
   <link rel="stylesheet" href="style.css" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Razorpay Official Payment Gateway SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
 
   <!-- ================================================
-       TOP NAVBAR (Dark Maroon Boutique Header)
+       TOP NAVBAR (Dark Royal Maroon Boutique Header)
   ================================================ -->
   <header class="navbar" id="navbar">
     <div class="nav-container">
 
-      <!-- Logo -->
-      <a href="#home" class="nav-brand" aria-label="CB Trendz Home">
-        <svg class="brand-lotus" viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16 1C14 5 11 9 7 12C11 12 14 10 16 6C18 10 21 12 25 12C21 9 18 5 16 1Z" fill="#D4AF70"/>
-          <path d="M16 7C15 11 12 14 8 16C12 16 15 14 16 10C17 14 20 16 24 16C20 14 17 11 16 7Z" fill="#E8D09A"/>
-          <path d="M4 13C7 13 9 12 11 10C8 11 5 11 3 9C3 11 3 12 4 13Z" fill="#D4AF70"/>
-          <path d="M28 13C25 13 23 12 21 10C24 11 27 11 29 9C29 11 29 12 28 13Z" fill="#D4AF70"/>
-        </svg>
-        <div class="brand-text-wrap">
-          <span class="brand-name">CB TRENDZ</span>
-          <span class="brand-tagline">SAREES • ETHNIC WEAR</span>
-        </div>
+      <!-- Logo with Saree Silhouette & CB Trendz Script -->
+      <a href="#home" class="nav-brand" aria-label="CB TRENDZ Home">
+        <img src="cb-trendz-logo-hd.png" alt="CB TRENDZ Ladies Fashion & Accessories" class="brand-logo-img" onerror="this.onerror=null; this.src='cb-trendz-logo-transparent.png';" />
       </a>
 
-      <!-- Desktop Nav Links -->
+      <!-- Desktop Nav Links (Shop Sarees highlighted as active) -->
       <nav class="nav-menu" id="nav-links" role="navigation" aria-label="Main navigation">
-        <a href="#home" class="nav-item active">Home</a>
-        <a href="#shop" class="nav-item">Shop Sarees</a>
-        <a href="#collections" class="nav-item">Collections</a>
+        <a href="#home" class="nav-item">Home</a>
+        <a href="#shop" class="nav-item active">Shop Sarees</a>
+        <a href="#shop" class="nav-item">Collections</a>
         <a href="#about" class="nav-item">About Us</a>
         <a href="#contact" class="nav-item">Contact</a>
       </nav>
 
       <!-- Nav Action Icons -->
       <div class="nav-actions">
-        <button class="nav-action-btn" id="search-toggle-btn" aria-label="Search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <!-- Search Button -->
+        <button class="nav-action-btn" id="search-toggle-btn" aria-label="Search sarees" title="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
         </button>
-        <button class="nav-action-btn wishlist-btn" id="wishlist-toggle-btn" aria-label="Wishlist">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+
+        <!-- Wishlist Button with Badge -->
+        <button class="nav-action-btn wishlist-btn" id="wishlist-toggle-btn" aria-label="Wishlist" title="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
           <span class="nav-counter" id="wishlist-count">0</span>
         </button>
-        <button class="nav-action-btn cart-btn" id="cart-toggle-btn" aria-label="Shopping Cart">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+
+        <!-- Shopping Bag Button with Badge -->
+        <button class="nav-action-btn cart-btn" id="cart-toggle-btn" aria-label="Shopping Bag" title="Shopping Bag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 01-8 0"></path>
+          </svg>
           <span class="nav-counter" id="cart-count">0</span>
         </button>
-        <!-- Mobile Hamburger -->
+
+        <!-- Mobile Hamburger Menu Button -->
         <button class="hamburger-btn" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -72,612 +80,191 @@
     </div>
   </header>
 
-  <!-- Gold Scroll Progress Indicator -->
-  <div class="scroll-progress-track" aria-hidden="true"><div class="scroll-progress-fill" id="scroll-progress-bar"></div></div>
-
   <!-- Mobile Drawer Overlay -->
   <div class="drawer-backdrop" id="nav-overlay"></div>
 
-  <!-- ================================================
-       HERO SECTION (Luxury Saree Model Background)
-  ================================================ -->
-  <section class="hero-section" id="home" aria-label="Hero showcase">
-    <div class="hero-backdrop">
-      <img src="images/saree1.jpg" alt="CB Trendz Saree Model" class="hero-bg-image" onerror="this.src='images/saree2.jpg'" />
-      <div class="hero-vignette"></div>
-      <!-- Ambient Silk Waves & Golden Aura in Background -->
-      <div class="hero-ambient-waves" aria-hidden="true">
-        <div class="silk-wave-glow wave-glow-1"></div>
-        <div class="silk-wave-glow wave-glow-2"></div>
-        <svg class="silk-curves-stream" viewBox="0 0 1440 600" preserveAspectRatio="none">
-          <path class="silk-stream-path stream-path-1" d="M-100,180 C260,80 500,420 980,240 C1240,140 1420,380 1600,260" fill="none" stroke="url(#goldSilkGrad1)" stroke-width="45" opacity="0.14" />
-          <path class="silk-stream-path stream-path-2" d="M-100,340 C320,480 620,160 1100,320 C1340,410 1480,180 1600,290" fill="none" stroke="url(#goldSilkGrad2)" stroke-width="70" opacity="0.10" />
-          <defs>
-            <linearGradient id="goldSilkGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#D4AF70" stop-opacity="0" />
-              <stop offset="40%" stop-color="#FFF2D6" stop-opacity="0.8" />
-              <stop offset="70%" stop-color="#D4AF70" stop-opacity="0.9" />
-              <stop offset="100%" stop-color="#651B2B" stop-opacity="0" />
-            </linearGradient>
-            <linearGradient id="goldSilkGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#651B2B" stop-opacity="0" />
-              <stop offset="30%" stop-color="#D4AF70" stop-opacity="0.6" />
-              <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.75" />
-              <stop offset="100%" stop-color="#D4AF70" stop-opacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-    </div>
-    <div class="hero-inner">
-      <div class="hero-textbox">
-        <p class="hero-subtitle-eyebrow">C B &nbsp; T R E N D Z</p>
-        <h1 class="hero-main-title">Elegance Woven<br /><span class="font-gold-effect">in Every Thread</span></h1>
-        <p class="hero-lead-text">Discover timeless sarees crafted for every beautiful occasion.</p>
-        <div class="hero-button-group">
-          <a href="#collections" class="btn-hero-explore">Explore Collection →</a>
-          <a href="#shop" class="btn-hero-shop">Shop Now</a>
-        </div>
-      </div>
-    </div>
+  <!-- Gold Scroll Progress Indicator -->
+  <div class="scroll-progress-track" aria-hidden="true"><div class="scroll-progress-fill" id="scroll-progress-bar"></div></div>
 
-    <!-- Slider Arrows & Dots -->
-    <button class="hero-arrow hero-prev" aria-label="Previous slide">‹</button>
-    <button class="hero-arrow hero-next" aria-label="Next slide">›</button>
-    <div class="hero-dots" aria-hidden="true">
-      <span class="hero-dot active"></span>
-      <span class="hero-dot"></span>
-      <span class="hero-dot"></span>
-    </div>
+  <!-- Main Content Wrapper with Delicate Ivory Background -->
+  <main class="page-main-wrap">
 
-    <!-- Animated Silk Wave Transition (Flows into Shop by Collection) -->
-    <div class="hero-wave-divider" aria-hidden="true">
-      <svg class="hero-wave-svg" viewBox="0 0 1440 95" preserveAspectRatio="none">
-        <path class="wave-layer wave-maroon" d="M0,28 C260,65 520,5 780,40 C1040,75 1260,22 1440,48 L1440,95 L0,95 Z"></path>
-        <path class="wave-layer wave-gold" d="M0,45 C280,15 540,70 820,35 C1100,5 1300,58 1440,35 L1440,95 L0,95 Z"></path>
-        <path class="wave-layer wave-white" d="M0,58 C320,12 620,80 940,38 C1180,8 1340,50 1440,42 L1440,95 L0,95 Z"></path>
-      </svg>
-    </div>
-  </section>
+    <!-- ================================================
+         SECTION 2: BESTSELLING SAREES
+    ================================================ -->
+    <section class="site-section shop-section" id="shop">
+      <div class="site-container">
 
-  <!-- ================================================
-       SHOP BY COLLECTION
-  ================================================ -->
-  <section class="site-section collections-block" id="collections">
-    <div class="site-container">
-      <div class="section-title-box scroll-reveal">
-        <div class="section-ornament">❖</div>
-        <h2 class="section-main-heading">SHOP BY COLLECTION</h2>
-        <p class="section-sub-heading">Find the perfect saree for every occasion</p>
-      </div>
+        <!-- Top Header & Search/Sort Row -->
+        <div class="bestsellers-header-row">
+          <div class="bestsellers-heading-wrap">
+            <div class="bestsellers-title-with-lotus">
+              <svg viewBox="0 0 32 20" fill="none" class="heading-lotus-icon" aria-hidden="true">
+                <path d="M16 1C14 5 11 9 7 12C11 12 14 10 16 6C18 10 21 12 25 12C21 9 18 5 16 1Z" fill="#D4AF70"/>
+                <path d="M16 7C15 11 12 14 8 16C12 16 15 14 16 10C17 14 20 16 24 16C20 14 17 11 16 7Z" fill="#E8D09A"/>
+              </svg>
+              <h2 class="bestsellers-main-heading">Bestselling Sarees</h2>
+            </div>
+            <p class="bestsellers-sub-heading">Most loved. Always in style.</p>
+          </div>
 
-      <div class="collections-grid-6" id="collections-grid">
-        <button class="col-card scroll-reveal" data-filter="silk" aria-label="Browse Silk Sarees">
-          <img src="images/saree1.jpg" alt="Silk Sarees" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-          <div class="col-card-overlay">
-            <h3>Silk Sarees</h3>
-            <span class="col-card-link">Shop Now →</span>
-          </div>
-        </button>
-        <button class="col-card scroll-reveal" data-filter="cotton" aria-label="Browse Cotton Sarees">
-          <img src="images/saree3.jpg" alt="Cotton Sarees" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-          <div class="col-card-overlay">
-            <h3>Cotton Sarees</h3>
-            <span class="col-card-link">Shop Now →</span>
-          </div>
-        </button>
-        <button class="col-card scroll-reveal" data-filter="wedding" aria-label="Browse Wedding Sarees">
-          <img src="images/saree5.jpg" alt="Wedding Sarees" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-          <div class="col-card-overlay">
-            <h3>Wedding Sarees</h3>
-            <span class="col-card-link">Shop Now →</span>
-          </div>
-        </button>
-        <button class="col-card scroll-reveal" data-filter="party" aria-label="Browse Party Wear Sarees">
-          <img src="images/saree4.jpg" alt="Party Wear Sarees" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-          <div class="col-card-overlay">
-            <h3>Party Wear Sarees</h3>
-            <span class="col-card-link">Shop Now →</span>
-          </div>
-        </button>
-        <button class="col-card scroll-reveal" data-filter="designer" aria-label="Browse Designer Sarees">
-          <img src="images/saree7.jpg" alt="Designer Sarees" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-          <div class="col-card-overlay">
-            <h3>Designer Sarees</h3>
-            <span class="col-card-link">Shop Now →</span>
-          </div>
-        </button>
-        <button class="col-card scroll-reveal" data-filter="daily" aria-label="Browse Daily Wear Sarees">
-          <img src="images/saree6.jpg" alt="Daily Wear Sarees" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-          <div class="col-card-overlay">
-            <h3>Daily Wear Sarees</h3>
-            <span class="col-card-link">Shop Now →</span>
-          </div>
-        </button>
-      </div>
-    </div>
-  </section>
+          <!-- Search Input & Sort Dropdown -->
+          <div class="bestsellers-controls-wrap">
+            <!-- Search Input Box -->
+            <div class="search-pill-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon-svg" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="catalog-search" placeholder="Search sarees..." aria-label="Search sarees" />
+            </div>
 
-  <!-- ================================================
-       BESTSELLING SAREES
-  ================================================ -->
-  <section class="site-section shop-block" id="shop">
-    <div class="site-container">
-      <div class="section-title-box scroll-reveal">
-        <div class="section-ornament">❖</div>
-        <h2 class="section-main-heading">BESTSELLING SAREES</h2>
-        <p class="section-sub-heading">Loved by many, curated for you</p>
-      </div>
-
-      <!-- Mockup Control / Filter Bar -->
-      <div class="catalog-filters-bar">
-        <div class="filter-col">
-          <select id="filter-category" aria-label="Filter by category">
-            <option value="all">All Categories</option>
-            <option value="silk">Silk Sarees</option>
-            <option value="cotton">Cotton Sarees</option>
-            <option value="wedding">Wedding Sarees</option>
-            <option value="party">Party Wear Sarees</option>
-            <option value="designer">Designer Sarees</option>
-            <option value="daily">Daily Wear Sarees</option>
-          </select>
-        </div>
-        <div class="filter-col">
-          <select id="filter-price" aria-label="Filter by price range">
-            <option value="all">All Price Ranges</option>
-            <option value="under-3000">Under ₹3,000</option>
-            <option value="3000-6000">₹3,000 – ₹6,000</option>
-            <option value="above-6000">Above ₹6,000</option>
-          </select>
-        </div>
-        <div class="filter-col search-filter-col">
-          <div class="filter-search-box">
-            <input type="text" id="catalog-search" placeholder="Search sarees…" aria-label="Search sarees" />
-            <svg class="search-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <!-- Sort Dropdown -->
+            <div class="sort-pill-box">
+              <label for="catalog-sort">Sort by:</label>
+              <select id="catalog-sort" aria-label="Sort sarees">
+                <option value="popularity">Popularity</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Rating</option>
+                <option value="newest">Newest</option>
+              </select>
+            </div>
           </div>
         </div>
-        <div class="filter-col">
-          <select id="filter-sort" aria-label="Sort sarees">
-            <option value="popularity">Sort by: Popularity</option>
-            <option value="low-high">Price: Low to High</option>
-            <option value="high-low">Price: High to Low</option>
-            <option value="newest">New Arrivals</option>
-          </select>
+
+        <!-- Filter Row: Category Pills & Price Dropdown -->
+        <div class="bestsellers-filters-row">
+          <!-- Horizontal Category Buttons -->
+          <div class="category-pills-bar" id="category-pills" role="tablist">
+            <button class="pill-btn active" data-category="all" role="tab">All</button>
+            <button class="pill-btn" data-category="silk" role="tab">Silk Sarees</button>
+            <button class="pill-btn" data-category="cotton" role="tab">Cotton Sarees</button>
+            <button class="pill-btn" data-category="wedding" role="tab">Wedding Sarees</button>
+            <button class="pill-btn" data-category="party" role="tab">Party Wear Sarees</button>
+            <button class="pill-btn" data-category="designer" role="tab">Designer Sarees</button>
+            <button class="pill-btn" data-category="daily" role="tab">Daily Wear Sarees</button>
+          </div>
+
+          <!-- Price Dropdown Pill -->
+          <div class="price-pill-box">
+            <label for="catalog-price">Price:</label>
+            <select id="catalog-price" aria-label="Filter by price">
+              <option value="all">All</option>
+              <option value="under3000">Under ₹3,000</option>
+              <option value="3000-6000">₹3,000 - ₹6,000</option>
+              <option value="above6000">Above ₹6,000</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 8 Product Cards Grid (4 Columns x 2 Rows) -->
+        <div class="products-grid-4" id="products-grid">
+          <!-- Products dynamically rendered by script.js (exact data matching mockup) -->
+        </div>
+
+        <!-- Empty State (Fallback for zero search matches) -->
+        <div class="catalog-empty" id="empty-state" style="display:none;">
+          <div class="empty-emoji">🔍</div>
+          <h3>No sarees match your selection</h3>
+          <p>Try adjusting your category, price filter, or search keywords.</p>
+          <button class="btn-reset-filters" id="reset-filters-btn">View All Sarees</button>
+        </div>
+
+        <!-- Pagination Row (1, 2, 3, >) -->
+        <div class="pagination-bar" id="pagination-bar">
+          <button class="page-btn active" data-page="1">1</button>
+          <button class="page-btn" data-page="2">2</button>
+          <button class="page-btn" data-page="3">3</button>
+          <button class="page-btn next-btn" data-page="next" aria-label="Next page">›</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================
+         SECTION 3: WHY CHOOSE CB TRENDZ
+    ================================================ -->
+    <section class="site-section why-section" id="about">
+      <div class="site-container">
+
+        <div class="why-watermark-bg" aria-hidden="true"></div>
+
+        <div class="why-grid-4">
+
+          <!-- Card 1: Elegant Designs -->
+          <div class="why-box">
+            <div class="why-badge-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF70" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="12 6 15 12 12 18 9 12 12 6"></polygon>
+              </svg>
+            </div>
+            <h3 class="why-box-title">Elegant Designs</h3>
+            <p class="why-box-desc">Trendy &amp; traditional styles for every occasion</p>
+          </div>
+
+          <!-- Card 2: Quality Fabrics -->
+          <div class="why-box">
+            <div class="why-badge-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF70" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+              </svg>
+            </div>
+            <h3 class="why-box-title">Quality Fabrics</h3>
+            <p class="why-box-desc">Premium fabrics for lasting comfort</p>
+          </div>
+
+          <!-- Card 3: Traditional Craftsmanship -->
+          <div class="why-box">
+            <div class="why-badge-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF70" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <h3 class="why-box-title">Traditional Craftsmanship</h3>
+            <p class="why-box-desc">Rich heritage in every weave</p>
+          </div>
+
+          <!-- Card 4: Customer-Focused Service -->
+          <div class="why-box">
+            <div class="why-badge-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF70" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>
+                <path d="M12 11a3 3 0 00-3-3 3 3 0 00-3 3c0 2.5 6 6 6 6s6-3.5 6-6a3 3 0 00-3-3 3 3 0 00-3 3z"></path>
+              </svg>
+            </div>
+            <h3 class="why-box-title">Customer-Focused Service</h3>
+            <p class="why-box-desc">Your satisfaction is our priority</p>
+          </div>
+
         </div>
       </div>
+    </section>
 
-      <!-- Products Grid (8 cards) -->
-      <div class="catalog-grid-4" id="products-grid">
-        <article class="product-item scroll-reveal" data-id="1" data-category="silk" aria-label="Kanjivaram Silk Saree">
-          <div class="product-thumb">
-            <img src="images/saree1.jpg" alt="Kanjivaram Silk Saree" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-            <button class="wishlist-btn-round" data-id="1" aria-label="Add Kanjivaram Silk Saree to wishlist" title="Add to wishlist">♡</button>
-            <button class="quick-view-btn-pill" data-id="1">👁 Quick View</button>
-          </div>
-          <div class="product-details">
-            <h3 class="product-heading">Kanjivaram Silk Saree</h3>
-            <div class="product-price-line">
-              <span class="price-val">₹ 4,599</span>
-              <span class="price-strike">₹ 6,999</span>
-              <span class="discount-tag">34% OFF</span>
-            </div>
-            <button class="btn-cart-main" data-id="1" aria-label="Add Kanjivaram Silk Saree to cart">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              ADD TO CART
-            </button>
-          </div>
-        </article>
-        <article class="product-item scroll-reveal" data-id="2" data-category="cotton" aria-label="Pure Cotton Saree">
-          <div class="product-thumb">
-            <img src="images/saree3.jpg" alt="Pure Cotton Saree" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-            <button class="wishlist-btn-round" data-id="2" aria-label="Add Pure Cotton Saree to wishlist" title="Add to wishlist">♡</button>
-            <button class="quick-view-btn-pill" data-id="2">👁 Quick View</button>
-          </div>
-          <div class="product-details">
-            <h3 class="product-heading">Pure Cotton Saree</h3>
-            <div class="product-price-line">
-              <span class="price-val">₹ 1,999</span>
-              <span class="price-strike">₹ 2,899</span>
-              <span class="discount-tag">31% OFF</span>
-            </div>
-            <button class="btn-cart-main" data-id="2" aria-label="Add Pure Cotton Saree to cart">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              ADD TO CART
-            </button>
-          </div>
-        </article>
-        <article class="product-item scroll-reveal" data-id="3" data-category="wedding" aria-label="Bridal Silk Saree">
-          <div class="product-thumb">
-            <img src="images/saree5.jpg" alt="Bridal Silk Saree" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-            <button class="wishlist-btn-round" data-id="3" aria-label="Add Bridal Silk Saree to wishlist" title="Add to wishlist">♡</button>
-            <button class="quick-view-btn-pill" data-id="3">👁 Quick View</button>
-          </div>
-          <div class="product-details">
-            <h3 class="product-heading">Bridal Silk Saree</h3>
-            <div class="product-price-line">
-              <span class="price-val">₹ 8,599</span>
-              <span class="price-strike">₹ 12,999</span>
-              <span class="discount-tag">33% OFF</span>
-            </div>
-            <button class="btn-cart-main" data-id="3" aria-label="Add Bridal Silk Saree to cart">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              ADD TO CART
-            </button>
-          </div>
-        </article>
-        <article class="product-item scroll-reveal" data-id="4" data-category="party" aria-label="Designer Organza Saree">
-          <div class="product-thumb">
-            <img src="images/saree4.jpg" alt="Designer Organza Saree" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-            <button class="wishlist-btn-round" data-id="4" aria-label="Add Designer Organza Saree to wishlist" title="Add to wishlist">♡</button>
-            <button class="quick-view-btn-pill" data-id="4">👁 Quick View</button>
-          </div>
-          <div class="product-details">
-            <h3 class="product-heading">Designer Organza Saree</h3>
-            <div class="product-price-line">
-              <span class="price-val">₹ 3,499</span>
-              <span class="price-strike">₹ 5,199</span>
-              <span class="discount-tag">32% OFF</span>
-            </div>
-            <button class="btn-cart-main" data-id="4" aria-label="Add Designer Organza Saree to cart">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              ADD TO CART
-            </button>
-          </div>
-        </article>
-        <article class="product-item scroll-reveal" data-id="5" data-category="silk" aria-label="Banarasi Silk Saree">
-          <div class="product-thumb">
-            <img src="images/saree2.jpg" alt="Banarasi Silk Saree" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-            <button class="wishlist-btn-round" data-id="5" aria-label="Add Banarasi Silk Saree to wishlist" title="Add to wishlist">♡</button>
-            <button class="quick-view-btn-pill" data-id="5">👁 Quick View</button>
-          </div>
-          <div class="product-details">
-            <h3 class="product-heading">Banarasi Silk Saree</h3>
-            <div class="product-price-line">
-              <span class="price-val">₹ 5,399</span>
-              <span class="price-strike">₹ 7,899</span>
-              <span class="discount-tag">31% OFF</span>
-            </div>
-            <button class="btn-cart-main" data-id="5" aria-label="Add Banarasi Silk Saree to cart">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              ADD TO CART
-            </button>
-          </div>
-        </article>
-        <article class="product-item scroll-reveal" data-id="6" data-category="cotton" aria-label="Chanderi Silk Saree">
-          <div class="product-thumb">
-            <img src="images/saree8.jpg" alt="Chanderi Silk Saree" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-            <button class="wishlist-btn-round" data-id="6" aria-label="Add Chanderi Silk Saree to wishlist" title="Add to wishlist">♡</button>
-            <button class="quick-view-btn-pill" data-id="6">👁 Quick View</button>
-          </div>
-          <div class="product-details">
-            <h3 class="product-heading">Chanderi Silk Saree</h3>
-            <div class="product-price-line">
-              <span class="price-val">₹ 2,999</span>
-              <span class="price-strike">₹ 4,499</span>
-              <span class="discount-tag">33% OFF</span>
-            </div>
-            <button class="btn-cart-main" data-id="6" aria-label="Add Chanderi Silk Saree to cart">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              ADD TO CART
-            </button>
-          </div>
-        </article>
-        <article class="product-item scroll-reveal" data-id="7" data-category="wedding" aria-label="Tussar Silk Saree">
-          <div class="product-thumb">
-            <img src="images/saree10.jpg" alt="Tussar Silk Saree" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-            <button class="wishlist-btn-round" data-id="7" aria-label="Add Tussar Silk Saree to wishlist" title="Add to wishlist">♡</button>
-            <button class="quick-view-btn-pill" data-id="7">👁 Quick View</button>
-          </div>
-          <div class="product-details">
-            <h3 class="product-heading">Tussar Silk Saree</h3>
-            <div class="product-price-line">
-              <span class="price-val">₹ 3,599</span>
-              <span class="price-strike">₹ 5,299</span>
-              <span class="discount-tag">32% OFF</span>
-            </div>
-            <button class="btn-cart-main" data-id="7" aria-label="Add Tussar Silk Saree to cart">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              ADD TO CART
-            </button>
-          </div>
-        </article>
-        <article class="product-item scroll-reveal" data-id="8" data-category="daily" aria-label="Printed Daily Wear Saree">
-          <div class="product-thumb">
-            <img src="images/saree6.jpg" alt="Printed Daily Wear Saree" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-            <button class="wishlist-btn-round" data-id="8" aria-label="Add Printed Daily Wear Saree to wishlist" title="Add to wishlist">♡</button>
-            <button class="quick-view-btn-pill" data-id="8">👁 Quick View</button>
-          </div>
-          <div class="product-details">
-            <h3 class="product-heading">Printed Daily Wear Saree</h3>
-            <div class="product-price-line">
-              <span class="price-val">₹ 1,499</span>
-              <span class="price-strike">₹ 2,499</span>
-              <span class="discount-tag">40% OFF</span>
-            </div>
-            <button class="btn-cart-main" data-id="8" aria-label="Add Printed Daily Wear Saree to cart">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              ADD TO CART
-            </button>
-          </div>
-        </article>
-      </div>
-
-      <!-- Empty State -->
-      <div class="catalog-empty" id="empty-state" style="display:none;">
-        <div class="empty-emoji">🔍</div>
-        <h3>No sarees match your selection</h3>
-        <p>Try adjusting your category, price range, or search keywords.</p>
-        <button class="btn-reset-filters" onclick="resetFilters()">View All Sarees</button>
-      </div>
-
-    </div>
-  </section>
+  </main>
 
   <!-- ================================================
-       FEATURED COLLECTION BANNER
+       SECTION 4: FOOTER (Deep Royal Maroon)
   ================================================ -->
-  <section class="featured-occasion-banner" aria-label="Featured Collection">
-    <div class="featured-occasion-inner scroll-reveal">
-      <div class="featured-occasion-text">
-        <p class="featured-tagline">FEATURED COLLECTION</p>
-        <h2 class="featured-title">Celebrate Every<br />Occasion</h2>
-        <p class="featured-copy">From festive celebrations to intimate gatherings, find sarees that make every moment special.</p>
-        <a href="#shop" class="btn-featured-discover" data-filter="wedding">Discover the Collection →</a>
-      </div>
-      <div class="featured-occasion-media">
-        <img src="images/featured-sarees.jpg" alt="Handcrafted Luxury Sarees" loading="lazy" onerror="this.src='images/saree2.jpg'" />
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================================
-       WHY CHOOSE CB TRENDZ
-  ================================================ -->
-  <section class="site-section why-block" id="about">
-    <div class="site-container">
-      <div class="section-title-box scroll-reveal">
-        <div class="section-ornament">❖</div>
-        <h2 class="section-main-heading">WHY CHOOSE CB TRENDZ</h2>
-        <p class="section-sub-heading">More than just sarees, it's a promise of quality and tradition</p>
-      </div>
-
-      <div class="why-grid-4">
-        <div class="why-box scroll-reveal">
-          <div class="why-badge-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          </div>
-          <h3>Elegant Designs</h3>
-          <p>Trendy & traditional styles for every occasion</p>
-        </div>
-
-        <div class="why-box scroll-reveal">
-          <div class="why-badge-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          </div>
-          <h3>Quality Fabrics</h3>
-          <p>Premium fabrics for lasting comfort</p>
-        </div>
-
-        <div class="why-box scroll-reveal">
-          <div class="why-badge-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <h3>Traditional Craftsmanship</h3>
-          <p>Rich heritage in every weave</p>
-        </div>
-
-        <div class="why-box scroll-reveal">
-          <div class="why-badge-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-          </div>
-          <h3>Customer-Focused Service</h3>
-          <p>Your satisfaction is our priority</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================================
-       CUSTOMER TESTIMONIALS
-  ================================================ -->
-  <section class="site-section testimonials-block">
-    <div class="site-container">
-      <div class="section-title-box scroll-reveal">
-        <div class="section-ornament">❖</div>
-        <h2 class="section-main-heading">CUSTOMER TESTIMONIALS</h2>
-        <p class="section-sub-heading">What our customers say</p>
-      </div>
-
-      <div class="testimonials-slider-row">
-        <button class="t-arrow-btn t-prev" aria-label="Previous review">‹</button>
-
-        <div class="testimonials-cards-3">
-          <div class="t-review-card scroll-reveal">
-            <div class="t-quote-symbol">“</div>
-            <p class="t-body-quote">This is a demo review. Real customer reviews will be added here once available.</p>
-            <div class="t-profile">
-              <div class="t-avatar">P</div>
-              <div class="t-author-info">
-                <strong>Priya S.</strong>
-                <span>(Bangalore)</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="t-review-card scroll-reveal">
-            <div class="t-quote-symbol">“</div>
-            <p class="t-body-quote">This is a demo review. Real customer reviews will be added here once available.</p>
-            <div class="t-profile">
-              <div class="t-avatar">A</div>
-              <div class="t-author-info">
-                <strong>Ananya R.</strong>
-                <span>(Mumbai)</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="t-review-card scroll-reveal">
-            <div class="t-quote-symbol">“</div>
-            <p class="t-body-quote">This is a demo review. Real customer reviews will be added here once available.</p>
-            <div class="t-profile">
-              <div class="t-avatar">G</div>
-              <div class="t-author-info">
-                <strong>Geetha K.</strong>
-                <span>(Hyderabad)</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button class="t-arrow-btn t-next" aria-label="Next review">›</button>
-      </div>
-
-      <div class="t-dots-row">
-        <span class="t-dot active"></span>
-        <span class="t-dot"></span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================================
-       FOLLOW US ON INSTAGRAM
-  ================================================ -->
-  <section class="site-section instagram-block">
-    <div class="site-container">
-      <div class="section-title-box scroll-reveal">
-        <div class="section-ornament">❖</div>
-        <h2 class="section-main-heading">FOLLOW US ON INSTAGRAM</h2>
-        <p class="section-sub-heading">Style & win with CB TRENDZ</p>
-      </div>
-
-      <div class="instagram-feed-row" id="gallery-grid">
-        <div class="insta-item scroll-reveal">
-          <img src="images/saree1.jpg" alt="CB Trendz Saree Look 1" loading="lazy" />
-        </div>
-        <div class="insta-item scroll-reveal">
-          <img src="images/saree2.jpg" alt="CB Trendz Saree Look 2" loading="lazy" />
-        </div>
-        <div class="insta-item scroll-reveal">
-          <img src="images/featured-sarees.jpg" alt="CB Trendz Folded Sarees" loading="lazy" />
-        </div>
-        <div class="insta-item scroll-reveal">
-          <img src="images/saree4.jpg" alt="CB Trendz Saree Look 4" loading="lazy" />
-        </div>
-        <div class="insta-item scroll-reveal">
-          <img src="images/saree7.jpg" alt="CB Trendz Saree Look 5" loading="lazy" />
-        </div>
-        <div class="insta-item scroll-reveal">
-          <img src="images/saree8.jpg" alt="CB Trendz Saree Look 6" loading="lazy" />
-        </div>
-      </div>
-
-      <div class="instagram-cta-wrap">
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn-insta-follow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          Follow Us
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================================
-       GET IN TOUCH / CONTACT SECTION
-  ================================================ -->
-  <section class="site-section contact-block" id="contact">
-    <div class="site-container">
-      <div class="contact-header-left">
-        <p class="contact-eyebrow-tag">GET IN TOUCH</p>
-        <h2 class="contact-main-heading">We'd love to hear from you</h2>
-        <p class="contact-lead-sub">For enquiries, orders or any assistance, feel free to reach out.</p>
-      </div>
-
-      <div class="contact-3col-grid">
-
-        <!-- Column 1: Store Details -->
-        <div class="contact-details-box scroll-reveal">
-          <div class="contact-detail-row">
-            <div class="contact-icon-bubble">📍</div>
-            <div class="contact-detail-copy">
-              <strong>Shop Address</strong>
-              <p>Tkp complex Ganapathy mart, opposite Vishwanathapuram, Coimbatore, Thudiyalur, Tamil Nadu 641034</p>
-            </div>
-          </div>
-
-          <div class="contact-detail-row">
-            <div class="contact-icon-bubble">📞</div>
-            <div class="contact-detail-copy">
-              <strong>Phone Number</strong>
-              <p><a href="tel:+918778522690">+91 87785 22690</a></p>
-              <span class="detail-hours">Mon - Sat: 10:00 AM - 8:00 PM</span>
-            </div>
-          </div>
-
-          <div class="contact-detail-row">
-            <div class="contact-icon-bubble">🕒</div>
-            <div class="contact-detail-copy">
-              <strong>Business Hours</strong>
-              <p>Mon - Sun: 10:00 AM - 8:00 PM</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Column 2: WhatsApp Enquiry Box (Light Green) -->
-        <div class="contact-whatsapp-box scroll-reveal">
-          <div class="whatsapp-card-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          </div>
-          <h3>WhatsApp Enquiry</h3>
-          <p>Chat with us on WhatsApp for quick support</p>
-          <a href="https://wa.me/918778522690?text=Hello%20CB%20Trendz!%20I%20am%20interested%20in%20your%20saree%20collection." target="_blank" rel="noopener noreferrer" class="btn-chat-whatsapp">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Chat on WhatsApp
-          </a>
-          <a href="https://maps.google.com/?q=Tkp+complex+Ganapathy+mart+Coimbatore+Tamil+Nadu+641034" target="_blank" rel="noopener noreferrer" class="link-maps">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            View on Google Maps
-          </a>
-        </div>
-
-        <!-- Column 3: Showroom Interior Image -->
-        <div class="contact-showroom-box scroll-reveal">
-          <img src="images/store-interior.jpg" alt="CB Trendz Saree Boutique Showroom" loading="lazy" />
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Silk Wave Transition into Footer -->
-  <div class="footer-wave-divider" aria-hidden="true">
-    <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
-      <path d="M0,25 C340,65 720,5 1060,45 C1240,65 1380,25 1440,35 L1440,70 L0,70 Z" fill="#380C16"></path>
-    </svg>
-  </div>
-
-  <!-- ================================================
-       FOOTER (Deep Royal Maroon)
-  ================================================ -->
-  <footer class="site-footer">
+  <footer class="site-footer" id="contact">
     <div class="site-container">
       <div class="footer-4col-grid">
 
         <!-- Col 1: Brand & Logo -->
         <div class="footer-brand-col">
           <div class="footer-logo-lockup">
-            <svg class="footer-lotus" viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16 1C14 5 11 9 7 12C11 12 14 10 16 6C18 10 21 12 25 12C21 9 18 5 16 1Z" fill="#D4AF70"/>
-              <path d="M16 7C15 11 12 14 8 16C12 16 15 14 16 10C17 14 20 16 24 16C20 14 17 11 16 7Z" fill="#E8D09A"/>
-            </svg>
-            <span class="footer-brand-title">CB TRENDZ</span>
-            <span class="footer-brand-tag">SAREES • ETHNIC WEAR</span>
+            <img src="cb-trendz-logo-hd.png" alt="CB TRENDZ" class="footer-logo-img" onerror="this.onerror=null; this.src='cb-trendz-logo-transparent.png';" />
+            <p class="footer-tagline-script">Elegance in every drape...</p>
           </div>
-          <p class="footer-tagline">Elegance in every drape.</p>
         </div>
 
         <!-- Col 2: Quick Links -->
         <div class="footer-col">
-          <h4>Quick Links</h4>
-          <ul>
+          <h4 class="footer-col-title">Quick Links</h4>
+          <ul class="footer-link-list">
             <li><a href="#home">Home</a></li>
             <li><a href="#shop">Shop Sarees</a></li>
             <li><a href="#collections">Collections</a></li>
@@ -688,37 +275,74 @@
 
         <!-- Col 3: Customer Care -->
         <div class="footer-col">
-          <h4>Customer Care</h4>
-          <ul>
-            <li><a href="#privacy">Privacy Policy</a></li>
-            <li><a href="#terms">Terms & Conditions</a></li>
-            <li><a href="#returns">Return Policy</a></li>
+          <h4 class="footer-col-title">Customer Care</h4>
+          <ul class="footer-link-list">
+            <li><a href="#about">Privacy Policy</a></li>
+            <li><a href="#about">Terms &amp; Conditions</a></li>
+            <li><a href="#about">Return Policy</a></li>
           </ul>
         </div>
 
         <!-- Col 4: Connect With Us -->
-        <div class="footer-col">
-          <h4>Connect With Us</h4>
+        <div class="footer-col footer-connect-col">
+          <h4 class="footer-col-title">Connect With Us</h4>
+          
+          <!-- Social Media Icons -->
           <div class="footer-social-row">
-            <a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noopener">📷</a>
-            <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noopener">📘</a>
-            <a href="https://youtube.com" aria-label="YouTube" target="_blank" rel="noopener">▶️</a>
-            <a href="https://pinterest.com" aria-label="Pinterest" target="_blank" rel="noopener">📌</a>
-            <a href="https://x.com" aria-label="X" target="_blank" rel="noopener">✕</a>
+            <a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="https://youtube.com" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.53l5.88 3.25-5.88 3.24z"></path></svg>
+            </a>
+            <a href="https://pinterest.com" aria-label="Pinterest" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0a12 12 0 0 0-4.37 23.18c-.05-.98-.1-2.48.02-3.55l.8-3.41s-.2-.42-.2-1.04c0-.98.57-1.7 1.28-1.7.6 0 .9.45.9 1 0 .61-.39 1.52-.6 2.37-.17.71.36 1.28 1.06 1.28 1.27 0 2.25-1.34 2.25-3.27 0-1.71-1.23-2.9-2.98-2.9-2.03 0-3.22 1.52-3.22 3.1 0 .61.24 1.27.53 1.63a.25.25 0 0 1 .06.24l-.2.82c-.03.13-.11.17-.25.1-1-.46-1.62-1.92-1.62-3.08 0-2.51 1.83-4.82 5.27-4.82 2.77 0 4.92 1.97 4.92 4.61 0 2.75-1.73 4.96-4.14 4.96-.8 0-1.57-.42-1.83-.92l-.5 1.9c-.18.7-.67 1.57-1 2.1A12 12 0 1 0 12 0z"></path></svg>
+            </a>
+            <a href="https://x.com" aria-label="X Twitter" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+            </a>
           </div>
-          <p class="newsletter-heading">Subscribe to our newsletter</p>
-          <form class="newsletter-bar" onsubmit="event.preventDefault(); showToast('✓ Thank you for subscribing!'); this.reset();">
-            <input type="email" placeholder="Enter your email" required aria-label="Email for newsletter" />
-            <button type="submit" aria-label="Subscribe">→</button>
+
+          <!-- Newsletter Form -->
+          <p class="newsletter-sub-label">Subscribe to our newsletter</p>
+          <form class="footer-newsletter-form" onsubmit="event.preventDefault(); showToast('✓ Thank you for subscribing to CB TRENDZ!'); this.reset();">
+            <input
+              type="email"
+              name="newsletter_email"
+              autocomplete="email"
+              inputmode="email"
+              autocapitalize="none"
+              autocorrect="off"
+              spellcheck="false"
+              placeholder="Your email address"
+              required
+              aria-label="Email address"
+            />
+            <button type="submit" aria-label="Subscribe to newsletter">→</button>
           </form>
+
+          <!-- Follow Us on Instagram Button -->
+          <div class="footer-insta-btn-wrap">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn-footer-insta">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              <span>Follow Us</span>
+            </a>
+            <span class="footer-insta-handle">@cbtrendz</span>
+          </div>
+
         </div>
 
       </div>
 
-      <div class="footer-bottom-line">
-        <p>© 2026 CB TRENDZ. All rights reserved.</p>
-        <p class="footer-heart">Made with ♥ for saree lovers</p>
+      <!-- Footer Bottom Copyright Bar -->
+      <div class="footer-bottom-bar">
+        <p class="footer-copyright">© 2025 CB TRENDZ. All rights reserved.</p>
+        <p class="footer-love-tag">Made with <span class="heart-red">♥</span> for saree lovers</p>
       </div>
+
     </div>
   </footer>
 
@@ -742,8 +366,17 @@
         <span>Subtotal</span>
         <strong id="cart-subtotal">₹ 0</strong>
       </div>
-      <p class="shipping-note">✦ Free Shipping across India</p>
-      <button class="btn-checkout" onclick="checkoutViaWhatsApp()">Order via WhatsApp →</button>
+      <p class="shipping-note">✦ Free Express Shipping across India</p>
+      <div class="cart-checkout-actions">
+        <button class="btn-checkout-primary" id="btn-open-checkout">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          Proceed to Pay (UPI / Card) →
+        </button>
+        <button class="btn-checkout-secondary" onclick="checkoutViaWhatsApp()">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Order via WhatsApp
+        </button>
+      </div>
     </div>
   </aside>
 
@@ -774,23 +407,310 @@
     </div>
   </div>
 
+  
+  <!-- ================================================
+       CHECKOUT MODAL (Online UPI / Card & COD)
+  ================================================ -->
+  <div class="modal-overlay" id="checkout-modal" role="dialog" aria-modal="true" aria-label="Secure Checkout">
+    <div class="modal-card checkout-modal-card">
+      <button class="modal-close-btn" id="checkout-modal-close" aria-label="Close checkout">✕</button>
+      
+      <div class="checkout-modal-header">
+        <div class="checkout-brand-lockup">
+          <svg viewBox="0 0 32 20" fill="none" class="checkout-lotus" aria-hidden="true">
+            <path d="M16 1C14 5 11 9 7 12C11 12 14 10 16 6C18 10 21 12 25 12C21 9 18 5 16 1Z" fill="#D4AF70"/>
+            <path d="M16 7C15 11 12 14 8 16C12 16 15 14 16 10C17 14 20 16 24 16C20 14 17 11 16 7Z" fill="#E8D09A"/>
+          </svg>
+          <h2>Secure Checkout</h2>
+        </div>
+        <p class="checkout-safe-badge">🔒 256-Bit SSL Encrypted</p>
+      </div>
+
+      <form id="checkout-form" class="checkout-form">
+        <!-- Left Column: Shipping & Payment -->
+        <div class="checkout-left-col">
+          <!-- Customer Information -->
+          <div class="checkout-form-section">
+            <h3 class="checkout-sec-title">1. Contact Information</h3>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="cust-name">Full Name *</label>
+                <input
+                  type="text"
+                  id="cust-name"
+                  name="name"
+                  autocomplete="name"
+                  required
+                  placeholder="e.g. Priya Sharma"
+                />
+              </div>
+              <div class="form-group">
+                <label for="cust-phone">WhatsApp / Phone *</label>
+                <input
+                  type="tel"
+                  id="cust-phone"
+                  name="tel"
+                  autocomplete="tel"
+                  inputmode="tel"
+                  required
+                  placeholder="10-digit mobile number"
+                  pattern="[0-9]{10}"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cust-email">Email Address <span class="form-optional-tag">(Optional - for invoice receipt)</span></label>
+              <input
+                type="email"
+                id="cust-email"
+                name="email"
+                autocomplete="email"
+                inputmode="email"
+                autocapitalize="none"
+                autocorrect="off"
+                spellcheck="false"
+                placeholder="e.g. priya.sharma@gmail.com"
+              />
+            </div>
+          </div>
+
+          <!-- Shipping Address -->
+          <div class="checkout-form-section">
+            <h3 class="checkout-sec-title">2. Delivery Address</h3>
+            <div class="form-group">
+              <label for="cust-address">Door No, Building, Street *</label>
+              <input type="text" id="cust-address" required placeholder="Street address or landmark" />
+            </div>
+            <div class="form-row-3">
+              <div class="form-group">
+                <label for="cust-city">City *</label>
+                <input type="text" id="cust-city" required placeholder="City / Town" />
+              </div>
+              <div class="form-group">
+                <label for="cust-state">State *</label>
+                <select id="cust-state" required>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="West Bengal">West Bengal</option>
+                  <option value="Other">Other State</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="cust-pincode">Pincode *</label>
+                <input type="text" id="cust-pincode" required placeholder="6-digit PIN" pattern="[0-9]{6}" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Method Selection -->
+          <div class="checkout-form-section">
+            <h3 class="checkout-sec-title">3. Payment Method</h3>
+            <div class="payment-methods-box">
+              <!-- Method 1: Instant UPI (Direct to Bank) -->
+              <label class="payment-method-label selected" id="pm-upi-label">
+                <input type="radio" name="payment-method" id="pm-upi" value="upi" checked />
+                <div class="pm-info">
+                  <div class="pm-title-row">
+                    <strong>Instant UPI (Google Pay / PhonePe / Paytm / QR)</strong>
+                    <span class="pm-badge-secure">Real Instant Payment</span>
+                  </div>
+                  <p class="pm-desc">Pay real money instantly using QR scan or any UPI App directly to CB TRENDZ bank account.</p>
+                </div>
+              </label>
+
+              <!-- Method 2: Cards & NetBanking via Razorpay -->
+              <label class="payment-method-label" id="pm-online-label">
+                <input type="radio" name="payment-method" id="pm-online" value="online" />
+                <div class="pm-info">
+                  <div class="pm-title-row">
+                    <strong>Cards &amp; NetBanking (Razorpay Gateway)</strong>
+                    <span class="pm-badge-secure">Cards &amp; NetBanking</span>
+                  </div>
+                  <p class="pm-desc">Pay via Debit/Credit Cards (RuPay, Visa, Mastercard) or NetBanking from 50+ Banks.</p>
+                </div>
+              </label>
+
+              <!-- Method 3: Cash on Delivery -->
+              <label class="payment-method-label" id="pm-cod-label">
+                <input type="radio" name="payment-method" id="pm-cod" value="cod" />
+                <div class="pm-info">
+                  <div class="pm-title-row">
+                    <strong>Cash on Delivery (COD)</strong>
+                    <span class="pm-badge-cod">Pay upon Delivery</span>
+                  </div>
+                  <p class="pm-desc">Pay cash or scan UPI when your saree arrives at your doorstep.</p>
+                </div>
+              </label>
+            </div>
+            <div style="margin-top:12px; text-align:right;">
+              <button type="button" class="btn-link-settings" id="btn-open-gateway-settings">⚙️ Payment Gateway Settings</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Order Summary & Place Order -->
+        <div class="checkout-right-col">
+          <div class="checkout-summary-card">
+            <h3 class="summary-card-title">Order Summary</h3>
+            <div class="checkout-items-list" id="checkout-items-preview"></div>
+            
+            <div class="checkout-price-breakdown">
+              <div class="cp-row">
+                <span>Items Subtotal</span>
+                <span id="checkout-subtotal">₹ 0</span>
+              </div>
+              <div class="cp-row">
+                <span>Shipping</span>
+                <span class="free-shipping-tag">FREE</span>
+              </div>
+              <div class="cp-row total-row">
+                <strong>Total Amount</strong>
+                <strong id="checkout-total">₹ 0</strong>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-pay-now" id="btn-submit-payment">
+              <span class="btn-lock-icon">🔒</span>
+              <span id="btn-pay-label">Pay Securely ₹ 0</span>
+            </button>
+
+            <div class="checkout-assurances">
+              <p>✓ 100% Authentic Handloom Sarees</p>
+              <p>✓ 7-Day Easy Returns &amp; Exchanges</p>
+              <p>✓ Verified Razorpay Gateway</p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================================================
+       ORDER SUCCESS & RECEIPT MODAL
+  ================================================ -->
+  <div class="modal-overlay" id="order-success-modal" role="dialog" aria-modal="true" aria-label="Order Confirmation">
+    <div class="modal-card success-modal-card">
+      <button class="modal-close-btn" id="success-modal-close" aria-label="Close">✕</button>
+      <div class="success-content-wrap" id="success-content">
+        <!-- Injected dynamically upon payment success -->
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- ================================================
+       UPI PAYMENT MODAL (Dynamic QR Code & App Links)
+  ================================================ -->
+  <div class="modal-overlay" id="upi-modal" role="dialog" aria-modal="true" aria-label="UPI Payment">
+    <div class="modal-card upi-modal-card">
+      <button class="modal-close-btn" id="upi-modal-close" aria-label="Close UPI payment">✕</button>
+      
+      <div class="upi-header-box">
+        <div class="upi-logo-badge">BHIM UPI</div>
+        <h3>Scan &amp; Pay with Any UPI App</h3>
+        <p class="upi-order-meta">Order Reference: <strong id="upi-order-id-display">CBT_...</strong></p>
+      </div>
+
+      <div class="upi-modal-body">
+        <div class="upi-amount-pill">
+          <span>Total Amount to Pay</span>
+          <strong id="upi-amount-display">₹ 0</strong>
+        </div>
+
+        <!-- Dynamic QR Code Container -->
+        <div class="upi-qr-wrapper">
+          <img id="upi-qr-img" src="" alt="Scan UPI QR Code to Pay" class="upi-qr-image" />
+          <div class="qr-scan-hint">Scan with Google Pay, PhonePe, Paytm, or BHIM</div>
+        </div>
+
+        <!-- Store UPI Details with Copy Option -->
+        <div class="upi-id-copy-box">
+          <div class="upi-id-text">
+            <span>Pay directly to UPI ID:</span>
+            <strong id="upi-vpa-display">8778522690@upi</strong>
+          </div>
+          <button type="button" class="btn-copy-upi" id="btn-copy-upi" onclick="copyUpiId()">📋 Copy</button>
+        </div>
+
+        <!-- Mobile Quick Pay Deep-Links -->
+        <div class="upi-app-buttons-row">
+          <a id="link-gpay" href="#" class="btn-upi-app gpay-btn" target="_blank">Google Pay</a>
+          <a id="link-phonepe" href="#" class="btn-upi-app phonepe-btn" target="_blank">PhonePe</a>
+          <a id="link-paytm" href="#" class="btn-upi-app paytm-btn" target="_blank">Paytm / Any UPI</a>
+        </div>
+
+        <!-- Verification UTR Input Form -->
+        <form id="upi-verify-form" class="upi-verify-form">
+          <div class="form-group">
+            <label for="upi-utr-input">Enter 12-digit UPI Reference / UTR Number (from payment screen) *</label>
+            <input type="text" id="upi-utr-input" required placeholder="e.g. 412356789012" pattern="[0-9]{8,16}" title="8 to 16 digit UPI reference number" />
+          </div>
+          <button type="submit" class="btn-confirm-upi" id="btn-submit-upi">
+            ✓ I Have Paid — Confirm Order
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================
+       GATEWAY SETTINGS MODAL (Save Razorpay Keys & UPI ID)
+  ================================================ -->
+  <div class="modal-overlay" id="gateway-settings-modal" role="dialog" aria-modal="true" aria-label="Payment Settings">
+    <div class="modal-card gateway-settings-card">
+      <button class="modal-close-btn" id="gateway-settings-close" aria-label="Close settings">✕</button>
+      
+      <div class="settings-modal-header">
+        <h3>⚙️ Payment Gateway Configuration</h3>
+        <p>Set your real Razorpay Keys or UPI ID to accept real payments directly to your bank account.</p>
+      </div>
+
+      <form id="gateway-keys-form" class="gateway-keys-form">
+        <div class="form-group">
+          <label for="set-merchant-upi">Store UPI ID (For Google Pay / PhonePe / Paytm) *</label>
+          <input type="text" id="set-merchant-upi" placeholder="e.g. 8778522690@upi or your bank VPA" required />
+          <small style="color:#7A7272; font-size:0.75rem;">Customers can scan QR or pay directly to this UPI ID.</small>
+        </div>
+
+        <div class="form-group" style="margin-top:14px;">
+          <label for="set-rzp-key">Razorpay Key ID (Optional for Cards/NetBanking)</label>
+          <input type="text" id="set-rzp-key" placeholder="rzp_test_... or rzp_live_..." />
+        </div>
+
+        <div class="form-group">
+          <label for="set-rzp-secret">Razorpay Key Secret</label>
+          <input type="password" id="set-rzp-secret" placeholder="Your Razorpay secret" />
+          <small style="color:#7A7272; font-size:0.75rem;">Get these from https://dashboard.razorpay.com/app/keys</small>
+        </div>
+
+        <button type="submit" class="btn-save-keys" id="btn-save-keys">Save Credentials</button>
+      </form>
+    </div>
+  </div>
+
   <!-- Toast Notification -->
   <div class="toast-popup" id="toast" role="alert" aria-live="assertive"></div>
 
-  <!-- Back to Top -->
+  <!-- Back to Top Button -->
   <button class="back-to-top-btn" id="back-to-top" aria-label="Back to top">↑</button>
 
-  <!-- Mobile Bottom Navigation (Phone View) -->
+  <!-- Mobile Bottom Bar (Phone Navigation) -->
   <nav class="mobile-bottom-bar" aria-label="Mobile quick navigation">
-    <a href="#home" class="mobile-nav-link active">
+    <a href="#home" class="mobile-nav-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
       <span>Home</span>
     </a>
-    <a href="#collections" class="mobile-nav-link">
+    <a href="#shop" class="mobile-nav-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
       <span>Collections</span>
     </a>
-    <a href="#shop" class="mobile-nav-link">
+    <a href="#shop" class="mobile-nav-link active">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
       <span>Shop</span>
     </a>
@@ -814,6 +734,7 @@
     </a>
   </nav>
 
+  <!-- Main JavaScript File -->
   <script src="script.js"></script>
 </body>
 </html>
