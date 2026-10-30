@@ -1,18 +1,18 @@
 const WHATSAPP_NUMBER = "918778522690"; // Updated phone number
 
 const products = [
-  { id: 1, name: "Royal Kanjivaram Silk Saree", category: "Silk Sarees", price: 8499, oldPrice: 11999, tag: "BESTSELLER", image: "images/saree1.jpg" },
-  { id: 2, name: "Banarasi Brocade Silk Saree", category: "Silk Sarees", price: 12999, oldPrice: 16500, tag: "LUXURY", image: "images/saree2.jpg" },
-  { id: 3, name: "Pure Chanderi Cotton Silk Saree", category: "Cotton Sarees", price: 3299, oldPrice: 3999, tag: "NEW", image: "images/saree3.jpg" },
-  { id: 4, name: "Embroidered Organza Party Saree", category: "Party Wear Sarees", price: 5799, oldPrice: 7200, tag: "TRENDING", image: "images/saree4.jpg" },
-  { id: 5, name: "Heritage Bridal Patola Saree", category: "Wedding Sarees", price: 22500, oldPrice: 28000, tag: "EXCLUSIVE", image: "images/saree5.jpg" },
-  { id: 6, name: "Handloom Linen Everyday Saree", category: "Daily Wear Sarees", price: 1899, oldPrice: 2299, tag: "EVERYDAY", image: "images/saree6.jpg" },
-  { id: 7, name: "Designer Georgette Printed Saree", category: "Designer Sarees", price: 4599, oldPrice: 5500, tag: "POPULAR", image: "images/saree7.jpg" },
-  { id: 8, name: "Mysore Crepe Silk Saree", category: "Silk Sarees", price: 6200, oldPrice: 7500, tag: "NEW", image: "images/saree8.jpg" },
-  { id: 9, name: "Kasavu Kerala Cotton Saree", category: "Cotton Sarees", price: 2499, oldPrice: 3000, tag: "CLASSIC", image: "images/saree9.jpg" },
-  { id: 10, name: "Velvet Border Bridal Saree", category: "Wedding Sarees", price: 18750, oldPrice: 22000, tag: "BRIDAL", image: "images/saree10.jpg" },
-  { id: 11, name: "Sequin Party Wear Saree", category: "Party Wear Sarees", price: 6950, oldPrice: 8500, tag: "GLAM", image: "images/saree11.jpg" },
-  { id: 12, name: "Block Print Cotton Saree", category: "Daily Wear Sarees", price: 1499, oldPrice: 1899, tag: "CASUAL", image: "images/saree12.jpg" }
+  { id: 1, name: "Kanjivaram Silk Saree", category: "Silk Sarees", price: 4599, oldPrice: 6999, tag: "34% OFF", image: "images/saree1.jpg" },
+  { id: 2, name: "Pure Cotton Saree", category: "Cotton Sarees", price: 1999, oldPrice: 2899, tag: "31% OFF", image: "images/saree3.jpg" },
+  { id: 3, name: "Bridal Silk Saree", category: "Wedding Sarees", price: 8599, oldPrice: 12999, tag: "33% OFF", image: "images/saree5.jpg" },
+  { id: 4, name: "Designer Organza Saree", category: "Party Wear Sarees", price: 3499, oldPrice: 5199, tag: "32% OFF", image: "images/saree4.jpg" },
+  { id: 5, name: "Banarasi Silk Saree", category: "Silk Sarees", price: 5399, oldPrice: 7899, tag: "31% OFF", image: "images/saree2.jpg" },
+  { id: 6, name: "Chanderi Silk Saree", category: "Cotton Sarees", price: 2999, oldPrice: 4499, tag: "33% OFF", image: "images/saree8.jpg" },
+  { id: 7, name: "Tussar Silk Saree", category: "Wedding Sarees", price: 3599, oldPrice: 5299, tag: "32% OFF", image: "images/saree10.jpg" },
+  { id: 8, name: "Printed Daily Wear Saree", category: "Daily Wear Sarees", price: 1499, oldPrice: 2499, tag: "40% OFF", image: "images/saree6.jpg" },
+  { id: 9, name: "Designer Georgette Saree", category: "Designer Sarees", price: 4599, oldPrice: 5500, tag: "16% OFF", image: "images/saree7.jpg" },
+  { id: 10, name: "Kasavu Kerala Cotton Saree", category: "Cotton Sarees", price: 2499, oldPrice: 3000, tag: "17% OFF", image: "images/saree9.jpg" },
+  { id: 11, name: "Sequin Party Wear Saree", category: "Party Wear Sarees", price: 6950, oldPrice: 8500, tag: "18% OFF", image: "images/saree11.jpg" },
+  { id: 12, name: "Jaipur Block Print Saree", category: "Daily Wear Sarees", price: 1899, oldPrice: 2499, tag: "24% OFF", image: "images/saree12.jpg" }
 ];
 
 const money = amount => new Intl.NumberFormat("en-IN", {

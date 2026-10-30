@@ -6,178 +6,138 @@
 'use strict';
 
 /* ============================================================
-   DATA: PRODUCTS  (12 unique saree photos — no repeats)
+   DATA: PRODUCTS (8 Featured in Mockup + 4 Additional)
    ============================================================ */
 const products = [
   {
     id: 1,
-    name: 'Royal Kanjivaram Silk Saree',
+    name: 'Kanjivaram Silk Saree',
     category: 'silk',
-    price: 8499,
-    originalPrice: 11999,
-    discount: 29,
-    badge: 'sale',
+    price: 4599,
+    originalPrice: 6999,
+    discount: 34,
+    badge: '34% OFF',
     image: 'images/saree1.jpg',
-<<<<<<< HEAD
-=======
-    fallback: 'https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=600&q=85&auto=format&fit=crop',
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-    description: 'A magnificent Kanjivaram silk saree featuring intricate zari border work and vibrant jewel tones. Handwoven by master artisans in Tamil Nadu, this piece is a timeless addition to any wardrobe.',
-    tags: ['Silk', 'Zari Border', 'Wedding', 'Handwoven'],
-    fabric: 'Pure Mulberry Silk',
+    description: 'Magnificent Kanjivaram pure silk saree featuring intricate gold zari border work and rich temple motifs. Handcrafted by master artisans.',
+    fabric: 'Pure Kanjivaram Silk',
+    rating: 4.9
   },
   {
     id: 2,
-    name: 'Banarasi Brocade Silk Saree',
-    category: 'silk',
-    price: 12999,
-    originalPrice: 16500,
-    discount: 21,
-    badge: 'sale',
-    image: 'images/saree2.jpg',
-<<<<<<< HEAD
-=======
-    fallback: 'https://images.unsplash.com/photo-1727430228383-aa1fb59db8bf?w=600&q=85&auto=format&fit=crop',
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-    description: 'Opulent Banarasi brocade with real gold-tone zari weaving, perfect for weddings and grand celebrations. A timeless heirloom piece steeped in Varanasi heritage.',
-    tags: ['Banarasi', 'Brocade', 'Zari', 'Wedding'],
-    fabric: 'Pure Silk Brocade',
+    name: 'Pure Cotton Saree',
+    category: 'cotton',
+    price: 1999,
+    originalPrice: 2899,
+    discount: 31,
+    badge: '31% OFF',
+    image: 'images/saree3.jpg',
+    description: 'Lightweight, breathable pure handloom cotton saree with elegant contrasting zari border. Perfect for everyday grace and summer comfort.',
+    fabric: 'Pure Handloom Cotton',
+    rating: 4.8
   },
   {
     id: 3,
-    name: 'Pure Chanderi Cotton Silk Saree',
-    category: 'cotton',
-    price: 3299,
-    originalPrice: null,
-    discount: null,
-    badge: 'new',
-    image: 'images/saree3.jpg',
-<<<<<<< HEAD
-=======
-    fallback: 'https://images.unsplash.com/photo-1745482036066-5d215ed6b910?w=600&q=85&auto=format&fit=crop',
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-    description: 'Lightweight Chanderi saree crafted from a cotton-silk blend. Perfect for daily elegance — breathable, beautiful, and effortlessly graceful.',
-    tags: ['Chanderi', 'Cotton-Silk', 'Daily Wear', 'Lightweight'],
-    fabric: 'Chanderi Cotton-Silk',
+    name: 'Bridal Silk Saree',
+    category: 'wedding',
+    price: 8599,
+    originalPrice: 12999,
+    discount: 33,
+    badge: '33% OFF',
+    image: 'images/saree5.jpg',
+    description: 'A regal bridal saree woven with heavy gold brocade zari work in royal red. Designed to make your wedding moments unforgettable.',
+    fabric: 'Pure Brocade Silk',
+    rating: 5.0
   },
   {
     id: 4,
-    name: 'Embroidered Organza Party Saree',
+    name: 'Designer Organza Saree',
     category: 'party',
-    price: 5799,
-    originalPrice: 7200,
-    discount: 19,
-    badge: 'trend',
+    price: 3499,
+    originalPrice: 5199,
+    discount: 32,
+    badge: '32% OFF',
     image: 'images/saree4.jpg',
-<<<<<<< HEAD
-=======
-    fallback: 'https://images.unsplash.com/photo-1745482036066-5d215ed6b910?w=600&q=85&auto=format&fit=crop',
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-    description: 'Shimmering organza saree with hand-embroidered floral motifs. This party-perfect piece catches the light beautifully and makes every entrance unforgettable.',
-    tags: ['Organza', 'Embroidered', 'Party', 'Sheer'],
-    fabric: 'Pure Organza',
+    description: 'Shimmering organza saree with delicate hand embroidery and scalloped border. Lightweight, sheer, and party-ready.',
+    fabric: 'Premium Sheer Organza',
+    rating: 4.7
   },
   {
     id: 5,
-    name: 'Heritage Bridal Patola Saree',
-    category: 'wedding',
-    price: 22500,
-    originalPrice: 28000,
-    discount: 20,
-    badge: 'sale',
-    image: 'images/saree5.jpg',
-<<<<<<< HEAD
-=======
-    fallback: 'https://images.unsplash.com/photo-1750008564980-46ad2279cd89?w=600&q=85&auto=format&fit=crop',
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-    description: 'An exquisite double-ikat Patola saree, handcrafted using a centuries-old Gujarati weaving technique. A prestigious choice for the modern bride who values heritage.',
-    tags: ['Patola', 'Double Ikat', 'Bridal', 'Heritage'],
-    fabric: 'Pure Silk',
+    name: 'Banarasi Silk Saree',
+    category: 'silk',
+    price: 5399,
+    originalPrice: 7899,
+    discount: 31,
+    badge: '31% OFF',
+    image: 'images/saree2.jpg',
+    description: 'Classic Banarasi silk saree adorned with floral jaal weaving and kadwa zari motifs. A heritage piece from Varanasi.',
+    fabric: 'Varanasi Katan Silk',
+    rating: 4.9
   },
   {
     id: 6,
-    name: 'Handloom Linen Everyday Saree',
-    category: 'daily',
-    price: 1899,
-    originalPrice: null,
-    discount: null,
-    badge: 'new',
-    image: 'images/saree6.jpg',
-<<<<<<< HEAD
-=======
-    fallback: 'https://images.unsplash.com/photo-1749226368932-691097aa86c9?w=600&q=85&auto=format&fit=crop',
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-    description: 'Crisp, comfortable handloom linen saree ideal for office, college, or casual outings. Available in earthy tones with simple woven borders.',
-    tags: ['Linen', 'Handloom', 'Daily Wear', 'Office'],
-    fabric: 'Pure Handloom Linen',
+    name: 'Chanderi Silk Saree',
+    category: 'cotton',
+    price: 2999,
+    originalPrice: 4499,
+    discount: 33,
+    badge: '33% OFF',
+    image: 'images/saree8.jpg',
+    description: 'Delicate Chanderi silk saree with golden booties and sheer glossy texture. Effortlessly sophisticated for daytime celebrations.',
+    fabric: 'Chanderi Silk-Cotton',
+    rating: 4.8
   },
   {
     id: 7,
-    name: 'Designer Georgette Printed Saree',
+    name: 'Tussar Silk Saree',
+    category: 'wedding',
+    price: 3599,
+    originalPrice: 5299,
+    discount: 32,
+    badge: '32% OFF',
+    image: 'images/saree10.jpg',
+    description: 'Natural golden-tone Tussar silk saree with tribal kantha embroidery along the pallu and border. Pure artisanal craftsmanship.',
+    fabric: 'Pure Wild Tussar Silk',
+    rating: 4.9
+  },
+  {
+    id: 8,
+    name: 'Printed Daily Wear Saree',
+    category: 'daily',
+    price: 1499,
+    originalPrice: 2499,
+    discount: 40,
+    badge: '40% OFF',
+    image: 'images/saree6.jpg',
+    description: 'Ultra-soft everyday saree with contemporary block print motifs. Crease-resistant and easy to drape for work or home.',
+    fabric: 'Soft Linen Blend',
+    rating: 4.7
+  },
+  {
+    id: 9,
+    name: 'Designer Georgette Saree',
     category: 'designer',
     price: 4599,
     originalPrice: 5500,
     discount: 16,
-    badge: 'trend',
+    badge: '16% OFF',
     image: 'images/saree7.jpg',
-<<<<<<< HEAD
-=======
-    fallback: 'https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=600&q=85&auto=format&fit=crop',
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-    description: 'Contemporary designer georgette saree with digital floral prints and contrast blouse piece. The perfect fusion of tradition and modernity.',
-    tags: ['Georgette', 'Designer', 'Printed', 'Modern'],
-    fabric: 'Premium Georgette',
+    description: 'Modern georgette drape with subtle sequin accents and contrast designer blouse piece.',
+    fabric: 'Pure Georgette',
+    rating: 4.8
   },
   {
-    id: 8,
-    name: 'Mysore Crepe Silk Saree',
-    category: 'silk',
-    price: 6200,
-    originalPrice: null,
-    discount: null,
-    badge: 'new',
-    image: 'images/saree8.jpg',
-<<<<<<< HEAD
-=======
-    fallback: 'https://images.unsplash.com/photo-1727430228383-aa1fb59db8bf?w=600&q=85&auto=format&fit=crop',
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-    description: 'Soft, lustrous Mysore crepe silk with a distinctive sheen. Lightweight enough for all-day comfort, elegant enough for evening occasions.',
-    tags: ['Crepe Silk', 'Mysore', 'Elegant', 'Versatile'],
-    fabric: 'Mysore Crepe Silk',
-  },
-  {
-    id: 9,
+    id: 10,
     name: 'Kasavu Kerala Cotton Saree',
     category: 'cotton',
     price: 2499,
     originalPrice: 3000,
     discount: 17,
-    badge: null,
+    badge: '17% OFF',
     image: 'images/saree9.jpg',
-<<<<<<< HEAD
-=======
-    fallback: 'https://images.unsplash.com/photo-1745482039058-92017fb981cf?w=600&q=85&auto=format&fit=crop',
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-    description: 'Iconic Kerala Kasavu saree in pristine white with a traditional golden zari border. A symbol of South Indian elegance, perfect for festivals and ceremonies.',
-    tags: ['Kasavu', 'Cotton', 'Traditional', 'Kerala'],
-    fabric: 'Handloom Cotton',
-  },
-  {
-    id: 10,
-    name: 'Velvet Border Bridal Saree',
-    category: 'wedding',
-    price: 18750,
-    originalPrice: 22000,
-    discount: 15,
-    badge: 'sale',
-    image: 'images/saree10.jpg',
-<<<<<<< HEAD
-=======
-    fallback: 'https://images.unsplash.com/photo-1753981031189-27bb7bd1c079?w=600&q=85&auto=format&fit=crop',
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-    description: 'Luxurious silk saree with a stunning velvet border and stone-work embellishments. A showstopper for brides who want to make a statement.',
-    tags: ['Velvet Border', 'Bridal', 'Silk', 'Embellished'],
-    fabric: 'Silk with Velvet Border',
+    description: 'Pristine off-white Kasavu cotton with handwoven golden kasavu zari border from Kerala.',
+    fabric: 'Handloom Kasavu Cotton',
+    rating: 4.8
   },
   {
     id: 11,
@@ -186,153 +146,86 @@ const products = [
     price: 6950,
     originalPrice: 8500,
     discount: 18,
-    badge: 'trend',
+    badge: '18% OFF',
     image: 'images/saree11.jpg',
-<<<<<<< HEAD
-=======
-    fallback: 'https://images.unsplash.com/photo-1637257690620-c8d88c418353?w=600&q=85&auto=format&fit=crop',
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-    description: 'All-over sequin embroidered saree that glistens under every light. Perfect for cocktail parties, receptions, and festive evenings.',
-    tags: ['Sequin', 'Party Wear', 'Embroidered', 'Glam'],
-    fabric: 'Net with Sequin Work',
+    description: 'Dazzling dual-tone sequin saree on fine tulle that catches every light at evening galas.',
+    fabric: 'Fine Net with Sequins',
+    rating: 4.9
   },
   {
     id: 12,
-    name: 'Block Print Cotton Saree',
+    name: 'Jaipur Block Print Saree',
     category: 'daily',
-    price: 1499,
-    originalPrice: null,
-    discount: null,
-    badge: 'new',
+    price: 1899,
+    originalPrice: 2499,
+    discount: 24,
+    badge: '24% OFF',
     image: 'images/saree12.jpg',
-<<<<<<< HEAD
-=======
-    fallback: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600&q=85&auto=format&fit=crop',
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-    description: 'Handcrafted block print cotton saree from Rajasthan — vibrant jaipur prints on breathable cotton. Ideal for breezy summer days and casual occasions.',
-    tags: ['Block Print', 'Cotton', 'Rajasthan', 'Casual'],
-    fabric: 'Pure Cotton',
-  },
+    description: 'Artisanal hand-block printed Sanganeri cotton saree using natural vegetable dyes.',
+    fabric: '100% Mulmul Cotton',
+    rating: 4.7
+  }
 ];
 
 /* ============================================================
    DATA: COLLECTIONS
    ============================================================ */
 const collections = [
-  {
-    name: 'Silk Sarees',
-    subtitle: 'Pure Luxury',
-    filter: 'silk',
-    image: 'images/saree1.jpg',
-  },
-  {
-    name: 'Cotton Sarees',
-    subtitle: 'Everyday Elegance',
-    filter: 'cotton',
-    image: 'images/saree3.jpg',
-  },
-  {
-    name: 'Wedding Sarees',
-    subtitle: 'For Your Big Day',
-    filter: 'wedding',
-    image: 'images/saree8.jpg',
-  },
-  {
-    name: 'Designer Sarees',
-    subtitle: 'Modern & Bold',
-    filter: 'designer',
-    image: 'images/saree7.jpg',
-  },
-  {
-    name: 'Party Wear',
-    subtitle: 'Dazzle & Shine',
-    filter: 'party',
-    image: 'images/saree4.jpg',
-  },
-  {
-    name: 'Daily Wear',
-    subtitle: 'Comfort & Style',
-    filter: 'daily',
-    image: 'images/saree6.jpg',
-  },
-];
-
-/* ============================================================
-   DATA: GALLERY IMAGES  (6 different photos — all unique)
-   ============================================================ */
-const galleryImages = [
-  'images/saree1.jpg',
-  'images/saree2.jpg',
-  'images/saree5.jpg',
-  'images/saree7.jpg',
-  'images/saree8.jpg',
-  'images/saree10.jpg',
+  { name: 'Silk Sarees', image: 'images/saree1.jpg', filter: 'silk' },
+  { name: 'Cotton Sarees', image: 'images/saree3.jpg', filter: 'cotton' },
+  { name: 'Wedding Sarees', image: 'images/saree5.jpg', filter: 'wedding' },
+  { name: 'Party Wear Sarees', image: 'images/saree4.jpg', filter: 'party' },
+  { name: 'Designer Sarees', image: 'images/saree7.jpg', filter: 'designer' },
+  { name: 'Daily Wear Sarees', image: 'images/saree6.jpg', filter: 'daily' }
 ];
 
 /* ============================================================
    STATE
    ============================================================ */
-let cart = [];             // Array of { ...product, quantity }
-let wishlist = [];         // Array of product ids
-let activeFilter = 'all';  // Current category filter
-let activeSearch = '';     // Current search string
-let activeSort   = 'default'; // Current sort option
+let cart = [];
+let wishlist = [];
+let activeCategory = 'all';
+let activePrice = 'all';
+let activeSearch = '';
+let activeSort = 'popularity';
+
+const WHATSAPP_NUMBER = '918778522690';
 
 /* ============================================================
-   UTILITY FUNCTIONS
+   HELPERS
    ============================================================ */
+const formatPrice = amount => '₹ ' + amount.toLocaleString('en-IN');
 
-/** Format a number as Indian Rupee string */
-const formatPrice = (amount) =>
-  `₹${amount.toLocaleString('en-IN')}`;
-
-/** Show a toast notification */
-const showToast = (() => {
+function showToast(message) {
   const toast = document.getElementById('toast');
-  let timer = null;
-  return (message) => {
-    toast.textContent = message;
-    toast.classList.add('show');
-    clearTimeout(timer);
-    timer = setTimeout(() => toast.classList.remove('show'), 3000);
-  };
-})();
-
-/** Toggle body scroll lock */
-const lockScroll   = () => document.body.classList.add('no-scroll');
-const unlockScroll = () => document.body.classList.remove('no-scroll');
-
-/* ============================================================
-   LOCAL STORAGE — PERSIST CART & WISHLIST
-   ============================================================ */
-
-/** Save cart array to localStorage */
-function saveCart() {
-  localStorage.setItem('cbtrendz_cart', JSON.stringify(cart));
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2600);
 }
 
-/** Save wishlist array to localStorage */
-function saveWishlist() {
-  localStorage.setItem('cbtrendz_wishlist', JSON.stringify(wishlist));
+function saveStorage() {
+  localStorage.setItem('cb_cart', JSON.stringify(cart));
+  localStorage.setItem('cb_wishlist', JSON.stringify(wishlist));
 }
 
-/** Load persisted data from localStorage on page load */
-function loadPersistedData() {
-  const savedCart = localStorage.getItem('cbtrendz_cart');
-  const savedWishlist = localStorage.getItem('cbtrendz_wishlist');
-  if (savedCart) {
-    try { cart = JSON.parse(savedCart); } catch { cart = []; }
-  }
-  if (savedWishlist) {
-    try { wishlist = JSON.parse(savedWishlist); } catch { wishlist = []; }
+function loadStorage() {
+  try {
+    const savedCart = localStorage.getItem('cb_cart');
+    const savedWish = localStorage.getItem('cb_wishlist');
+    if (savedCart) cart = JSON.parse(savedCart);
+    if (savedWish) wishlist = JSON.parse(savedWish);
+  } catch (e) {
+    cart = [];
+    wishlist = [];
   }
 }
 
-/* ============================================================
-   CART FUNCTIONS
-   ============================================================ */
+const isWishlisted = id => wishlist.includes(id);
 
-/** Add a product to the cart (increase qty if already present) */
+/* ============================================================
+   CART & WISHLIST LOGIC
+   ============================================================ */
 function addToCart(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
@@ -343,107 +236,30 @@ function addToCart(productId) {
   } else {
     cart.push({ ...product, quantity: 1 });
   }
-  saveCart();
+
+  saveStorage();
   updateCartUI();
-  showToast(`✓ "${product.name}" added to your bag`);
+  showToast(`✓ "${product.name}" added to bag`);
   openCartDrawer();
 }
 
-/** Remove a product from the cart entirely */
-function removeFromCart(productId) {
-  cart = cart.filter(item => item.id !== productId);
-  saveCart();
-  updateCartUI();
-}
-
-/** Change the quantity of a cart item */
 function changeQuantity(productId, delta) {
   const item = cart.find(i => i.id === productId);
   if (!item) return;
   item.quantity += delta;
-  if (item.quantity < 1) {
-    removeFromCart(productId);
-  } else {
-    saveCart();
-    updateCartUI();
+  if (item.quantity <= 0) {
+    cart = cart.filter(i => i.id !== productId);
   }
+  saveStorage();
+  updateCartUI();
 }
 
-/** Compute cart subtotal */
-function getCartSubtotal() {
-  return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+function removeFromCart(productId) {
+  cart = cart.filter(i => i.id !== productId);
+  saveStorage();
+  updateCartUI();
 }
 
-/** Compute total number of items in cart */
-function getCartItemCount() {
-  return cart.reduce((sum, item) => sum + item.quantity, 0);
-}
-
-/** Re-render the cart drawer and update the badge count */
-function updateCartUI() {
-  const count = getCartItemCount();
-  const badge = document.getElementById('cart-count');
-  const mobileBadge = document.getElementById('mobile-cart-count');
-  const drawerCount = document.getElementById('cart-drawer-count');
-  const container   = document.getElementById('cart-items-container');
-  const emptyEl     = document.getElementById('cart-empty');
-  const footerEl    = document.getElementById('cart-footer');
-  const subtotalEl  = document.getElementById('cart-subtotal');
-
-  // Update badge
-  badge.textContent = count;
-  badge.classList.toggle('visible', count > 0);
-  if (mobileBadge) {
-    mobileBadge.textContent = count;
-    mobileBadge.classList.toggle('visible', count > 0);
-  }
-
-  // Update drawer count label
-  if (drawerCount) drawerCount.textContent = `(${count})`;
-
-  // Render cart items
-  if (cart.length === 0) {
-    container.style.display = 'none';
-    emptyEl.style.display   = 'flex';
-    footerEl.style.display  = 'none';
-  } else {
-    container.style.display = 'flex';
-    emptyEl.style.display   = 'none';
-    footerEl.style.display  = 'flex';
-
-    container.innerHTML = cart.map(item => `
-      <div class="cart-item" data-id="${item.id}">
-        <img src="${item.image}" alt="${item.name}"
-<<<<<<< HEAD
-             onerror="this.onerror=null; this.src='images/saree1.jpg'" />
-=======
-             onerror="this.onerror=null; this.src='${item.fallback || 'https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=150&q=70'}'" />
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-        <div class="cart-item-info">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-price">${formatPrice(item.price)}</div>
-          <div class="cart-item-qty">
-            <button class="qty-btn" data-action="decrease" data-id="${item.id}" aria-label="Decrease quantity">−</button>
-            <span class="qty-count">${item.quantity}</span>
-            <button class="qty-btn" data-action="increase" data-id="${item.id}" aria-label="Increase quantity">+</button>
-          </div>
-        </div>
-        <button class="cart-item-remove" data-id="${item.id}" aria-label="Remove ${item.name} from cart">Remove</button>
-      </div>
-    `).join('');
-
-    subtotalEl.textContent = formatPrice(getCartSubtotal());
-  }
-}
-
-/* ============================================================
-   WISHLIST FUNCTIONS
-   ============================================================ */
-
-/** Check if a product is in the wishlist */
-const isWishlisted = (id) => wishlist.includes(id);
-
-/** Toggle wishlist for a product */
 function toggleWishlist(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
@@ -453,241 +269,137 @@ function toggleWishlist(productId) {
     showToast(`Removed "${product.name}" from wishlist`);
   } else {
     wishlist.push(productId);
-    showToast(`♥ "${product.name}" saved to wishlist`);
+    showToast(`♥ Saved "${product.name}" to wishlist`);
   }
-  saveWishlist();
+  saveStorage();
   updateWishlistUI();
-  // Update heart icons in product grid
-  updateWishlistHearts();
+  updateWishlistButtons();
 }
 
-/** Update all wishlist heart buttons on the page */
-function updateWishlistHearts() {
-  document.querySelectorAll('.wishlist-heart').forEach(btn => {
-    const id = parseInt(btn.dataset.id, 10);
-    btn.classList.toggle('active', isWishlisted(id));
-    btn.setAttribute('aria-pressed', isWishlisted(id) ? 'true' : 'false');
-    btn.title = isWishlisted(id) ? 'Remove from wishlist' : 'Add to wishlist';
-    btn.textContent = isWishlisted(id) ? '♥' : '♡';
-  });
-}
+function updateCartUI() {
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-/** Re-render wishlist drawer and badge */
-function updateWishlistUI() {
-  const count       = wishlist.length;
-  const badge       = document.getElementById('wishlist-count');
-  const mobileBadge = document.getElementById('mobile-wishlist-count');
-  const drawerCount = document.getElementById('wishlist-drawer-count');
-  const container   = document.getElementById('wishlist-items-container');
-  const emptyEl     = document.getElementById('wishlist-empty');
+  const cartCountEl = document.getElementById('cart-count');
+  const mobileCartCountEl = document.getElementById('mobile-cart-count');
+  const drawerCountEl = document.getElementById('cart-drawer-count');
+  const container = document.getElementById('cart-items-container');
+  const emptyEl = document.getElementById('cart-empty');
+  const footerEl = document.getElementById('cart-footer');
+  const subtotalEl = document.getElementById('cart-subtotal');
 
-  badge.textContent = count;
-  badge.classList.toggle('visible', count > 0);
-  if (mobileBadge) {
-    mobileBadge.textContent = count;
-    mobileBadge.classList.toggle('visible', count > 0);
-  }
-  if (drawerCount) drawerCount.textContent = `(${count})`;
+  if (cartCountEl) cartCountEl.textContent = count;
+  if (mobileCartCountEl) mobileCartCountEl.textContent = count;
+  if (drawerCountEl) drawerCountEl.textContent = `(${count})`;
 
-  const wishlisted = products.filter(p => wishlist.includes(p.id));
-
-  if (wishlisted.length === 0) {
-    container.style.display = 'none';
-    emptyEl.style.display   = 'flex';
+  if (cart.length === 0) {
+    if (container) container.innerHTML = '';
+    if (emptyEl) emptyEl.style.display = 'flex';
+    if (footerEl) footerEl.style.display = 'none';
   } else {
-    container.style.display = 'flex';
-    emptyEl.style.display   = 'none';
+    if (emptyEl) emptyEl.style.display = 'none';
+    if (footerEl) footerEl.style.display = 'block';
+    if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
 
-    container.innerHTML = wishlisted.map(item => `
-      <div class="wishlist-item" data-id="${item.id}">
-        <img src="${item.image}" alt="${item.name}"
-<<<<<<< HEAD
-             onerror="this.onerror=null; this.src='images/saree1.jpg'" />
-=======
-             onerror="this.onerror=null; this.src='${item.fallback || 'https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=150&q=70'}'" />
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-        <div class="wishlist-item-info">
-          <div class="wishlist-item-name">${item.name}</div>
-          <div class="wishlist-item-price">${formatPrice(item.price)}</div>
-          <div class="wishlist-item-actions">
-            <button class="btn-wl-cart" data-id="${item.id}">Add to Cart</button>
-            <button class="btn-wl-remove" data-id="${item.id}">Remove</button>
+    if (container) {
+      container.innerHTML = cart.map(item => `
+        <div class="cart-item" data-id="${item.id}">
+          <img src="${item.image}" alt="${item.name}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+          <div class="item-info">
+            <h4 class="item-name">${item.name}</h4>
+            <div class="item-price">${formatPrice(item.price)}</div>
+            <div class="item-qty-row">
+              <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">−</button>
+              <span>${item.quantity}</span>
+              <button class="qty-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+              <button class="item-remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
+            </div>
           </div>
         </div>
-      </div>
-    `).join('');
+      `).join('');
+    }
   }
 }
 
-/* ============================================================
-   PRODUCT RENDERING
-   ============================================================ */
+function updateWishlistUI() {
+  const count = wishlist.length;
+  const wishCountEl = document.getElementById('wishlist-count');
+  const mobileWishCountEl = document.getElementById('mobile-wishlist-count');
+  const drawerCountEl = document.getElementById('wishlist-drawer-count');
+  const container = document.getElementById('wishlist-items-container');
+  const emptyEl = document.getElementById('wishlist-empty');
 
-/** Return filtered & sorted products based on current state */
-function getFilteredProducts() {
-  let result = [...products];
+  if (wishCountEl) wishCountEl.textContent = count;
+  if (mobileWishCountEl) mobileWishCountEl.textContent = count;
+  if (drawerCountEl) drawerCountEl.textContent = `(${count})`;
 
-  // 1. Category filter
-  if (activeFilter !== 'all') {
-    result = result.filter(p => p.category === activeFilter);
-  }
+  const wishlistedItems = products.filter(p => wishlist.includes(p.id));
 
-  // 2. Search filter (case-insensitive, matches name or category)
-  if (activeSearch.trim()) {
-    const q = activeSearch.toLowerCase().trim();
-    result = result.filter(p =>
-      p.name.toLowerCase().includes(q) ||
-      p.category.toLowerCase().includes(q) ||
-      (p.tags || []).some(t => t.toLowerCase().includes(q))
-    );
-  }
-
-  // 3. Sort
-  if (activeSort === 'low-high') {
-    result.sort((a, b) => a.price - b.price);
-  } else if (activeSort === 'high-low') {
-    result.sort((a, b) => b.price - a.price);
-  }
-
-  return result;
-}
-
-/** Generate HTML for a product card */
-function productCardHTML(product) {
-<<<<<<< HEAD
-  const { id, name, category, price, originalPrice, discount, badge, image } = product;
-=======
-  const { id, name, category, price, originalPrice, discount, badge, image, fallback } = product;
-  const imgFall = fallback || 'https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=600&q=80';
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-  const heartSymbol = isWishlisted(id) ? '♥' : '♡';
-  const heartActive  = isWishlisted(id) ? 'active' : '';
-
-  const badgeHTML = badge
-    ? `<span class="product-badge badge-${badge}">${badge === 'sale' ? `${discount}% Off` : badge === 'new' ? 'New' : 'Trending'}</span>`
-    : '';
-
-  const priceHTML = originalPrice
-    ? `<span class="product-price">${formatPrice(price)}</span>
-       <span class="product-original-price">${formatPrice(originalPrice)}</span>
-       <span class="product-discount">${discount}% off</span>`
-    : `<span class="product-price">${formatPrice(price)}</span>`;
-
-  return `
-    <article class="product-card reveal" data-id="${id}" data-category="${category}" aria-label="${name}">
-      <div class="product-image-wrapper">
-        <img src="${image}" alt="${name}" loading="lazy"
-<<<<<<< HEAD
-             onerror="this.onerror=null; this.src='images/saree1.jpg'" />
-=======
-             onerror="this.onerror=null; this.src='${imgFall}'" />
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-        ${badgeHTML}
-        <button class="wishlist-heart ${heartActive}" data-id="${id}"
-                aria-label="Add ${name} to wishlist" aria-pressed="${isWishlisted(id)}"
-                title="${isWishlisted(id) ? 'Remove from wishlist' : 'Add to wishlist'}">${heartSymbol}</button>
-        <div class="product-actions">
-          <button class="product-action-btn btn-quick-view" data-id="${id}">Quick View</button>
-          <button class="product-action-btn btn-add-cart" data-id="${id}">Add to Bag</button>
-        </div>
-      </div>
-      <div class="product-info">
-        <span class="product-category">${category.charAt(0).toUpperCase() + category.slice(1)} Saree</span>
-        <h3 class="product-name">${name}</h3>
-        <div class="product-price-row">${priceHTML}</div>
-        <button class="btn-add-cart-main" data-id="${id}" aria-label="Add ${name} to cart">Add to Cart</button>
-      </div>
-    </article>
-  `;
-}
-
-/** Render all products matching the current filter/search/sort */
-function renderProducts() {
-  const grid     = document.getElementById('products-grid');
-  const emptyEl  = document.getElementById('empty-state');
-  const filtered = getFilteredProducts();
-
-  if (filtered.length === 0) {
-    grid.innerHTML = '';
-    emptyEl.style.display = 'block';
+  if (wishlistedItems.length === 0) {
+    if (container) container.innerHTML = '';
+    if (emptyEl) emptyEl.style.display = 'flex';
   } else {
-    emptyEl.style.display = 'none';
-    grid.innerHTML = filtered.map(productCardHTML).join('');
-    observeRevealElements();
+    if (emptyEl) emptyEl.style.display = 'none';
+    if (container) {
+      container.innerHTML = wishlistedItems.map(item => `
+        <div class="wishlist-item" data-id="${item.id}">
+          <img src="${item.image}" alt="${item.name}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+          <div class="item-info">
+            <h4 class="item-name">${item.name}</h4>
+            <div class="item-price">${formatPrice(item.price)}</div>
+            <div class="item-qty-row">
+              <button class="btn-empty-shop" style="margin-top:4px; padding:4px 10px; font-size:0.75rem;" onclick="addToCart(${item.id})">Add to Bag</button>
+              <button class="item-remove-btn" onclick="toggleWishlist(${item.id})">Remove</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
   }
 }
 
-/** Reset all filters — globally accessible */
-function resetFilters() {
-  activeFilter = 'all';
-  activeSearch = '';
-  activeSort   = 'default';
-
-  const searchInput = document.getElementById('search-input');
-  if (searchInput) searchInput.value = '';
-
-  const sortSelect = document.getElementById('sort-select');
-  if (sortSelect) sortSelect.value = 'default';
-
-  document.querySelectorAll('.filter-tab').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.filter === 'all');
-    btn.setAttribute('aria-selected', btn.dataset.filter === 'all' ? 'true' : 'false');
+function updateWishlistButtons() {
+  document.querySelectorAll('.wishlist-btn-round').forEach(btn => {
+    const id = parseInt(btn.dataset.id, 10);
+    const wish = isWishlisted(id);
+    btn.classList.toggle('active', wish);
+    btn.textContent = wish ? '♥' : '♡';
   });
-
-  renderProducts();
-}
-window.resetFilters = resetFilters;
-
-/* ============================================================
-   COLLECTIONS RENDERING
-   ============================================================ */
-function renderCollections() {
-  const grid = document.getElementById('collections-grid');
-  if (!grid) return;
-
-  grid.innerHTML = collections.map(col => `
-    <button class="collection-card reveal" data-filter="${col.filter}"
-            aria-label="Browse ${col.name}">
-      <img src="${col.image}" alt="${col.name}" loading="lazy"
-<<<<<<< HEAD
-           onerror="this.src='images/saree1.jpg'" />
-=======
-           onerror="this.src='https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=400&q=80'" />
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-      <div class="collection-card-overlay">
-        <h3>${col.name}</h3>
-        <span>${col.subtitle}</span>
-      </div>
-    </button>
-  `).join('');
 }
 
 /* ============================================================
-   GALLERY RENDERING
+   DRAWERS & MODAL CONTROLS
    ============================================================ */
-function renderGallery() {
-  const grid = document.getElementById('gallery-grid');
-  if (!grid) return;
-
-  grid.innerHTML = galleryImages.map((url, idx) => `
-    <div class="gallery-item reveal" tabindex="0" role="img"
-         aria-label="CB Trendz saree photo ${idx + 1}">
-      <img src="${url}" alt="CB Trendz saree look ${idx + 1}" loading="lazy"
-<<<<<<< HEAD
-           onerror="this.src='images/saree1.jpg'" />
-=======
-           onerror="this.src='https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=400&q=80'" />
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
-      <div class="gallery-item-overlay">
-        <span>♥</span>
-      </div>
-    </div>
-  `).join('');
+function openCartDrawer() {
+  const d = document.getElementById('cart-drawer');
+  const o = document.getElementById('nav-overlay');
+  if (d) d.classList.add('open');
+  if (o) o.classList.add('active');
+  closeWishlistDrawer();
 }
 
-/* ============================================================
-   QUICK VIEW MODAL
-   ============================================================ */
+function closeCartDrawer() {
+  const d = document.getElementById('cart-drawer');
+  const o = document.getElementById('nav-overlay');
+  if (d) d.classList.remove('open');
+  if (o) o.classList.remove('active');
+}
+
+function openWishlistDrawer() {
+  const d = document.getElementById('wishlist-drawer');
+  const o = document.getElementById('nav-overlay');
+  if (d) d.classList.add('open');
+  if (o) o.classList.add('active');
+  closeCartDrawer();
+}
+
+function closeWishlistDrawer() {
+  const d = document.getElementById('wishlist-drawer');
+  const o = document.getElementById('nav-overlay');
+  if (d) d.classList.remove('open');
+  if (o) o.classList.remove('active');
+}
+
 function openQuickView(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
@@ -695,541 +407,443 @@ function openQuickView(productId) {
   const overlay = document.getElementById('quick-view-overlay');
   const content = document.getElementById('qv-content');
 
-  const priceHTML = product.originalPrice
-    ? `<span class="qv-price">${formatPrice(product.price)}</span>
-       <span class="qv-original">${formatPrice(product.originalPrice)}</span>
-       <span class="qv-discount">${product.discount}% Off</span>`
-    : `<span class="qv-price">${formatPrice(product.price)}</span>`;
-
-  const tagsHTML = (product.tags || [])
-    .map(t => `<span class="qv-tag">${t}</span>`)
-    .join('');
-
   content.innerHTML = `
-    <div class="qv-image">
-      <img src="${product.image}" alt="${product.name}"
-<<<<<<< HEAD
-           onerror="this.onerror=null; this.src='images/saree1.jpg'" />
-=======
-           onerror="this.onerror=null; this.src='${product.fallback || 'https://images.unsplash.com/photo-1702943547525-3bd48e89588e?w=600&q=80'}'" />
->>>>>>> b39cf139e658a484ab282b08b2724c923ab1291f
+    <div class="modal-img-box">
+      <img src="${product.image}" alt="${product.name}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
     </div>
-    <div class="qv-details">
-      <span class="qv-category">${product.category.charAt(0).toUpperCase() + product.category.slice(1)} Saree</span>
-      <h2 class="qv-name">${product.name}</h2>
-      <div class="qv-price-row">${priceHTML}</div>
-      <div class="qv-divider"></div>
-      <p class="qv-desc">${product.description}</p>
-      <div>
-        <p class="qv-label">Fabric</p>
-        <span class="qv-tag">${product.fabric}</span>
+    <div class="modal-details-box">
+      <span style="font-size:0.8rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; font-weight:600; margin-bottom:4px;">${product.category.toUpperCase()} SAREE</span>
+      <h2>${product.name}</h2>
+      <div class="modal-price-row">
+        <strong style="font-size:1.4rem; color:var(--maroon);">${formatPrice(product.price)}</strong>
+        <span style="text-decoration:line-through; color:#888;">${formatPrice(product.originalPrice)}</span>
+        <span class="discount-tag">${product.discount}% OFF</span>
       </div>
-      <div>
-        <p class="qv-label">Tags</p>
-        <div class="qv-tags">${tagsHTML}</div>
-      </div>
-      <div class="qv-divider"></div>
-      <div class="qv-actions">
-        <button class="btn btn-primary btn-add-cart" data-id="${product.id}" onclick="addToCart(${product.id}); closeQuickView();">Add to Cart</button>
-        <button class="btn btn-outline" onclick="toggleWishlist(${product.id}); updateWishlistHearts();">
-          ${isWishlisted(product.id) ? '♥ Wishlisted' : '♡ Add to Wishlist'}
-        </button>
+      <p class="modal-desc">${product.description}</p>
+      <p class="modal-meta"><strong>Fabric:</strong> ${product.fabric} &nbsp;|&nbsp; <strong>Blouse:</strong> Included (Unstitched)</p>
+      <div style="display:flex; gap:12px; margin-top:auto;">
+        <button class="btn-cart-main" style="flex:1;" onclick="addToCart(${product.id}); closeQuickView();">ADD TO BAG</button>
+        <button class="wishlist-btn-round" style="position:static; width:44px; height:44px;" onclick="toggleWishlist(${product.id}); closeQuickView();">${isWishlisted(product.id) ? '♥' : '♡'}</button>
       </div>
     </div>
   `;
 
-  overlay.style.display = 'flex';
-  lockScroll();
+  overlay.classList.add('open');
+  document.body.classList.add('no-scroll');
 }
 
 function closeQuickView() {
-  document.getElementById('quick-view-overlay').style.display = 'none';
-  unlockScroll();
+  const overlay = document.getElementById('quick-view-overlay');
+  if (overlay) overlay.classList.remove('open');
+  document.body.classList.remove('no-scroll');
 }
 
-// Expose globally for inline onclick in quick view
-window.addToCart          = addToCart;
-window.toggleWishlist     = toggleWishlist;
-window.updateWishlistHearts = updateWishlistHearts;
-window.closeQuickView     = closeQuickView;
-
-/* ============================================================
-   DRAWER: CART
-   ============================================================ */
-function openCartDrawer() {
-  document.getElementById('cart-drawer').classList.add('open');
-  lockScroll();
-}
-function closeCartDrawer() {
-  document.getElementById('cart-drawer').classList.remove('open');
-  unlockScroll();
+function checkoutViaWhatsApp() {
+  if (cart.length === 0) return;
+  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const itemsText = cart.map(item => `- ${item.name} (${item.quantity}x) @ ${formatPrice(item.price)}`).join('%0A');
+  const text = `Hello CB TRENDZ! I would like to order:%0A%0A${itemsText}%0A%0ATotal: ${formatPrice(subtotal)}%0A%0APlease confirm availability.`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank');
 }
 
 /* ============================================================
-   DRAWER: WISHLIST
+   RENDER PRODUCTS & FILTERING
    ============================================================ */
-function openWishlistDrawer() {
-  document.getElementById('wishlist-drawer').classList.add('open');
-  lockScroll();
-}
-function closeWishlistDrawer() {
-  document.getElementById('wishlist-drawer').classList.remove('open');
-  unlockScroll();
-}
+function getFilteredProducts() {
+  let list = [...products];
 
-/* ============================================================
-   TESTIMONIALS SLIDER
-   ============================================================ */
-function initTestimonials() {
-  const track   = document.getElementById('testimonials-track');
-  const prevBtn = document.getElementById('t-prev');
-  const nextBtn = document.getElementById('t-next');
-  if (!track || !prevBtn || !nextBtn) return;
-
-  const cards = track.querySelectorAll('.testimonial-card');
-  if (cards.length === 0) return;
-
-  let current = 0;
-
-  function getVisible() {
-    if (window.innerWidth <= 560) return 1;
-    if (window.innerWidth <= 900) return 2;
-    return 3;
+  // Category
+  if (activeCategory !== 'all') {
+    list = list.filter(p => p.category === activeCategory);
   }
 
-  function getCardWidth() {
-    const gap = 28;
-    const visible = getVisible();
-    return (track.parentElement.offsetWidth - gap * (visible - 1)) / visible;
+  // Price Range
+  if (activePrice === 'under-3000') {
+    list = list.filter(p => p.price < 3000);
+  } else if (activePrice === '3000-6000') {
+    list = list.filter(p => p.price >= 3000 && p.price <= 6000);
+  } else if (activePrice === 'above-6000') {
+    list = list.filter(p => p.price > 6000);
   }
 
-  function maxIndex() {
-    return Math.max(0, cards.length - getVisible());
+  // Search
+  if (activeSearch.trim()) {
+    const q = activeSearch.toLowerCase().trim();
+    list = list.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.category.toLowerCase().includes(q) ||
+      p.fabric.toLowerCase().includes(q)
+    );
   }
 
-  function slideTo(index) {
-    current = Math.max(0, Math.min(index, maxIndex()));
-    const cardW  = getCardWidth();
-    const offset = current * (cardW + 28);
-    track.style.transform = `translateX(-${offset}px)`;
+  // Sort
+  if (activeSort === 'low-high') {
+    list.sort((a, b) => a.price - b.price);
+  } else if (activeSort === 'high-low') {
+    list.sort((a, b) => b.price - a.price);
+  } else if (activeSort === 'newest') {
+    list.sort((a, b) => b.id - a.id);
   }
 
-  prevBtn.addEventListener('click', () => slideTo(current - 1));
-  nextBtn.addEventListener('click', () => slideTo(current + 1));
-
-  let autoSlide = setInterval(() => {
-    slideTo(current < maxIndex() ? current + 1 : 0);
-  }, 5000);
-
-  track.addEventListener('mouseenter', () => clearInterval(autoSlide));
-  track.addEventListener('mouseleave', () => {
-    autoSlide = setInterval(() => {
-      slideTo(current < maxIndex() ? current + 1 : 0);
-    }, 5000);
-  });
-
-  window.addEventListener('resize', () => slideTo(current));
+  return list;
 }
 
-/* ============================================================
-   SCROLL REVEAL (INTERSECTION OBSERVER)
-   ============================================================ */
-let revealObserver;
-
-function observeRevealElements() {
-  const elements = document.querySelectorAll('.reveal:not(.in-view)');
-  if (!revealObserver) {
-    revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-  }
-  elements.forEach(el => revealObserver.observe(el));
+function renderProductHTML(p) {
+  const wish = isWishlisted(p.id);
+  return `
+    <article class="product-item" data-id="${p.id}" data-category="${p.category}" aria-label="${p.name}">
+      <div class="product-thumb">
+        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+        <button class="wishlist-btn-round ${wish ? 'active' : ''}" data-id="${p.id}" aria-label="Add ${p.name} to wishlist" title="Add to wishlist">${wish ? '♥' : '♡'}</button>
+        <button class="quick-view-btn-pill" data-id="${p.id}">👁 Quick View</button>
+      </div>
+      <div class="product-details">
+        <h3 class="product-heading">${p.name}</h3>
+        <div class="product-price-line">
+          <span class="price-val">${formatPrice(p.price)}</span>
+          <span class="price-strike">${formatPrice(p.originalPrice)}</span>
+          <span class="discount-tag">${p.discount}% OFF</span>
+        </div>
+        <button class="btn-cart-main" data-id="${p.id}" aria-label="Add ${p.name} to cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          ADD TO CART
+        </button>
+      </div>
+    </article>
+  `;
 }
 
-/* ============================================================
-   NAVBAR BEHAVIOURS
-   ============================================================ */
-function initNavbar() {
-  const navbar     = document.getElementById('navbar');
-  const hamburger  = document.getElementById('hamburger');
-  const navLinks   = document.getElementById('nav-links');
-  const navOverlay = document.getElementById('nav-overlay');
-
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-    const btn = document.getElementById('back-to-top');
-    btn.classList.toggle('visible', window.scrollY > 400);
-    updateActiveNavLink();
-  }, { passive: true });
-
-  hamburger.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    hamburger.classList.toggle('open', isOpen);
-    navOverlay.classList.toggle('visible', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    isOpen ? lockScroll() : unlockScroll();
-  });
-
-  navOverlay.addEventListener('click', closeMobileMenu);
-  navLinks.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', closeMobileMenu);
-  });
-
-  function closeMobileMenu() {
-    navLinks.classList.remove('open');
-    hamburger.classList.remove('open');
-    navOverlay.classList.remove('visible');
-    hamburger.setAttribute('aria-expanded', 'false');
-    unlockScroll();
-  }
-
-  function updateActiveNavLink() {
-    const sections = ['home', 'collections', 'shop', 'about', 'contact'];
-    let current = 'home';
-    sections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && window.scrollY >= el.offsetTop - 100) current = id;
-    });
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-    });
-    document.querySelectorAll('.mobile-nav-item[href]').forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-    });
-  }
-}
-
-/* ============================================================
-   SEARCH BAR
-   ============================================================ */
-function initSearch() {
-  const toggleBtn = document.getElementById('search-toggle-btn');
-  const wrapper   = document.getElementById('search-bar-wrapper');
-  const closeBtn  = document.getElementById('search-close-btn');
-  const input     = document.getElementById('search-input');
-
-  toggleBtn.addEventListener('click', () => {
-    const isOpen = wrapper.classList.toggle('open');
-    if (isOpen) {
-      input.focus();
-      document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
-    }
-  });
-
-  closeBtn.addEventListener('click', () => {
-    wrapper.classList.remove('open');
-    input.value = '';
-    activeSearch = '';
-    renderProducts();
-  });
-
-  let debounce;
-  input.addEventListener('input', () => {
-    clearTimeout(debounce);
-    debounce = setTimeout(() => {
-      activeSearch = input.value;
-      renderProducts();
-    }, 300);
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && wrapper.classList.contains('open')) {
-      wrapper.classList.remove('open');
-      input.value = '';
-      activeSearch = '';
-      renderProducts();
-    }
-  });
-}
-
-/* ============================================================
-   FILTER TABS
-   ============================================================ */
-function initFilters() {
-  const tabs = document.querySelectorAll('.filter-tab');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      activeFilter = tab.dataset.filter;
-      tabs.forEach(t => {
-        t.classList.toggle('active', t.dataset.filter === activeFilter);
-        t.setAttribute('aria-selected', t.dataset.filter === activeFilter ? 'true' : 'false');
-      });
-      renderProducts();
-    });
-  });
-}
-
-/* ============================================================
-   SORT SELECT
-   ============================================================ */
-function initSort() {
-  const sortSelect = document.getElementById('sort-select');
-  sortSelect.addEventListener('change', () => {
-    activeSort = sortSelect.value;
-    renderProducts();
-  });
-}
-
-/* ============================================================
-   COLLECTION CARDS → FILTER SHOP
-   ============================================================ */
-function initCollectionFiltering() {
-  document.getElementById('collections-grid').addEventListener('click', (e) => {
-    const card = e.target.closest('.collection-card');
-    if (!card) return;
-    const filter = card.dataset.filter;
-    activeFilter = filter;
-
-    document.querySelectorAll('.filter-tab').forEach(tab => {
-      tab.classList.toggle('active', tab.dataset.filter === filter);
-      tab.setAttribute('aria-selected', tab.dataset.filter === filter ? 'true' : 'false');
-    });
-
-    document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
-    renderProducts();
-  });
-
-  document.querySelectorAll('[data-filter]').forEach(el => {
-    if (el.classList.contains('filter-tab') || el.classList.contains('collection-card')) return;
-    el.addEventListener('click', () => {
-      const filter = el.dataset.filter;
-      if (!filter) return;
-      activeFilter = filter;
-      document.querySelectorAll('.filter-tab').forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.filter === filter);
-      });
-      setTimeout(() => {
-        document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
-        renderProducts();
-      }, 100);
-    });
-  });
-}
-
-/* ============================================================
-   PRODUCTS GRID EVENT DELEGATION
-   ============================================================ */
-function initProductsGrid() {
+function renderProducts() {
   const grid = document.getElementById('products-grid');
+  const emptyEl = document.getElementById('empty-state');
+  if (!grid) return;
 
-  grid.addEventListener('click', (e) => {
-    const quickViewBtn = e.target.closest('.btn-quick-view');
-    if (quickViewBtn) {
-      openQuickView(parseInt(quickViewBtn.dataset.id, 10));
-      return;
-    }
+  const filtered = getFilteredProducts();
 
-    const addCartBtn = e.target.closest('.btn-add-cart, .btn-add-cart-main');
-    if (addCartBtn) {
-      addToCart(parseInt(addCartBtn.dataset.id, 10));
-      return;
-    }
-
-    const heartBtn = e.target.closest('.wishlist-heart');
-    if (heartBtn) {
-      toggleWishlist(parseInt(heartBtn.dataset.id, 10));
-      updateWishlistHearts();
-      return;
-    }
-  });
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    if (emptyEl) emptyEl.style.display = 'block';
+  } else {
+    if (emptyEl) emptyEl.style.display = 'none';
+    grid.innerHTML = filtered.map(renderProductHTML).join('');
+  }
 }
 
-/* ============================================================
-   CART DRAWER EVENTS
-   ============================================================ */
-function initCartDrawer() {
-  document.getElementById('cart-toggle-btn').addEventListener('click', openCartDrawer);
-  const mobileCart = document.getElementById('mobile-cart-btn');
-  if (mobileCart) mobileCart.addEventListener('click', openCartDrawer);
-  document.getElementById('cart-close-btn').addEventListener('click', closeCartDrawer);
-  document.getElementById('cart-overlay').addEventListener('click', closeCartDrawer);
-  document.getElementById('cart-continue-btn').addEventListener('click', closeCartDrawer);
-  document.getElementById('cart-shop-btn').addEventListener('click', () => {
-    closeCartDrawer();
-    document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
-  });
+function resetFilters() {
+  activeCategory = 'all';
+  activePrice = 'all';
+  activeSearch = '';
+  activeSort = 'popularity';
 
-  const cartContainer = document.getElementById('cart-items-container');
-  cartContainer.addEventListener('click', (e) => {
-    const qtyBtn = e.target.closest('.qty-btn');
-    if (qtyBtn) {
-      const id    = parseInt(qtyBtn.dataset.id, 10);
-      const delta = qtyBtn.dataset.action === 'increase' ? 1 : -1;
-      changeQuantity(id, delta);
-      return;
-    }
-    const removeBtn = e.target.closest('.cart-item-remove');
-    if (removeBtn) {
-      removeFromCart(parseInt(removeBtn.dataset.id, 10));
-      return;
-    }
-  });
+  const catSelect = document.getElementById('filter-category');
+  const priceSelect = document.getElementById('filter-price');
+  const searchInput = document.getElementById('catalog-search');
+  const sortSelect = document.getElementById('filter-sort');
+
+  if (catSelect) catSelect.value = 'all';
+  if (priceSelect) priceSelect.value = 'all';
+  if (searchInput) searchInput.value = '';
+  if (sortSelect) sortSelect.value = 'popularity';
+
+  renderProducts();
 }
+window.resetFilters = resetFilters;
 
 /* ============================================================
-   WISHLIST DRAWER EVENTS
+   EVENT DELEGATION & LISTENERS
    ============================================================ */
-function initWishlistDrawer() {
-  document.getElementById('wishlist-toggle-btn').addEventListener('click', openWishlistDrawer);
-  const mobileWishlist = document.getElementById('mobile-wishlist-btn');
-  if (mobileWishlist) mobileWishlist.addEventListener('click', openWishlistDrawer);
-  document.getElementById('wishlist-close-btn').addEventListener('click', closeWishlistDrawer);
-  document.getElementById('wishlist-overlay').addEventListener('click', closeWishlistDrawer);
-  document.getElementById('wishlist-shop-btn').addEventListener('click', () => {
-    closeWishlistDrawer();
-    document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
-  });
-
-  const wishlistContainer = document.getElementById('wishlist-items-container');
-  wishlistContainer.addEventListener('click', (e) => {
-    const cartBtn = e.target.closest('.btn-wl-cart');
-    if (cartBtn) {
+function initEvents() {
+  // Global click delegation for products & collections
+  document.addEventListener('click', (e) => {
+    // Add to cart button
+    const cartBtn = e.target.closest('.btn-cart-main');
+    if (cartBtn && cartBtn.dataset.id) {
+      e.preventDefault();
       addToCart(parseInt(cartBtn.dataset.id, 10));
       return;
     }
-    const removeBtn = e.target.closest('.btn-wl-remove');
-    if (removeBtn) {
-      toggleWishlist(parseInt(removeBtn.dataset.id, 10));
-      updateWishlistHearts();
-      return;
-    }
-  });
-}
 
-/* ============================================================
-   QUICK VIEW MODAL EVENTS
-   ============================================================ */
-function initQuickViewModal() {
-  const overlay  = document.getElementById('quick-view-overlay');
-  const closeBtn = document.getElementById('quick-view-close');
-
-  closeBtn.addEventListener('click', closeQuickView);
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeQuickView();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && overlay.style.display !== 'none') closeQuickView();
-  });
-}
-
-/* ============================================================
-   CONTACT FORM
-   ============================================================ */
-function initContactForm() {
-  const form    = document.getElementById('contact-form');
-  const success = document.getElementById('form-success');
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const name    = document.getElementById('contact-name').value.trim();
-    const email   = document.getElementById('contact-email').value.trim();
-    const message = document.getElementById('contact-message').value.trim();
-
-    if (!name || !email || !message) {
-      showToast('⚠️ Please fill in all required fields.');
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      showToast('⚠️ Please enter a valid email address.');
+    // Wishlist button
+    const wishBtn = e.target.closest('.wishlist-btn-round');
+    if (wishBtn && wishBtn.dataset.id) {
+      e.preventDefault();
+      toggleWishlist(parseInt(wishBtn.dataset.id, 10));
       return;
     }
 
-    const submitBtn = form.querySelector('[type="submit"]');
-    submitBtn.textContent = 'Sending…';
-    submitBtn.disabled = true;
+    // Quick View button
+    const qvBtn = e.target.closest('.quick-view-btn-pill');
+    if (qvBtn && qvBtn.dataset.id) {
+      e.preventDefault();
+      openQuickView(parseInt(qvBtn.dataset.id, 10));
+      return;
+    }
 
-    setTimeout(() => {
-      form.reset();
-      submitBtn.textContent = 'Send Message';
-      submitBtn.disabled = false;
-      success.style.display = 'block';
-      setTimeout(() => (success.style.display = 'none'), 5000);
-    }, 1200);
+    // Collection cards filter click
+    const colCard = e.target.closest('.col-card');
+    if (colCard && colCard.dataset.filter) {
+      e.preventDefault();
+      activeCategory = colCard.dataset.filter;
+      const catSelect = document.getElementById('filter-category');
+      if (catSelect) catSelect.value = activeCategory;
+      renderProducts();
+      const shopSec = document.getElementById('shop');
+      if (shopSec) shopSec.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    // Discover collection link in banner
+    const bannerBtn = e.target.closest('.btn-featured-discover');
+    if (bannerBtn && bannerBtn.dataset.filter) {
+      e.preventDefault();
+      activeCategory = bannerBtn.dataset.filter;
+      const catSelect = document.getElementById('filter-category');
+      if (catSelect) catSelect.value = activeCategory;
+      renderProducts();
+      const shopSec = document.getElementById('shop');
+      if (shopSec) shopSec.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
   });
-}
 
-/* ============================================================
-   BACK TO TOP BUTTON
-   ============================================================ */
-function initBackToTop() {
-  document.getElementById('back-to-top').addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
+  // Filter Bar Selects
+  const catSelect = document.getElementById('filter-category');
+  if (catSelect) {
+    catSelect.addEventListener('change', (e) => {
+      activeCategory = e.target.value;
+      renderProducts();
+    });
+  }
 
-/* ============================================================
-   FOOTER YEAR
-   ============================================================ */
-function setFooterYear() {
-  const el = document.getElementById('footer-year');
-  if (el) el.textContent = new Date().getFullYear();
-}
+  const priceSelect = document.getElementById('filter-price');
+  if (priceSelect) {
+    priceSelect.addEventListener('change', (e) => {
+      activePrice = e.target.value;
+      renderProducts();
+    });
+  }
 
-/* ============================================================
-   SMOOTH ANCHOR SCROLLING
-   ============================================================ */
-function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      if (href === '#') return;
-      const target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
+  const searchInput = document.getElementById('catalog-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      activeSearch = e.target.value;
+      renderProducts();
+    });
+  }
+
+  const sortSelect = document.getElementById('filter-sort');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (e) => {
+      activeSort = e.target.value;
+      renderProducts();
+    });
+  }
+
+  // Header Search toggle
+  const searchToggle = document.getElementById('search-toggle-btn');
+  const searchDrawer = document.getElementById('search-bar-wrapper');
+  const searchClose = document.getElementById('search-close-btn');
+  const headerSearchInput = document.getElementById('search-input');
+
+  if (searchToggle && searchDrawer) {
+    searchToggle.addEventListener('click', () => {
+      searchDrawer.classList.toggle('open');
+      if (searchDrawer.classList.contains('open') && headerSearchInput) {
+        headerSearchInput.focus();
       }
     });
-  });
+  }
+
+  if (searchClose && searchDrawer) {
+    searchClose.addEventListener('click', () => searchDrawer.classList.remove('open'));
+  }
+
+  if (headerSearchInput) {
+    headerSearchInput.addEventListener('input', (e) => {
+      activeSearch = e.target.value;
+      const shopInput = document.getElementById('catalog-search');
+      if (shopInput) shopInput.value = activeSearch;
+      renderProducts();
+      const shopSec = document.getElementById('shop');
+      if (shopSec) shopSec.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  // Drawers Toggles
+  const cartToggle = document.getElementById('cart-toggle-btn');
+  const mobileCartToggle = document.getElementById('mobile-cart-btn');
+  const cartClose = document.getElementById('cart-close-btn');
+
+  if (cartToggle) cartToggle.addEventListener('click', openCartDrawer);
+  if (mobileCartToggle) mobileCartToggle.addEventListener('click', openCartDrawer);
+  if (cartClose) cartClose.addEventListener('click', closeCartDrawer);
+
+  const wishToggle = document.getElementById('wishlist-toggle-btn');
+  const mobileWishToggle = document.getElementById('mobile-wishlist-btn');
+  const wishClose = document.getElementById('wishlist-close-btn');
+
+  if (wishToggle) wishToggle.addEventListener('click', openWishlistDrawer);
+  if (mobileWishToggle) mobileWishToggle.addEventListener('click', openWishlistDrawer);
+  if (wishClose) wishClose.addEventListener('click', closeWishlistDrawer);
+
+  // Overlay click closes all drawers and modals
+  const overlay = document.getElementById('nav-overlay');
+  if (overlay) {
+    overlay.addEventListener('click', () => {
+      closeCartDrawer();
+      closeWishlistDrawer();
+      const navMenu = document.getElementById('nav-links');
+      if (navMenu) navMenu.classList.remove('open');
+    });
+  }
+
+  // Modal close
+  const modalClose = document.getElementById('modal-close-btn');
+  const qvOverlay = document.getElementById('quick-view-overlay');
+  if (modalClose) modalClose.addEventListener('click', closeQuickView);
+  if (qvOverlay) {
+    qvOverlay.addEventListener('click', (e) => {
+      if (e.target === qvOverlay) closeQuickView();
+    });
+  }
+
+  // Mobile Hamburger Menu
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-links');
+  if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      if (overlay) overlay.classList.toggle('active', navMenu.classList.contains('open'));
+    });
+  }
+
+  // Back to Top button
+  const backToTop = document.getElementById('back-to-top');
+  if (backToTop) {
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ============================================================
+  // ADVANCED SCROLL-DRIVEN EFFECTS ENGINE
+  // ============================================================
+  const progressBar = document.getElementById('scroll-progress-bar');
+  const navbar = document.getElementById('navbar');
+  const heroImg = document.querySelector('.hero-bg-image');
+  const heroBox = document.querySelector('.hero-textbox');
+  const navLinks = document.querySelectorAll('.nav-menu .nav-item');
+  const sections = document.querySelectorAll('section[id]');
+
+  let ticking = false;
+
+  function onScrollHandler() {
+    const scrollY = window.scrollY;
+
+    // 1. Gold Scroll Progress Bar
+    if (progressBar) {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+      progressBar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+    }
+
+    // 2. Compact Glass Navbar on Scroll
+    if (navbar) {
+      if (scrollY > 35) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }
+
+    // 3. Hero Parallax Depth & Soft Dissolve
+    if (scrollY < 900) {
+      if (heroImg) {
+        heroImg.style.transform = 'translateY(' + (scrollY * 0.32) + 'px) scale(1.05)';
+      }
+      if (heroBox) {
+        heroBox.style.transform = 'translateY(' + (scrollY * 0.16) + 'px)';
+        const opacity = Math.max(0, 1 - (scrollY / 520));
+        heroBox.style.opacity = opacity.toString();
+      }
+    }
+
+    // 4. Back to Top Visibility
+    if (backToTop) {
+      backToTop.classList.toggle('visible', scrollY > 380);
+    }
+
+    // 5. Active Nav Spy on Scroll
+    let currentSectionId = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 120;
+      const height = sec.offsetHeight;
+      if (scrollY >= top && scrollY < top + height) {
+        currentSectionId = sec.getAttribute('id');
+      }
+    });
+
+    if (currentSectionId) {
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === '#' + currentSectionId) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(onScrollHandler);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Initial trigger
+  onScrollHandler();
+
+  // 6. IntersectionObserver for Scroll-Reveal Elements
+  const revealElements = document.querySelectorAll('.scroll-reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.1
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    // Fallback for older browsers
+    revealElements.forEach(el => el.classList.add('in-view'));
+  }
 }
 
 /* ============================================================
-   INIT STATIC REVEAL ELEMENTS
+   APP INITIALIZATION
    ============================================================ */
-function initRevealObserver() {
-  const targets = document.querySelectorAll(
-    '.why-card, .testimonial-card, .gallery-item, .contact-item, .section-header'
-  );
-  targets.forEach(el => el.classList.add('reveal'));
-  observeRevealElements();
-}
-
-/* ============================================================
-   MAIN INITIALIZATION
-   ============================================================ */
-document.addEventListener('DOMContentLoaded', () => {
-  loadPersistedData();
-
-  renderCollections();
-  renderProducts();
-  renderGallery();
-
+function initApp() {
+  loadStorage();
   updateCartUI();
   updateWishlistUI();
-  updateWishlistHearts();
+  updateWishlistButtons();
+  initEvents();
 
-  initNavbar();
-  initSearch();
-  initFilters();
-  initSort();
-  initCollectionFiltering();
-  initProductsGrid();
-  initCartDrawer();
-  initWishlistDrawer();
-  initQuickViewModal();
-  initTestimonials();
-  initContactForm();
-  initBackToTop();
-  initSmoothScroll();
-  initRevealObserver();
-  setFooterYear();
+  console.log('%c✦ CB TRENDZ — Premium Saree Boutique Loaded ✦', 'color:#D4AF70; background:#4A1220; font-size:1.1rem; padding:6px 12px;');
+}
 
-  console.log('%c✦ CB TRENDZ ✦', 'color:#D4AF70;font-size:1.2rem;font-weight:bold;background:#651B2B;padding:6px 16px;border-radius:4px;');
-  console.log('%cWelcome! Saree boutique website loaded successfully.', 'color:#651B2B;font-size:0.9rem;');
-});
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
