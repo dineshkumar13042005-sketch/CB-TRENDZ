@@ -143,7 +143,6 @@
             <button class="pill-btn" data-category="wedding" role="tab">Wedding Sarees</button>
             <button class="pill-btn" data-category="party" role="tab">Party Wear Sarees</button>
             <button class="pill-btn" data-category="designer" role="tab">Designer Sarees</button>
-            <button class="pill-btn" data-category="daily" role="tab">Daily Wear Sarees</button>
           </div>
 
           <!-- Price Dropdown Pill -->
@@ -158,9 +157,9 @@
           </div>
         </div>
 
-        <!-- 8 Product Cards Grid (4 Columns x 2 Rows) -->
+        <!-- 5 Product Cards Grid -->
         <div class="products-grid-4" id="products-grid">
-          <!-- Products dynamically rendered by script.js (exact data matching mockup) -->
+          <!-- Products dynamically rendered by script.js -->
         </div>
 
         <!-- Empty State (Fallback for zero search matches) -->
@@ -171,12 +170,8 @@
           <button class="btn-reset-filters" id="reset-filters-btn">View All Sarees</button>
         </div>
 
-        <!-- Pagination Row (1, 2, 3, >) -->
-        <div class="pagination-bar" id="pagination-bar">
-          <button class="page-btn active" data-page="1">1</button>
-          <button class="page-btn" data-page="2">2</button>
-          <button class="page-btn" data-page="3">3</button>
-          <button class="page-btn next-btn" data-page="next" aria-label="Next page">›</button>
+        <!-- Pagination Row (Hidden for 5 items) -->
+        <div class="pagination-bar" id="pagination-bar" style="display:none;">
         </div>
 
       </div>

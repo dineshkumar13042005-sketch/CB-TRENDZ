@@ -13,10 +13,10 @@ const STORE_CONFIG = {
   tagline: 'Ladies Fashion & Accessories',
   whatsappNumber: '918778522690',
   currencySymbol: '₹',
-  itemsPerPage: 8
+  itemsPerPage: 5
 };
 
-// 12 Saree Products (Items 1-8 exactly match Page 1 of user mockup)
+// 5 Saree Products
 const PRODUCTS = [
   {
     id: 1,
@@ -30,7 +30,7 @@ const PRODUCTS = [
     reviews: 24,
     badge: 'Best Seller',
     badgeClass: 'badge-bestseller',
-    image: 'images/saree1.jpg',
+    image: 'images/Maroon Gold Zari Saree Ensemble.png',
     description: 'Exquisite authentic Kanchipuram pure silk saree with heavy golden zari pallu and intricate border weave. Ideal for weddings and grand festive celebrations.'
   },
   {
@@ -45,7 +45,7 @@ const PRODUCTS = [
     reviews: 18,
     badge: 'New',
     badgeClass: 'badge-new',
-    image: 'images/saree3.jpg',
+    image: 'images/Teal and Gold Banarasi Saree Fold.png',
     description: 'Traditional off-white Kerala Kasavu cotton saree featuring a vibrant bottle green border with delicate golden thread accents.'
   },
   {
@@ -60,7 +60,7 @@ const PRODUCTS = [
     reviews: 32,
     badge: 'Popular',
     badgeClass: 'badge-popular',
-    image: 'images/saree5.jpg',
+    image: 'images/Lime Green Silk Saree with Teal Zari Border.png',
     description: 'Regal bridal red Kanjivaram silk saree woven with ceremonial temple zari borders and heavy embossed floral motifs.'
   },
   {
@@ -75,7 +75,7 @@ const PRODUCTS = [
     reviews: 21,
     badge: null,
     badgeClass: '',
-    image: 'images/saree4.jpg',
+    image: 'images/Folded_floral_yellow_saree_displ…_f635d66d_2K.jpg',
     description: 'Glamorous royal purple party wear saree with subtle metallic shimmer and graceful fluidity for evening soirees and receptions.'
   },
   {
@@ -90,113 +90,8 @@ const PRODUCTS = [
     reviews: 16,
     badge: 'Sale',
     badgeClass: 'badge-sale',
-    image: 'images/saree7.jpg',
+    image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg',
     description: 'Peacock teal sheer designer organza saree detailed with artisan zari embroidery and modern scalloped borders.'
-  },
-  {
-    id: 6,
-    name: 'Chanderi Silk Saree',
-    category: 'cotton',
-    spec: 'Soft • Comfortable',
-    price: 3499,
-    oldPrice: 5499,
-    discount: '36% OFF',
-    rating: 5,
-    reviews: 12,
-    badge: null,
-    badgeClass: '',
-    image: 'images/saree8.jpg',
-    description: 'Handwoven soft pink Chanderi silk-cotton saree with pastel gold bootis, offering breathability and royal subtlety.'
-  },
-  {
-    id: 7,
-    name: 'Tissue Silk Saree',
-    category: 'wedding',
-    spec: 'Rich texture • Elegant',
-    price: 6499,
-    oldPrice: 9999,
-    discount: '35% OFF',
-    rating: 5,
-    reviews: 19,
-    badge: null,
-    badgeClass: '',
-    image: 'images/saree10.jpg',
-    description: 'Lustrous black and metallic gold tissue silk saree designed with contrasting royal border work for dramatic festive appeal.'
-  },
-  {
-    id: 8,
-    name: 'Cotton Blend Saree',
-    category: 'daily',
-    spec: 'Breathable • Everyday comfort',
-    price: 2999,
-    oldPrice: 4499,
-    discount: '33% OFF',
-    rating: 5,
-    reviews: 14,
-    badge: null,
-    badgeClass: '',
-    image: 'images/saree9.jpg',
-    description: 'Loom-spun mustard gold cotton blend saree with geometric zari border, tailored for elegant workwear and casual pujas.'
-  },
-  {
-    id: 9,
-    name: 'Banarasi Silk Saree',
-    category: 'silk',
-    spec: 'Traditional weave • Royal look',
-    price: 5399,
-    oldPrice: 7899,
-    discount: '31% OFF',
-    rating: 5,
-    reviews: 28,
-    badge: 'Popular',
-    badgeClass: 'badge-popular',
-    image: 'images/saree2.jpg',
-    description: 'Timeless maroon Banarasi brocade silk saree with intricate floral jaal motifs and opulent kadhwa border.'
-  },
-  {
-    id: 10,
-    name: 'Printed Daily Wear Saree',
-    category: 'daily',
-    spec: 'Easy care • Everyday grace',
-    price: 1499,
-    oldPrice: 2499,
-    discount: '40% OFF',
-    rating: 5,
-    reviews: 15,
-    badge: 'Sale',
-    badgeClass: 'badge-sale',
-    image: 'images/saree6.jpg',
-    description: 'Feather-light printed daily wear saree in fresh pastel hues, effortless to drape and maintain throughout the day.'
-  },
-  {
-    id: 11,
-    name: 'Sequin Party Wear Saree',
-    category: 'party',
-    spec: 'Glamorous shine • Evening party',
-    price: 6950,
-    oldPrice: 8500,
-    discount: '18% OFF',
-    rating: 5,
-    reviews: 11,
-    badge: 'New',
-    badgeClass: 'badge-new',
-    image: 'images/saree11.jpg',
-    description: 'Contemporary midnight-sheen saree encrusted with delicate micro-sequins, crafted to dazzle under cocktail lighting.'
-  },
-  {
-    id: 12,
-    name: 'Jaipur Block Print Saree',
-    category: 'daily',
-    spec: 'Handcrafted artisan cotton',
-    price: 1899,
-    oldPrice: 2499,
-    discount: '24% OFF',
-    rating: 5,
-    reviews: 9,
-    badge: null,
-    badgeClass: '',
-    image: 'images/saree12.jpg',
-    description: '100% pure organic cotton saree decorated with hand block botanical printing by Jaipur master artisans.'
   }
 ];
 
@@ -320,11 +215,33 @@ function renderProducts() {
       <article class="product-card" data-id="${p.id}">
         <!-- Image Thumbnail & Badges -->
         <div class="product-thumb">
-          <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+          <img src="${p.image}" alt="${p.name}" loading="lazy" style="${p.imageStyle || 'object-position: center center;'}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
           ${badgeHTML}
           <button class="product-wish-btn ${isWish ? 'active' : ''}" data-id="${p.id}" aria-label="Add ${p.name} to wishlist" title="Add to wishlist">
             ${isWish ? '♥' : '♡'}
           </button>
+
+          <!-- Hover Pop-Up Window Showing Saree Details & Price -->
+          <div class="thumb-hover-popup" role="region" aria-label="Saree preview">
+            <span class="popup-spec-tag">${p.spec}</span>
+            <h4 class="popup-title">${p.name}</h4>
+            <div class="popup-price-row">
+              <span class="popup-price">${formatINR(p.price)}</span>
+              <span class="popup-old-price">${formatINR(p.oldPrice)}</span>
+              <span class="popup-discount">${p.discount}</span>
+            </div>
+            <p class="popup-desc">${p.description}</p>
+            <div class="popup-action-row">
+              <button type="button" class="btn-popup-cart btn-card-cart" data-id="${p.id}">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                Add to Cart
+              </button>
+              <button type="button" class="btn-popup-quickview btn-card-quickview" data-id="${p.id}">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Quick View
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- Product Details -->
@@ -787,6 +704,15 @@ function initEvents() {
       if (wishBtn) {
         const id = parseInt(wishBtn.dataset.id, 10);
         if (id) toggleWishlist(id);
+        return;
+      }
+
+      // Clicking photo thumbnail opens Quick View
+      const thumb = e.target.closest('.product-thumb');
+      if (thumb) {
+        const card = thumb.closest('.product-card');
+        const id = parseInt(card?.dataset?.id, 10);
+        if (id) openQuickView(id);
         return;
       }
     });

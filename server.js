@@ -66,20 +66,13 @@ function saveOrder(order) {
   return order;
 }
 
-// Product Master Catalog with verified prices for server-side security
+// Product Master Catalog with verified prices for server-side security (5 Sarees)
 const SERVER_CATALOG = {
-  1: { name: 'Kanchipuram Silk Saree', price: 8999, category: 'Silk Sarees', image: 'images/saree1.jpg' },
-  2: { name: 'Kasavu Cotton Saree', price: 2499, category: 'Cotton Sarees', image: 'images/saree3.jpg' },
-  3: { name: 'Bridal Kanjivaram Saree', price: 14999, category: 'Wedding Sarees', image: 'images/saree5.jpg' },
-  4: { name: 'Georgette Party Wear Saree', price: 4499, category: 'Party Wear Sarees', image: 'images/saree4.jpg' },
-  5: { name: 'Designer Organza Saree', price: 5999, category: 'Designer Sarees', image: 'images/saree7.jpg' },
-  6: { name: 'Chanderi Silk Saree', price: 3499, category: 'Cotton Sarees', image: 'images/saree8.jpg' },
-  7: { name: 'Tissue Silk Saree', price: 6499, category: 'Wedding Sarees', image: 'images/saree10.jpg' },
-  8: { name: 'Cotton Blend Saree', price: 2999, category: 'Daily Wear Sarees', image: 'images/saree9.jpg' },
-  9: { name: 'Banarasi Silk Saree', price: 5399, category: 'Silk Sarees', image: 'images/saree2.jpg' },
-  10: { name: 'Printed Daily Wear Saree', price: 1499, category: 'Daily Wear Sarees', image: 'images/saree6.jpg' },
-  11: { name: 'Sequin Party Wear Saree', price: 6950, category: 'Party Wear Sarees', image: 'images/saree11.jpg' },
-  12: { name: 'Jaipur Block Print Saree', price: 1899, category: 'Daily Wear Sarees', image: 'images/saree12.jpg' }
+  1: { name: 'Kanchipuram Silk Saree', price: 8999, category: 'Silk Sarees', image: 'images/Maroon Gold Zari Saree Ensemble.png' },
+  2: { name: 'Kasavu Cotton Saree', price: 2499, category: 'Cotton Sarees', image: 'images/Teal and Gold Banarasi Saree Fold.png' },
+  3: { name: 'Bridal Kanjivaram Saree', price: 14999, category: 'Wedding Sarees', image: 'images/Lime Green Silk Saree with Teal Zari Border.png' },
+  4: { name: 'Georgette Party Wear Saree', price: 4499, category: 'Party Wear Sarees', image: 'images/Folded_floral_yellow_saree_displ…_f635d66d_2K.jpg' },
+  5: { name: 'Designer Organza Saree', price: 5999, category: 'Designer Sarees', image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg' }
 };
 
 // Keys configuration
