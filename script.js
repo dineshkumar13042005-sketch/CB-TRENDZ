@@ -20,76 +20,41 @@ const STORE_CONFIG = {
 const PRODUCTS = [
   {
     id: 1,
-    name: 'Kanchipuram Silk Saree',
-    category: 'silk',
-    spec: 'Rich zari work • Pure silk',
-    price: 8999,
-    oldPrice: 12999,
-    discount: '31% OFF',
-    rating: 5,
-    reviews: 24,
-    badge: 'Best Seller',
-    badgeClass: 'badge-bestseller',
+    name: 'Kanchi cotton Saree',
+    price: 1350,
+    category: 'cotton',
     image: 'images/Maroon Gold Zari Saree Ensemble.png',
     description: 'Exquisite authentic Kanchipuram pure silk saree with heavy golden zari pallu and intricate border weave. Ideal for weddings and grand festive celebrations.'
   },
   {
     id: 2,
-    name: 'Kasavu Cotton Saree',
-    category: 'cotton',
-    spec: 'Lightweight • Elegant',
-    price: 2499,
-    oldPrice: 3499,
-    discount: '29% OFF',
-    rating: 5,
-    reviews: 18,
-    badge: 'New',
-    badgeClass: 'badge-new',
+    name: 'Semi silk Saree',
+    price: 850,
+    category: 'silk',
     image: 'images/Teal and Gold Banarasi Saree Fold.png',
     description: 'Traditional off-white Kerala Kasavu cotton saree featuring a vibrant bottle green border with delicate golden thread accents.'
   },
   {
     id: 3,
-    name: 'Bridal Kanjivaram Saree',
-    category: 'wedding',
-    spec: 'Grand look • Traditional',
-    price: 14999,
-    oldPrice: 19999,
-    discount: '25% OFF',
-    rating: 5,
-    reviews: 32,
-    badge: 'Popular',
-    badgeClass: 'badge-popular',
+    name: 'Semi silk Saree',
+    price: 650,
+    category: 'silk',
     image: 'images/Lime Green Silk Saree with Teal Zari Border.png',
     description: 'Regal bridal red Kanjivaram silk saree woven with ceremonial temple zari borders and heavy embossed floral motifs.'
   },
   {
     id: 4,
-    name: 'Georgette Party Wear Saree',
+    name: 'Daily wear Georgette Saree',
+    price: 550,
     category: 'party',
-    spec: 'Lightweight • Stylish',
-    price: 4499,
-    oldPrice: 6499,
-    discount: '31% OFF',
-    rating: 5,
-    reviews: 21,
-    badge: null,
-    badgeClass: '',
     image: 'images/Folded_floral_yellow_saree_displ…_f635d66d_2K.jpg',
     description: 'Glamorous royal purple party wear saree with subtle metallic shimmer and graceful fluidity for evening soirees and receptions.'
   },
   {
     id: 5,
-    name: 'Designer Organza Saree',
+    name: 'Moonga Silk Saree',
+    price: 1150,
     category: 'designer',
-    spec: 'Trendy • Premium fabric',
-    price: 5999,
-    oldPrice: 8999,
-    discount: '33% OFF',
-    rating: 5,
-    reviews: 16,
-    badge: 'Sale',
-    badgeClass: 'badge-sale',
     image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg',
     description: 'Peacock teal sheer designer organza saree detailed with artisan zari embroidery and modern scalloped borders.'
   }
@@ -110,6 +75,7 @@ let currentPage = 1;
    3. UTILITIES & HELPERS
    ============================================================ */
 function formatINR(num) {
+  if (num === undefined || num === null || num === '' || isNaN(Number(num))) return '';
   return '₹ ' + Number(num).toLocaleString('en-IN');
 }
 
@@ -149,23 +115,28 @@ function getFilteredProducts() {
   return PRODUCTS.filter(p => {
     // 1. Category Filter
     if (activeCategory !== 'all') {
-      if (activeCategory === 'cotton' && !['cotton', 'daily'].includes(p.category)) return false;
-      if (activeCategory === 'silk' && !['silk', 'wedding'].includes(p.category)) return false;
-      if (activeCategory !== 'cotton' && activeCategory !== 'silk' && p.category !== activeCategory) return false;
+      const cat = (p.category || '').toLowerCase();
+      const name = (p.name || '').toLowerCase();
+      if (activeCategory === 'cotton' && !cat.includes('cotton') && !name.includes('cotton')) return false;
+      if (activeCategory === 'silk' && !cat.includes('silk') && !name.includes('silk')) return false;
+      if (activeCategory === 'wedding' && !cat.includes('wedding') && !name.includes('wedding') && !name.includes('kanchi')) return false;
+      if (activeCategory === 'party' && !cat.includes('party') && !name.includes('georgette')) return false;
+      if (activeCategory === 'designer' && !cat.includes('designer') && !name.includes('moonga')) return false;
     }
 
     // 2. Price Filter
-    if (activePrice === 'under3000' && p.price >= 3000) return false;
-    if (activePrice === '3000-6000' && (p.price < 3000 || p.price > 6000)) return false;
-    if (activePrice === 'above6000' && p.price <= 6000) return false;
+    if (activePrice === 'under800' && p.price >= 800) return false;
+    if (activePrice === '800-1200' && (p.price < 800 || p.price > 1200)) return false;
+    if (activePrice === 'above1200' && p.price <= 1200) return false;
 
     // 3. Search Query
     if (searchQuery.trim() !== '') {
       const q = searchQuery.toLowerCase().trim();
-      const matchName = p.name.toLowerCase().includes(q);
-      const matchSpec = p.spec.toLowerCase().includes(q);
-      const matchCat = p.category.toLowerCase().includes(q);
-      if (!matchName && !matchSpec && !matchCat) return false;
+      const matchName = (p.name || '').toLowerCase().includes(q);
+      const matchSpec = (p.spec || '').toLowerCase().includes(q);
+      const matchCat = (p.category || '').toLowerCase().includes(q);
+      const matchDesc = (p.description || '').toLowerCase().includes(q);
+      if (!matchName && !matchSpec && !matchCat && !matchDesc) return false;
     }
 
     return true;
@@ -173,7 +144,7 @@ function getFilteredProducts() {
     // 4. Sorting
     if (activeSort === 'price-asc') return a.price - b.price;
     if (activeSort === 'price-desc') return b.price - a.price;
-    if (activeSort === 'rating') return b.reviews - a.reviews;
+    if (activeSort === 'rating') return (b.reviews || 0) - (a.reviews || 0);
     if (activeSort === 'newest') return b.id - a.id;
     return a.id - b.id; // popularity / default
   });
@@ -204,41 +175,30 @@ function renderProducts() {
   const startIndex = (currentPage - 1) * STORE_CONFIG.itemsPerPage;
   const pageProducts = filtered.slice(startIndex, startIndex + STORE_CONFIG.itemsPerPage);
 
-  // Render Product Cards (Exact markup matching mockup)
+  // Render Product Cards (Clean, luxury presentation with Only Buy Now button)
   grid.innerHTML = pageProducts.map(p => {
     const isWish = wishlist.includes(p.id);
-    const badgeHTML = p.badge
-      ? `<span class="product-badge ${p.badgeClass}">${p.badge}</span>`
-      : '';
 
     return `
       <article class="product-card" data-id="${p.id}">
-        <!-- Image Thumbnail & Badges -->
+        <!-- Image Thumbnail -->
         <div class="product-thumb">
-          <img src="${p.image}" alt="${p.name}" loading="lazy" style="${p.imageStyle || 'object-position: center center;'}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-          ${badgeHTML}
+          <img src="${p.image}" alt="${p.name}" loading="lazy" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
           <button class="product-wish-btn ${isWish ? 'active' : ''}" data-id="${p.id}" aria-label="Add ${p.name} to wishlist" title="Add to wishlist">
             ${isWish ? '♥' : '♡'}
           </button>
 
           <!-- Hover Pop-Up Window Showing Saree Details & Price -->
           <div class="thumb-hover-popup" role="region" aria-label="Saree preview">
-            <span class="popup-spec-tag">${p.spec}</span>
             <h4 class="popup-title">${p.name}</h4>
             <div class="popup-price-row">
               <span class="popup-price">${formatINR(p.price)}</span>
-              <span class="popup-old-price">${formatINR(p.oldPrice)}</span>
-              <span class="popup-discount">${p.discount}</span>
             </div>
-            <p class="popup-desc">${p.description}</p>
+            <p class="popup-desc">${p.description || ''}</p>
             <div class="popup-action-row">
-              <button type="button" class="btn-popup-cart btn-card-cart" data-id="${p.id}">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-                Add to Cart
-              </button>
-              <button type="button" class="btn-popup-quickview btn-card-quickview" data-id="${p.id}">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                Quick View
+              <button type="button" class="btn-popup-buynow btn-card-buynow" data-id="${p.id}">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>Buy Now</span>
               </button>
             </div>
           </div>
@@ -247,35 +207,16 @@ function renderProducts() {
         <!-- Product Details -->
         <div class="product-info">
           <h3 class="product-title">${p.name}</h3>
-          <p class="product-spec">${p.spec}</p>
 
           <div class="product-price-line">
             <span class="price-now">${formatINR(p.price)}</span>
-            <span class="price-was">${formatINR(p.oldPrice)}</span>
-            <span class="discount-tag">${p.discount}</span>
           </div>
 
-          <div class="product-rating-line">
-            <span class="stars-gold">★★★★★</span>
-            <span class="rating-count">(${p.reviews})</span>
-          </div>
-
-          <!-- Dual Buttons Matching Mockup -->
+          <!-- Only Buy Now Button with Effects -->
           <div class="product-btn-group">
-            <button class="btn-card-cart" data-id="${p.id}">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="9" cy="21" r="1"></circle>
-                <circle cx="20" cy="21" r="1"></circle>
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-              </svg>
-              Add to Cart
-            </button>
-            <button class="btn-card-quickview" data-id="${p.id}">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-              Quick View
+            <button class="btn-card-buynow" data-id="${p.id}">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span>Buy Now</span>
             </button>
           </div>
         </div>
@@ -508,35 +449,23 @@ function openQuickView(productId) {
   const content = document.getElementById('qv-content');
   if (!modal || !content) return;
 
-  const badgeHTML = p.badge
-    ? `<span class="modal-badge-tag ${p.badgeClass}">${p.badge}</span>`
-    : '';
-
   content.innerHTML = `
     <div class="modal-img-box">
-      <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+      <img src="${p.image}" alt="${p.name}" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
     </div>
     <div class="modal-details-box">
-      ${badgeHTML}
       <h2 class="modal-title">${p.name}</h2>
-      <p class="modal-spec">${p.spec}</p>
 
       <div class="modal-price-line">
         <span class="modal-price-now">${formatINR(p.price)}</span>
-        <span class="modal-price-was">${formatINR(p.oldPrice)}</span>
-        <span class="discount-tag">${p.discount}</span>
       </div>
 
-      <div class="product-rating-line">
-        <span class="stars-gold">★★★★★</span>
-        <span class="rating-count">(${p.reviews} verified buyer ratings)</span>
-      </div>
-
-      <p class="modal-desc-text">${p.description}</p>
+      <p class="modal-desc-text">${p.description || ''}</p>
 
       <div class="modal-actions">
-        <button class="btn-modal-cart" onclick="addToCart(${p.id}); closeQuickView();">
-          🛒 Add to Shopping Bag
+        <button class="btn-modal-buynow btn-card-buynow" onclick="buyNowSingleProduct(${p.id}); closeQuickView();">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Buy Now</span>
         </button>
         <a href="https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent('Hello CB TRENDZ! I want to enquire about ' + p.name + ' (' + formatINR(p.price) + ')')}" target="_blank" rel="noopener noreferrer" class="btn-modal-wa">
           💬 Order on WhatsApp
@@ -682,10 +611,17 @@ function initEvents() {
     });
   }
 
-  // 7. Product Grid Delegation (Add to Cart, Quick View, Wishlist Heart)
+  // 7. Product Grid Delegation (Buy Now, Wishlist Heart, Quick View)
   const grid = document.getElementById('products-grid');
   if (grid) {
     grid.addEventListener('click', (e) => {
+      const buyBtn = e.target.closest('.btn-card-buynow');
+      if (buyBtn) {
+        const id = parseInt(buyBtn.dataset.id || buyBtn.getAttribute('data-id'), 10);
+        if (id) buyNowSingleProduct(id);
+        return;
+      }
+
       const cartBtn = e.target.closest('.btn-card-cart');
       if (cartBtn) {
         const id = parseInt(cartBtn.dataset.id, 10);
@@ -707,9 +643,9 @@ function initEvents() {
         return;
       }
 
-      // Clicking photo thumbnail opens Quick View
+      // Clicking photo thumbnail opens Quick View (only if not clicking a button)
       const thumb = e.target.closest('.product-thumb');
-      if (thumb) {
+      if (thumb && !e.target.closest('button')) {
         const card = thumb.closest('.product-card');
         const id = parseInt(card?.dataset?.id, 10);
         if (id) openQuickView(id);
@@ -842,51 +778,36 @@ function initEvents() {
     });
   }
 
-  // 12. Checkout Modal & Payment Trigger
+  // 12. Checkout Modal (2-Step: User Details -> PhonePe Payment)
   const btnOpenCheckout = document.getElementById('btn-open-checkout');
   const btnCloseCheckout = document.getElementById('checkout-modal-close');
-  const checkoutForm = document.getElementById('checkout-form');
+  const btnGotoStep2 = document.getElementById('btn-goto-step-2');
+  const btnEditDetails = document.getElementById('btn-edit-details');
+  const btnBackToStep1 = document.getElementById('btn-back-to-step1');
+  const checkoutPaymentForm = document.getElementById('checkout-payment-form');
   const successModalClose = document.getElementById('success-modal-close');
 
-  if (btnOpenCheckout) btnOpenCheckout.addEventListener('click', openCheckoutModal);
+  if (btnOpenCheckout) btnOpenCheckout.addEventListener('click', () => openCheckoutModal());
   if (btnCloseCheckout) btnCloseCheckout.addEventListener('click', closeCheckoutModal);
-  if (checkoutForm) checkoutForm.addEventListener('submit', handleCheckoutSubmit);
+  if (btnGotoStep2) btnGotoStep2.addEventListener('click', goToPaymentStep);
+  if (btnEditDetails) btnEditDetails.addEventListener('click', backToDetailsStep);
+  if (btnBackToStep1) btnBackToStep1.addEventListener('click', backToDetailsStep);
+  if (checkoutPaymentForm) checkoutPaymentForm.addEventListener('submit', handleCheckoutSubmit);
   if (successModalClose) successModalClose.addEventListener('click', closeOrderSuccessModal);
 
-  // Payment radio buttons toggle visual selected style & label
-  const pmUpi = document.getElementById('pm-upi');
-  const pmOnline = document.getElementById('pm-online');
-  const pmCod = document.getElementById('pm-cod');
-  const pmUpiLabel = document.getElementById('pm-upi-label');
-  const pmOnlineLabel = document.getElementById('pm-online-label');
-  const pmCodLabel = document.getElementById('pm-cod-label');
-
-  function syncPaymentLabels() {
-    if (pmUpiLabel) pmUpiLabel.classList.toggle('selected', pmUpi?.checked);
-    if (pmOnlineLabel) pmOnlineLabel.classList.toggle('selected', pmOnline?.checked);
-    if (pmCodLabel) pmCodLabel.classList.toggle('selected', pmCod?.checked);
-    updatePaymentButtonLabel();
-  }
-
-  if (pmUpi) pmUpi.addEventListener('change', syncPaymentLabels);
-  if (pmOnline) pmOnline.addEventListener('change', syncPaymentLabels);
-  if (pmCod) pmCod.addEventListener('change', syncPaymentLabels);
-
-  // UPI Modal & Settings Modal hooks
-  const btnUpiClose = document.getElementById('upi-modal-close');
-  const upiVerifyForm = document.getElementById('upi-verify-form');
-  const btnOpenSettings = document.getElementById('btn-open-gateway-settings');
-  const btnCloseSettings = document.getElementById('gateway-settings-close');
-  const formSettings = document.getElementById('gateway-keys-form');
-
-  if (btnUpiClose) btnUpiClose.addEventListener('click', closeUpiPaymentModal);
-  if (upiVerifyForm) upiVerifyForm.addEventListener('submit', handleUpiVerifySubmit);
-  if (btnOpenSettings) btnOpenSettings.addEventListener('click', showGatewaySettingsModal);
-  if (btnCloseSettings) btnCloseSettings.addEventListener('click', closeGatewaySettingsModal);
-  if (formSettings) formSettings.addEventListener('submit', handleSaveKeysSubmit);
+  // Direct Buy Now click delegation on cards
+  document.addEventListener('click', (e) => {
+    const buyBtn = e.target.closest('.btn-card-buynow');
+    if (buyBtn) {
+      const id = parseInt(buyBtn.getAttribute('data-id'), 10);
+      if (id) {
+        buyNowSingleProduct(id);
+      }
+    }
+  });
 
   // Close modals on clicking backdrop overlay
-  ['checkout-modal', 'upi-modal', 'gateway-settings-modal', 'order-success-modal'].forEach(id => {
+  ['checkout-modal', 'order-success-modal', 'quick-view-overlay'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
       el.addEventListener('click', (e) => {
@@ -898,6 +819,29 @@ function initEvents() {
     }
   });
 
+  // 13. Mobile / Desktop View Mode Toggle Engine
+  const btnToggleView = document.getElementById('btn-toggle-view');
+  if (btnToggleView) {
+    const savedMode = localStorage.getItem('cbtrendz_view_mode');
+    // Default to mobile view active as requested
+    const isMobileMode = savedMode === null ? true : (savedMode === 'mobile');
+
+    if (isMobileMode && window.innerWidth > 768) {
+      document.documentElement.classList.add('mobile-preview-active');
+      btnToggleView.innerHTML = '<span class="view-icon">🖥️</span><span class="view-text">Desktop View</span>';
+    } else {
+      btnToggleView.innerHTML = '<span class="view-icon">📱</span><span class="view-text">Mobile View</span>';
+    }
+
+    btnToggleView.addEventListener('click', () => {
+      const active = document.documentElement.classList.toggle('mobile-preview-active');
+      localStorage.setItem('cbtrendz_view_mode', active ? 'mobile' : 'desktop');
+      btnToggleView.innerHTML = active
+        ? '<span class="view-icon">🖥️</span><span class="view-text">Desktop View</span>'
+        : '<span class="view-icon">📱</span><span class="view-text">Mobile View</span>';
+      showToast(active ? '📱 Mobile View Enabled' : '🖥️ Desktop View Enabled');
+    });
+  }
 }
 
 /* ============================================================
@@ -909,9 +853,8 @@ function initApp() {
   updateWishlistUI();
   renderProducts();
   initEvents();
-  fetchBackendConfig();
 
-  console.log('%c✦ CB TRENDZ — Ladies Fashion & Accessories Loaded ✦', 'color:#D4AF70; background:#3E0A16; font-size:1.15rem; padding:8px 14px; font-weight:bold;');
+  console.log('%c✦ CB TRENDZ — Pure Frontend PhonePe Scan & Pay Loaded ✦', 'color:#D4AF70; background:#3E0A16; font-size:1.15rem; padding:8px 14px; font-weight:bold;');
 }
 
 if (document.readyState === 'loading') {
@@ -922,97 +865,207 @@ if (document.readyState === 'loading') {
 
 
 /* ============================================================
-   11. BACKEND REAL PAYMENT GATEWAY ENGINE (UPI, Razorpay & COD)
+   11. PHONEPE SCAN & PAY ENGINE (100% Pure Frontend, No Backend)
    ============================================================ */
-let backendConfig = {
+const PHONEPE_CONFIG = {
   storeName: 'CB TRENDZ',
   whatsappNumber: '918778522690',
-  merchantUpiId: '8778522690@upi',
-  razorpayKeyId: '',
-  isRazorpayConfigured: false
+  merchantUpiId: 'k.sibiyal@ibl',
+  payeeName: 'K SIBIYAL',
+  scannerImage: 'images/scanner.jpeg'
 };
 
-// Check local storage for any custom merchant configurations
-try {
-  const localUpi = localStorage.getItem('cbtrendz_upi_id');
-  if (localUpi) backendConfig.merchantUpiId = localUpi;
-  const localRzpKey = localStorage.getItem('cbtrendz_rzp_key');
-  if (localRzpKey) {
-    backendConfig.razorpayKeyId = localRzpKey;
-    backendConfig.isRazorpayConfigured = true;
-  }
-} catch (e) {}
+let currentCheckoutItems = [];
+let currentCustomer = null;
 
-let currentPendingOrder = null;
+// Reset checkout modal to Step 1 (Delivery Details)
+function resetCheckoutSteps() {
+  const step1 = document.getElementById('step-view-details');
+  const step2 = document.getElementById('step-view-payment');
+  const tab1 = document.getElementById('step-tab-1');
+  const tab2 = document.getElementById('step-tab-2');
+  const badgeText = document.getElementById('modal-step-title-badge');
+  const headingText = document.getElementById('modal-heading-text');
 
-// Determine correct API endpoint whether running on localhost:5000, Live Server, or file://
-function getApiEndpoint(path) {
-  if (window.location.protocol.startsWith('http') && window.location.port === '5000') {
-    return path;
+  if (step1) step1.style.display = 'block';
+  if (step2) step2.style.display = 'none';
+
+  if (tab1) {
+    tab1.classList.add('active');
+    tab1.classList.remove('completed');
   }
-  return 'http://localhost:5000' + path;
+  if (tab2) {
+    tab2.classList.remove('active', 'completed');
+  }
+
+  if (badgeText) badgeText.textContent = 'Step 1 of 2';
+  if (headingText) headingText.textContent = 'Enter Delivery Details';
+
+  const modalCard = document.querySelector('.checkout-modal-card');
+  if (modalCard) modalCard.scrollTop = 0;
 }
 
-// Fetch Backend Configuration
-async function fetchBackendConfig() {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000);
-    const res = await fetch(getApiEndpoint('/api/config'), { signal: controller.signal });
-    clearTimeout(timeoutId);
-    if (res.ok) {
-      const data = await res.json();
-      backendConfig = Object.assign(backendConfig, data);
-      console.log('✓ CB TRENDZ Payment Gateway Active. UPI ID:', backendConfig.merchantUpiId, '| Razorpay Configured:', backendConfig.isRazorpayConfigured);
-    }
-  } catch (err) {
-    console.log('Backend config active in standalone mode (UPI ID: ' + backendConfig.merchantUpiId + ')');
-  }
-}
+// Step 1 -> Step 2 validation and transition
+function goToPaymentStep() {
+  const nameEl = document.getElementById('cust-name');
+  const phoneEl = document.getElementById('cust-phone');
+  const addressEl = document.getElementById('cust-address');
+  const cityEl = document.getElementById('cust-city');
+  const pincodeEl = document.getElementById('cust-pincode');
 
-// Copy UPI ID to clipboard
-function copyUpiId() {
-  const upiId = backendConfig.merchantUpiId || '8778522690@upi';
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(upiId).then(() => {
-      showToast('✓ UPI ID copied: ' + upiId);
-    }).catch(() => {
-      showToast('UPI ID: ' + upiId);
-    });
-  } else {
-    showToast('UPI ID: ' + upiId);
-  }
-}
+  const name = nameEl?.value.trim();
+  const phone = phoneEl?.value.trim();
+  const address = addressEl?.value.trim();
+  const city = cityEl?.value.trim();
+  const pincode = pincodeEl?.value.trim();
 
-// Open Checkout Modal
-function openCheckoutModal() {
-  if (cart.length === 0) {
-    showToast('Your bag is empty! Add sarees to checkout.');
+  if (!name) {
+    showToast('Please enter your full name');
+    nameEl?.focus();
     return;
   }
 
+  const phoneDigits = phone ? phone.replace(/\D/g, '') : '';
+  if (!phoneDigits || phoneDigits.length < 10) {
+    showToast('Please enter a valid 10-digit mobile number');
+    phoneEl?.focus();
+    return;
+  }
+
+  if (!address) {
+    showToast('Please enter complete delivery address');
+    addressEl?.focus();
+    return;
+  }
+
+  if (!city) {
+    showToast('Please enter your city/town');
+    cityEl?.focus();
+    return;
+  }
+
+  const pinDigits = pincode ? pincode.replace(/\D/g, '') : '';
+  if (!pinDigits || pinDigits.length !== 6) {
+    showToast('Please enter a valid 6-digit pincode');
+    pincodeEl?.focus();
+    return;
+  }
+
+  // Store confirmed customer
+  currentCustomer = {
+    name,
+    phone: phoneDigits.length === 10 ? phoneDigits : phone,
+    address,
+    city,
+    pincode: pinDigits
+  };
+
+  // Populate delivery recap banner in Step 2
+  const recapName = document.getElementById('recap-name');
+  const recapPhone = document.getElementById('recap-phone');
+  const recapAddress = document.getElementById('recap-address');
+
+  if (recapName) recapName.textContent = currentCustomer.name;
+  if (recapPhone) recapPhone.textContent = currentCustomer.phone;
+  if (recapAddress) recapAddress.textContent = `${currentCustomer.address}, ${currentCustomer.city} - ${currentCustomer.pincode}`;
+
+  // Switch to Step 2
+  const step1 = document.getElementById('step-view-details');
+  const step2 = document.getElementById('step-view-payment');
+  const tab1 = document.getElementById('step-tab-1');
+  const tab2 = document.getElementById('step-tab-2');
+  const badgeText = document.getElementById('modal-step-title-badge');
+  const headingText = document.getElementById('modal-heading-text');
+
+  if (step1) step1.style.display = 'none';
+  if (step2) step2.style.display = 'block';
+
+  if (tab1) {
+    tab1.classList.remove('active');
+    tab1.classList.add('completed');
+  }
+  if (tab2) {
+    tab2.classList.add('active');
+  }
+
+  if (badgeText) badgeText.textContent = 'Step 2 of 2';
+  if (headingText) headingText.textContent = 'Scan & Pay with PhonePe';
+
+  const utrInput = document.getElementById('phonepe-utr-input');
+  if (utrInput) {
+    setTimeout(() => utrInput.focus(), 150);
+  }
+
+  const modalCard = document.querySelector('.checkout-modal-card');
+  if (modalCard) modalCard.scrollTop = 0;
+}
+
+// Step 2 -> Step 1 back to edit details
+function backToDetailsStep() {
+  resetCheckoutSteps();
+}
+
+// Buy Now clicked on a specific saree card or modal
+function buyNowSingleProduct(productId) {
+  const p = PRODUCTS.find(item => item.id === productId);
+  if (!p) return;
+  currentCheckoutItems = [{
+    id: p.id,
+    quantity: 1,
+    name: p.name,
+    price: p.price,
+    image: p.image
+  }];
+  openCheckoutModalWithItems(currentCheckoutItems);
+}
+
+// Open Checkout from Shopping Bag
+function openCheckoutModal() {
+  if (cart.length === 0) {
+    showToast('Your bag is empty! Click "Buy Now" on any saree.');
+    return;
+  }
+  closeCartDrawer();
+  currentCheckoutItems = cart.map(item => {
+    const p = PRODUCTS.find(prod => prod.id === item.id);
+    return {
+      id: item.id,
+      quantity: item.quantity,
+      name: p ? p.name : 'Saree',
+      price: p ? p.price : 0,
+      image: p ? p.image : 'images/saree1.jpg'
+    };
+  });
+  openCheckoutModalWithItems(currentCheckoutItems);
+}
+
+// Populate and Display PhonePe Scan & Pay Modal
+function openCheckoutModalWithItems(items) {
   closeCartDrawer();
   const modal = document.getElementById('checkout-modal');
   if (!modal) return;
 
-  // Render Order Items Preview in Checkout
-  const preview = document.getElementById('checkout-items-preview');
-  const subtotalEl = document.getElementById('checkout-subtotal');
-  const totalEl = document.getElementById('checkout-total');
+  // Always initialize on Step 1 (Delivery Details)
+  resetCheckoutSteps();
 
-  let subtotal = 0;
+  const preview = document.getElementById('checkout-items-preview');
+  const totalEl = document.getElementById('checkout-total');
+  const phonepeAmountEl = document.getElementById('phonepe-amount-display');
+  const phonepeAppBtn = document.getElementById('phonepe-app-pay-btn');
+  const scannerImg = document.getElementById('phonepe-scanner-img');
+  const utrInput = document.getElementById('phonepe-utr-input');
+
+  let total = 0;
   if (preview) {
-    preview.innerHTML = cart.map(item => {
-      const product = PRODUCTS.find(p => p.id === item.id);
-      if (!product) return '';
-      const itemTot = product.price * item.quantity;
-      subtotal += itemTot;
+    preview.innerHTML = items.map(item => {
+      const itemTot = item.price * item.quantity;
+      total += itemTot;
       return `
         <div class="checkout-item-row">
-          <img src="${product.image}" alt="${product.name}" class="checkout-item-img" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+          <img src="${item.image}" alt="${item.name}" class="checkout-item-img" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
           <div class="checkout-item-name">
-            ${product.name}
-            <div class="checkout-item-qty">Qty: ${item.quantity} × ${formatINR(product.price)}</div>
+            <strong>${item.name}</strong>
+            <div class="checkout-item-qty">Qty: ${item.quantity} × ${formatINR(item.price)}</div>
           </div>
           <div class="checkout-item-price">${formatINR(itemTot)}</div>
         </div>
@@ -1020,10 +1073,24 @@ function openCheckoutModal() {
     }).join('');
   }
 
-  if (subtotalEl) subtotalEl.textContent = formatINR(subtotal);
-  if (totalEl) totalEl.textContent = formatINR(subtotal);
+  if (totalEl) totalEl.textContent = formatINR(total);
+  if (phonepeAmountEl) phonepeAmountEl.textContent = formatINR(total);
 
-  updatePaymentButtonLabel(subtotal);
+  // Set uploaded PhonePe scanner image
+  if (scannerImg) {
+    scannerImg.src = PHONEPE_CONFIG.scannerImage;
+  }
+
+  // Set Mobile PhonePe Deep-Link URI with exact total amount
+  const orderRef = 'CBT' + Math.floor(1000 + Math.random() * 9000);
+  const upiUri = `upi://pay?pa=${encodeURIComponent(PHONEPE_CONFIG.merchantUpiId)}&pn=${encodeURIComponent(PHONEPE_CONFIG.payeeName)}&am=${total}&cu=INR&tn=${encodeURIComponent('CB TRENDZ Order ' + orderRef)}`;
+  if (phonepeAppBtn) {
+    phonepeAppBtn.href = upiUri;
+  }
+
+  if (utrInput) {
+    utrInput.value = '';
+  }
 
   modal.classList.add('open');
   document.body.classList.add('no-scroll');
@@ -1035,368 +1102,105 @@ function closeCheckoutModal() {
   document.body.classList.remove('no-scroll');
 }
 
-function updatePaymentButtonLabel(amount) {
-  const payLabel = document.getElementById('btn-pay-label');
-  const isUpi = document.getElementById('pm-upi')?.checked;
-  const isCod = document.getElementById('pm-cod')?.checked;
-  
-  const currentTotal = amount !== undefined ? amount : cart.reduce((acc, i) => {
-    const p = PRODUCTS.find(prod => prod.id === i.id);
-    return acc + (p ? p.price * i.quantity : 0);
-  }, 0);
-
-  if (!payLabel) return;
-
-  if (isCod) {
-    payLabel.textContent = `Place Cash on Delivery Order (${formatINR(currentTotal)})`;
-  } else if (isUpi) {
-    payLabel.textContent = `Pay with UPI / QR (${formatINR(currentTotal)})`;
+// Copy UPI ID to clipboard helper
+function copyUpiId(id) {
+  const text = id || PHONEPE_CONFIG.merchantUpiId;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('✓ UPI ID copied: ' + text);
+    }).catch(() => {
+      showToast('UPI ID: ' + text);
+    });
   } else {
-    payLabel.textContent = `Pay Securely ${formatINR(currentTotal)} (Cards / NetBanking)`;
+    showToast('UPI ID: ' + text);
   }
 }
 
-// Handle Checkout Form Submission (Create Order & Process Real Payment)
-async function handleCheckoutSubmit(e) {
-  e.preventDefault();
+// Handle Order Confirmation & WhatsApp Dispatch
+function handleCheckoutSubmit(e) {
+  if (e && e.preventDefault) e.preventDefault();
 
-  if (cart.length === 0) {
-    showToast('Your bag is empty.');
+  if (!currentCheckoutItems || currentCheckoutItems.length === 0) {
+    showToast('No sarees selected for order.');
     return;
   }
 
-  const submitBtn = document.getElementById('btn-submit-payment');
-  const originalText = submitBtn.innerHTML;
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = '<span>⏳ Preparing Payment...</span>';
+  if (!currentCustomer) {
+    showToast('Please confirm your delivery details first.');
+    backToDetailsStep();
+    return;
+  }
 
-  const emailInput = document.getElementById('cust-email');
-  const rawEmail = emailInput ? emailInput.value.trim() : '';
-  const customer = {
-    name: document.getElementById('cust-name').value.trim(),
-    phone: document.getElementById('cust-phone').value.trim(),
-    email: rawEmail || 'customer@cbtrendz.com',
-    address: document.getElementById('cust-address').value.trim(),
-    city: document.getElementById('cust-city').value.trim(),
-    state: document.getElementById('cust-state').value,
-    pincode: document.getElementById('cust-pincode').value.trim()
-  };
+  const utrInput = document.getElementById('phonepe-utr-input');
+  const utr = utrInput?.value.trim();
 
-  const isUpi = document.getElementById('pm-upi')?.checked;
-  const isCod = document.getElementById('pm-cod')?.checked;
-  let paymentMethod = 'online';
-  if (isUpi) paymentMethod = 'upi';
-  if (isCod) paymentMethod = 'cod';
+  if (!utr || utr.length < 8) {
+    showToast('Please enter the 12-digit PhonePe UTR Number.');
+    utrInput?.focus();
+    return;
+  }
 
-  const totalAmount = cart.reduce((acc, i) => {
-    const p = PRODUCTS.find(prod => prod.id === i.id);
-    return acc + (p ? p.price * i.quantity : 0);
-  }, 0);
+  const orderId = 'CBT-' + Math.floor(100000 + Math.random() * 900000);
+  const totalAmount = currentCheckoutItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const customer = currentCustomer;
 
-  const cartItemsWithDetails = cart.map(i => {
-    const p = PRODUCTS.find(prod => prod.id === i.id);
-    return {
-      id: i.id,
-      name: p ? p.name : 'Saree',
-      price: p ? p.price : 0,
-      quantity: i.quantity,
-      itemTotal: (p ? p.price : 0) * i.quantity,
-      image: p ? p.image : 'images/saree1.jpg'
-    };
+  // Prepare WhatsApp Message with complete saree and delivery information
+  const itemsText = currentCheckoutItems.map((item, idx) => {
+    return `${idx + 1}. *${item.name}* × ${item.quantity} — ₹${(item.price * item.quantity).toLocaleString('en-IN')}`;
+  }).join('\n');
+
+  const nowStr = new Date().toLocaleString('en-IN', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
   });
 
-  // Attempt backend communication with safety timeout
-  let orderData = null;
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000);
-    const res = await fetch(getApiEndpoint('/api/create-order'), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        items: cart,
-        customer,
-        paymentMethod
-      }),
-      signal: controller.signal
-    });
-    clearTimeout(timeoutId);
+  const whatsappMsg = [
+    `🛍️ *NEW SAREE ORDER — ${STORE_CONFIG.name}*`,
+    `──────────────────────`,
+    `🆔 *Order ID:* ${orderId}`,
+    `📅 *Date:* ${nowStr}`,
+    ``,
+    `📦 *SAREES ORDERED:*`,
+    itemsText,
+    ``,
+    `💰 *TOTAL AMOUNT PAID:* ₹${totalAmount.toLocaleString('en-IN')}`,
+    `📱 *PAYMENT METHOD:* PhonePe (Scan & Pay)`,
+    `🔢 *PHONEPE UTR / TXN ID:* ${utr}`,
+    `──────────────────────`,
+    `📍 *CUSTOMER DELIVERY DETAILS:*`,
+    `👤 *Name:* ${customer.name}`,
+    `📞 *Phone / WhatsApp:* ${customer.phone}`,
+    `🏠 *Address:* ${customer.address}`,
+    `🏙️ *City:* ${customer.city}`,
+    `📮 *Pincode:* ${customer.pincode}`,
+    `──────────────────────`,
+    `✅ *I have scanned the QR and paid ₹${totalAmount.toLocaleString('en-IN')} via PhonePe (UTR: ${utr}). Please verify and dispatch the saree(s) to my address.*`
+  ].join('\n');
 
-    if (res.ok) {
-      orderData = await res.json();
-    }
-  } catch (err) {
-    console.log('Backend communication bypassed, using local payment processor');
-  }
+  // Open WhatsApp directly to store owner
+  const waUrl = `https://wa.me/${PHONEPE_CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMsg)}`;
+  window.open(waUrl, '_blank', 'noopener,noreferrer');
 
-  submitBtn.disabled = false;
-  submitBtn.innerHTML = originalText;
+  // Display On-Screen Success Confirmation Screen
+  showOrderSuccess({
+    orderId,
+    utrNumber: utr,
+    customer,
+    items: currentCheckoutItems,
+    amount: totalAmount,
+    whatsappUrl: waUrl
+  });
 
-  // 1. Direct Instant UPI (Scan QR or Pay via UPI App directly to 8778522690@upi)
-  if (paymentMethod === 'upi') {
-    const receiptId = (orderData && orderData.orderId) ? orderData.orderId : ('CBT_' + Date.now().toString(36).toUpperCase());
-    const upiId = (orderData && orderData.upiId) ? orderData.upiId : (backendConfig.merchantUpiId || '8778522690@upi');
-    const storeName = backendConfig.storeName || 'CB TRENDZ';
-    const amount = (orderData && orderData.amount) ? orderData.amount : totalAmount;
-    const upiUrl = (orderData && orderData.upiUrl) 
-      ? orderData.upiUrl 
-      : `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(storeName)}&am=${amount}&cu=INR&tn=${encodeURIComponent('Order ' + receiptId)}`;
-
-    currentPendingOrder = {
-      orderId: receiptId,
-      customer,
-      amount,
-      items: (orderData && orderData.items) ? orderData.items : cartItemsWithDetails,
-      upiUrl,
-      upiId
-    };
-
-    closeCheckoutModal();
-    openUpiPaymentModal(currentPendingOrder);
-    return;
-  }
-
-  // 2. Cash on Delivery (COD)
-  if (paymentMethod === 'cod') {
-    const receiptId = (orderData && orderData.orderId) ? orderData.orderId : ('CBT_' + Date.now().toString(36).toUpperCase());
-    const amount = (orderData && orderData.amount) ? orderData.amount : totalAmount;
-
-    showOrderSuccess({
-      orderId: receiptId,
-      paymentMethod: 'Cash on Delivery (COD)',
-      paymentStatus: 'Pending (Pay upon Delivery)',
-      paymentId: 'COD_' + Date.now().toString(36).toUpperCase(),
-      customer,
-      amount,
-      items: cartItemsWithDetails
-    });
-    return;
-  }
-
-  // 3. Online Cards / NetBanking via Razorpay
-  if (orderData && orderData.success && orderData.razorpayOrderId) {
-    if (typeof Razorpay === 'undefined') {
-      showToast('Razorpay SDK loading. Please choose Instant UPI to pay directly.');
-      return;
-    }
-
-    const options = {
-      key: orderData.keyId,
-      amount: orderData.amount,
-      currency: orderData.currency || 'INR',
-      name: backendConfig.storeName,
-      description: 'Luxury Sarees Purchase',
-      image: 'cb-trendz-logo-hd.png',
-      order_id: orderData.razorpayOrderId,
-      prefill: {
-        name: customer.name,
-        email: customer.email,
-        contact: customer.phone
-      },
-      theme: {
-        color: '#4A1220'
-      },
-      handler: async function (response) {
-        submitBtn.innerHTML = '<span>🔒 Verifying Payment...</span>';
-        try {
-          const verifyRes = await fetch(getApiEndpoint('/api/verify-payment'), {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              razorpayOrderId: response.razorpay_order_id,
-              razorpayPaymentId: response.razorpay_payment_id,
-              razorpaySignature: response.razorpay_signature,
-              customer,
-              items: orderData.items,
-              amount: orderData.totalAmount
-            })
-          });
-
-          const verifyData = await verifyRes.json();
-          if (verifyData.success) {
-            showOrderSuccess(verifyData.order);
-          } else {
-            showToast('Verification failed: ' + verifyData.message);
-          }
-        } catch (err) {
-          showToast('Payment verification completed.');
-          showOrderSuccess({
-            orderId: orderData.receiptId || ('CBT_' + Date.now().toString(36).toUpperCase()),
-            paymentMethod: 'Razorpay Online',
-            paymentStatus: 'PAID',
-            paymentId: response.razorpay_payment_id || ('RZP_' + Date.now()),
-            customer,
-            amount: totalAmount,
-            items: cartItemsWithDetails
-          });
-        }
-      },
-      modal: {
-        ondismiss: function () {
-          showToast('Payment window closed.');
-        }
-      }
-    };
-
-    const rzp = new Razorpay(options);
-    rzp.on('payment.failed', function (response) {
-      showToast('Payment Failed: ' + (response.error.description || 'Transaction declined'));
-    });
-    rzp.open();
-    return;
-  }
-
-  // If Razorpay keys are not yet configured on server
-  showToast('Tip: Use Instant UPI for direct payment to bank, or configure Razorpay keys in Settings.');
-  showGatewaySettingsModal();
-}
-
-// Open UPI Modal with Dynamic QR & App Links
-function openUpiPaymentModal(order) {
-  const modal = document.getElementById('upi-modal');
-  if (!modal) return;
-
-  document.getElementById('upi-order-id-display').textContent = order.orderId;
-  document.getElementById('upi-amount-display').textContent = formatINR(order.amount);
-  document.getElementById('upi-vpa-display').textContent = order.upiId;
-
-  // Generate Real Dynamic QR Code Image via standard UPI URL
-  const qrImg = document.getElementById('upi-qr-img');
-  if (qrImg) {
-    qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=' + encodeURIComponent(order.upiUrl);
-  }
-
-  // Set Mobile App Links (One-tap payment on phone)
-  const linkGpay = document.getElementById('link-gpay');
-  const linkPhonepe = document.getElementById('link-phonepe');
-  const linkPaytm = document.getElementById('link-paytm');
-
-  if (linkGpay) linkGpay.href = order.upiUrl;
-  if (linkPhonepe) linkPhonepe.href = order.upiUrl;
-  if (linkPaytm) linkPaytm.href = order.upiUrl;
-
-  modal.classList.add('open');
-  document.body.classList.add('no-scroll');
-}
-
-function closeUpiPaymentModal() {
-  const modal = document.getElementById('upi-modal');
-  if (modal) modal.classList.remove('open');
-  document.body.classList.remove('no-scroll');
-}
-
-// Handle UPI Verification Form Submit (with UTR Number)
-async function handleUpiVerifySubmit(e) {
-  e.preventDefault();
-  if (!currentPendingOrder) return;
-
-  const utrInput = document.getElementById('upi-utr-input');
-  const utr = utrInput ? utrInput.value.trim() : '';
-
-  const submitBtn = document.getElementById('btn-submit-upi');
-  submitBtn.disabled = true;
-  submitBtn.textContent = '⏳ Confirming Transaction...';
-
-  const finalOrder = {
-    orderId: currentPendingOrder.orderId,
-    paymentId: utr ? ('UTR_' + utr) : ('UPI_' + Date.now().toString(36).toUpperCase()),
-    utrNumber: utr || 'Verified via UPI App',
-    paymentMethod: 'Instant UPI (GPay / PhonePe / Paytm)',
-    paymentStatus: 'PAID',
-    amount: currentPendingOrder.amount,
-    currency: 'INR',
-    customer: currentPendingOrder.customer,
-    items: currentPendingOrder.items,
-    paidAt: new Date().toISOString()
-  };
-
-  // 1. Try sending verification to backend
-  try {
-    const res = await fetch(getApiEndpoint('/api/verify-upi-payment'), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        orderId: currentPendingOrder.orderId,
-        utrNumber: utr,
-        customer: currentPendingOrder.customer,
-        items: currentPendingOrder.items,
-        amount: currentPendingOrder.amount
-      })
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      if (data.success && data.order) {
-        Object.assign(finalOrder, data.order);
-      }
-    }
-  } catch (err) {
-    console.log('Order registered locally:', err);
-  }
-
-  // 2. Save order in browser storage
-  try {
-    const savedOrders = JSON.parse(localStorage.getItem('cbtrendz_orders') || '[]');
-    savedOrders.unshift(finalOrder);
-    localStorage.setItem('cbtrendz_orders', JSON.stringify(savedOrders));
-  } catch (err) {}
-
-  submitBtn.disabled = false;
-  submitBtn.textContent = '✓ I Have Paid — Confirm Order';
-
-  closeUpiPaymentModal();
-  showOrderSuccess(finalOrder);
-  currentPendingOrder = null;
-}
-
-// Gateway Settings Modal
-function showGatewaySettingsModal() {
-  const modal = document.getElementById('gateway-settings-modal');
-  if (!modal) return;
-  document.getElementById('set-merchant-upi').value = backendConfig.merchantUpiId || '8778522690@upi';
-  document.getElementById('set-rzp-key').value = backendConfig.razorpayKeyId || '';
-  modal.classList.add('open');
-  document.body.classList.add('no-scroll');
-}
-
-function closeGatewaySettingsModal() {
-  const modal = document.getElementById('gateway-settings-modal');
-  if (modal) modal.classList.remove('open');
-  document.body.classList.remove('no-scroll');
-}
-
-async function handleSaveKeysSubmit(e) {
-  e.preventDefault();
-  const upiId = document.getElementById('set-merchant-upi').value.trim();
-  const keyId = document.getElementById('set-rzp-key').value.trim();
-  const keySecret = document.getElementById('set-rzp-secret').value.trim();
-
-  if (upiId) {
-    backendConfig.merchantUpiId = upiId;
-    localStorage.setItem('cbtrendz_upi_id', upiId);
-  }
-  if (keyId) {
-    backendConfig.razorpayKeyId = keyId;
-    backendConfig.isRazorpayConfigured = true;
-    localStorage.setItem('cbtrendz_rzp_key', keyId);
-  }
-
-  try {
-    await fetch(getApiEndpoint('/api/save-keys'), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        merchantUpiId: upiId,
-        razorpayKeyId: keyId,
-        razorpayKeySecret: keySecret
-      })
-    });
-  } catch (err) {
-    console.log('Saved to browser storage');
-  }
-
-  showToast('✓ Payment credentials saved!');
-  closeGatewaySettingsModal();
+  // Reset shopping bag
+  cart = [];
+  saveStorage();
+  updateCartUI();
+  currentCheckoutItems = [];
+  currentCustomer = null;
 }
 
 // Display Order Success Screen & Receipt
@@ -1407,24 +1211,21 @@ function showOrderSuccess(order) {
   const content = document.getElementById('success-content');
   if (!successModal || !content) return;
 
-  const paymentMethodStr = String(order.paymentMethod || 'Paid Online');
-  const isCod = paymentMethodStr.includes('COD');
   const cust = order.customer || {};
   const items = Array.isArray(order.items) ? order.items : [];
-  const paymentIdStr = String(order.paymentId || ('TXN_' + Date.now().toString(36).toUpperCase()));
 
   content.innerHTML = `
     <div class="success-badge-circle">✓</div>
-    <h2 class="success-title">${isCod ? 'Order Confirmed!' : 'Real Payment Confirmed!'}</h2>
-    <p class="success-subtitle">Thank you, ${cust.name || 'valued customer'}! Your payment has been received by CB TRENDZ.</p>
+    <h2 class="success-title">Order Confirmed!</h2>
+    <p class="success-subtitle">Thank you, <strong>${cust.name || 'valued customer'}</strong>! Your PhonePe payment has been recorded with UTR <strong>${order.utrNumber}</strong>.</p>
 
     <div class="success-receipt-card" id="printable-receipt">
       <div class="receipt-header-row">
         <div>
           <span style="font-size:0.75rem; color:#7A7272; display:block;">ORDER REFERENCE</span>
-          <strong class="receipt-order-id">${order.orderId || 'CBT_ORDER'}</strong>
+          <strong class="receipt-order-id">${order.orderId}</strong>
         </div>
-        <span class="receipt-status-pill ${isCod ? 'cod' : ''}">${order.paymentStatus || 'PAID'}</span>
+        <span class="receipt-status-pill">PAID via PhonePe</span>
       </div>
 
       <div class="receipt-info-grid">
@@ -1434,14 +1235,14 @@ function showOrderSuccess(order) {
           <small style="color:#7A7272;">${cust.phone || ''}</small>
         </div>
         <div>
-          <span>PAYMENT METHOD</span>
-          <strong>${paymentMethodStr}</strong>
-          <small style="color:#7A7272;">Ref: ${paymentIdStr.substring(0, 20)}</small>
+          <span>PHONEPE UTR / TXN ID</span>
+          <strong style="color:#5F259F;">${order.utrNumber}</strong>
+          <small style="color:#7A7272;">Method: PhonePe Scan & Pay</small>
         </div>
         <div style="grid-column: 1 / -1;">
           <span>DELIVERY ADDRESS</span>
           <p style="margin:0; font-size:0.85rem; color:#443F44;">
-            ${cust.address || ''}, ${cust.city || ''}, ${cust.state || ''} ${cust.pincode ? ('- ' + cust.pincode) : ''}
+            ${cust.address || ''}, ${cust.city || ''} - ${cust.pincode || ''}
           </p>
         </div>
       </div>
@@ -1450,7 +1251,7 @@ function showOrderSuccess(order) {
         ${items.map(item => `
           <div style="display:flex; justify-content:space-between; font-size:0.86rem; margin-bottom:6px;">
             <span>${item.name || 'Saree'} (Qty: ${item.quantity || 1})</span>
-            <strong>${formatINR(item.itemTotal || ((item.price || 0) * (item.quantity || 1)))}</strong>
+            <strong>${formatINR((item.price || 0) * (item.quantity || 1))}</strong>
           </div>
         `).join('')}
       </div>
@@ -1461,23 +1262,22 @@ function showOrderSuccess(order) {
       </div>
     </div>
 
+    <div class="success-wa-notice">
+      📲 WhatsApp order confirmation has been opened. If WhatsApp did not open automatically, click the button below:
+    </div>
+
     <div class="success-actions-row">
+      <a href="${order.whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn-success-wa">
+        💬 Open Order in WhatsApp
+      </a>
       <button class="btn-success-print" onclick="window.print()">
         🖨️ Print Invoice Receipt
-      </button>
-      <button class="btn-success-wa" onclick="sendOrderConfirmationWhatsApp('${order.orderId || ''}', '${(cust.name || 'Customer').replace(/'/g, "\\'")}', '${order.amount || 0}', '${paymentMethodStr.replace(/'/g, "\\'")}')">
-        💬 Send Confirmation on WhatsApp
       </button>
       <button class="btn-success-shop" onclick="closeOrderSuccessModal()">
         🛍️ Continue Shopping
       </button>
     </div>
   `;
-
-  // Clear Cart
-  cart = [];
-  saveStorage();
-  updateCartUI();
 
   successModal.classList.add('open');
   document.body.classList.add('no-scroll');
@@ -1487,19 +1287,4 @@ function closeOrderSuccessModal() {
   const modal = document.getElementById('order-success-modal');
   if (modal) modal.classList.remove('open');
   document.body.classList.remove('no-scroll');
-}
-
-function sendOrderConfirmationWhatsApp(orderId, name, amount, method) {
-  const msg = [
-    `✦ *PAID ORDER CONFIRMATION — ${STORE_CONFIG.name}* ✦`,
-    `Hello CB TRENDZ! I have completed real payment for my order.`,
-    `*Order ID:* ${orderId}`,
-    `*Customer:* ${name}`,
-    `*Amount:* ${formatINR(amount)}`,
-    `*Payment Method:* ${method || 'Paid Online'}`,
-    `Please find my delivery details and confirm dispatch schedule. Thank you!`
-  ].join('\n');
-
-  const url = `https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank', 'noopener,noreferrer');
 }

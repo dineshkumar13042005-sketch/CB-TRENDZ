@@ -68,11 +68,11 @@ function saveOrder(order) {
 
 // Product Master Catalog with verified prices for server-side security (5 Sarees)
 const SERVER_CATALOG = {
-  1: { name: 'Kanchipuram Silk Saree', price: 8999, category: 'Silk Sarees', image: 'images/Maroon Gold Zari Saree Ensemble.png' },
-  2: { name: 'Kasavu Cotton Saree', price: 2499, category: 'Cotton Sarees', image: 'images/Teal and Gold Banarasi Saree Fold.png' },
-  3: { name: 'Bridal Kanjivaram Saree', price: 14999, category: 'Wedding Sarees', image: 'images/Lime Green Silk Saree with Teal Zari Border.png' },
-  4: { name: 'Georgette Party Wear Saree', price: 4499, category: 'Party Wear Sarees', image: 'images/Folded_floral_yellow_saree_displ…_f635d66d_2K.jpg' },
-  5: { name: 'Designer Organza Saree', price: 5999, category: 'Designer Sarees', image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg' }
+  1: { name: 'Kanchi cotton Saree', price: 1350, category: 'Cotton Sarees', image: 'images/Maroon Gold Zari Saree Ensemble.png' },
+  2: { name: 'Semi silk Saree', price: 850, category: 'Silk Sarees', image: 'images/Teal and Gold Banarasi Saree Fold.png' },
+  3: { name: 'Semi silk Saree', price: 650, category: 'Silk Sarees', image: 'images/Lime Green Silk Saree with Teal Zari Border.png' },
+  4: { name: 'Daily wear Georgette Saree', price: 550, category: 'Party Wear Sarees', image: 'images/Folded_floral_yellow_saree_displ…_f635d66d_2K.jpg' },
+  5: { name: 'Moonga Silk Saree', price: 1150, category: 'Designer Sarees', image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg' }
 };
 
 // Keys configuration

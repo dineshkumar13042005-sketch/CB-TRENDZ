@@ -10,8 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <!-- Razorpay Official Payment Gateway SDK -->
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
 
@@ -149,10 +147,10 @@
           <div class="price-pill-box">
             <label for="catalog-price">Price:</label>
             <select id="catalog-price" aria-label="Filter by price">
-              <option value="all">All</option>
-              <option value="under3000">Under ₹3,000</option>
-              <option value="3000-6000">₹3,000 - ₹6,000</option>
-              <option value="above6000">Above ₹6,000</option>
+              <option value="all">All Prices</option>
+              <option value="under800">Under ₹800</option>
+              <option value="800-1200">₹800 - ₹1,200</option>
+              <option value="above1200">Above ₹1,200</option>
             </select>
           </div>
         </div>
@@ -363,9 +361,9 @@
       </div>
       <p class="shipping-note">✦ Free Express Shipping across India</p>
       <div class="cart-checkout-actions">
-        <button class="btn-checkout-primary" id="btn-open-checkout">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-          Proceed to Pay (UPI / Card) →
+        <button class="btn-checkout-primary btn-card-buynow" id="btn-open-checkout">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Buy Now →</span>
         </button>
         <button class="btn-checkout-secondary" onclick="checkoutViaWhatsApp()">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -404,185 +402,201 @@
 
   
   <!-- ================================================
-       CHECKOUT MODAL (Online UPI / Card & COD)
+       BUY & CHECKOUT MODAL (2-Step: User Details -> PhonePe Payment)
   ================================================ -->
-  <div class="modal-overlay" id="checkout-modal" role="dialog" aria-modal="true" aria-label="Secure Checkout">
+  <div class="modal-overlay" id="checkout-modal" role="dialog" aria-modal="true" aria-label="Buy Sarees - Checkout">
     <div class="modal-card checkout-modal-card">
       <button class="modal-close-btn" id="checkout-modal-close" aria-label="Close checkout">✕</button>
       
       <div class="checkout-modal-header">
         <div class="checkout-brand-lockup">
-          <svg viewBox="0 0 32 20" fill="none" class="checkout-lotus" aria-hidden="true">
-            <path d="M16 1C14 5 11 9 7 12C11 12 14 10 16 6C18 10 21 12 25 12C21 9 18 5 16 1Z" fill="#D4AF70"/>
-            <path d="M16 7C15 11 12 14 8 16C12 16 15 14 16 10C17 14 20 16 24 16C20 14 17 11 16 7Z" fill="#E8D09A"/>
-          </svg>
-          <h2>Secure Checkout</h2>
+          <div class="phonepe-brand-badge" id="modal-header-badge">
+            <span class="phonepe-icon-glyph">पे</span>
+            <span id="modal-step-title-badge">Step 1 of 2</span>
+          </div>
+          <h2 id="modal-heading-text">Enter Delivery Details</h2>
         </div>
-        <p class="checkout-safe-badge">🔒 256-Bit SSL Encrypted</p>
+        <p class="checkout-safe-badge">🔒 Direct Saree Purchase • WhatsApp Confirmation</p>
       </div>
 
-      <form id="checkout-form" class="checkout-form">
-        <!-- Left Column: Shipping & Payment -->
-        <div class="checkout-left-col">
-          <!-- Customer Information -->
-          <div class="checkout-form-section">
-            <h3 class="checkout-sec-title">1. Contact Information</h3>
-            <div class="form-row-2">
-              <div class="form-group">
-                <label for="cust-name">Full Name *</label>
-                <input
-                  type="text"
-                  id="cust-name"
-                  name="name"
-                  autocomplete="name"
-                  required
-                  placeholder="e.g. Priya Sharma"
-                />
-              </div>
-              <div class="form-group">
-                <label for="cust-phone">WhatsApp / Phone *</label>
-                <input
-                  type="tel"
-                  id="cust-phone"
-                  name="tel"
-                  autocomplete="tel"
-                  inputmode="tel"
-                  required
-                  placeholder="10-digit mobile number"
-                  pattern="[0-9]{10}"
-                />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="cust-email">Email Address <span class="form-optional-tag">(Optional - for invoice receipt)</span></label>
-              <input
-                type="email"
-                id="cust-email"
-                name="email"
-                autocomplete="email"
-                inputmode="email"
-                autocapitalize="none"
-                autocorrect="off"
-                spellcheck="false"
-                placeholder="e.g. priya.sharma@gmail.com"
-              />
-            </div>
-          </div>
-
-          <!-- Shipping Address -->
-          <div class="checkout-form-section">
-            <h3 class="checkout-sec-title">2. Delivery Address</h3>
-            <div class="form-group">
-              <label for="cust-address">Door No, Building, Street *</label>
-              <input type="text" id="cust-address" required placeholder="Street address or landmark" />
-            </div>
-            <div class="form-row-3">
-              <div class="form-group">
-                <label for="cust-city">City *</label>
-                <input type="text" id="cust-city" required placeholder="City / Town" />
-              </div>
-              <div class="form-group">
-                <label for="cust-state">State *</label>
-                <select id="cust-state" required>
-                  <option value="Tamil Nadu">Tamil Nadu</option>
-                  <option value="Karnataka">Karnataka</option>
-                  <option value="Kerala">Kerala</option>
-                  <option value="Andhra Pradesh">Andhra Pradesh</option>
-                  <option value="Telangana">Telangana</option>
-                  <option value="Maharashtra">Maharashtra</option>
-                  <option value="Delhi">Delhi</option>
-                  <option value="Gujarat">Gujarat</option>
-                  <option value="West Bengal">West Bengal</option>
-                  <option value="Other">Other State</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="cust-pincode">Pincode *</label>
-                <input type="text" id="cust-pincode" required placeholder="6-digit PIN" pattern="[0-9]{6}" />
-              </div>
-            </div>
-          </div>
-
-          <!-- Payment Method Selection -->
-          <div class="checkout-form-section">
-            <h3 class="checkout-sec-title">3. Payment Method</h3>
-            <div class="payment-methods-box">
-              <!-- Method 1: Instant UPI (Direct to Bank) -->
-              <label class="payment-method-label selected" id="pm-upi-label">
-                <input type="radio" name="payment-method" id="pm-upi" value="upi" checked />
-                <div class="pm-info">
-                  <div class="pm-title-row">
-                    <strong>Instant UPI (Google Pay / PhonePe / Paytm / QR)</strong>
-                    <span class="pm-badge-secure">Real Instant Payment</span>
-                  </div>
-                  <p class="pm-desc">Pay real money instantly using QR scan or any UPI App directly to CB TRENDZ bank account.</p>
-                </div>
-              </label>
-
-              <!-- Method 2: Cards & NetBanking via Razorpay -->
-              <label class="payment-method-label" id="pm-online-label">
-                <input type="radio" name="payment-method" id="pm-online" value="online" />
-                <div class="pm-info">
-                  <div class="pm-title-row">
-                    <strong>Cards &amp; NetBanking (Razorpay Gateway)</strong>
-                    <span class="pm-badge-secure">Cards &amp; NetBanking</span>
-                  </div>
-                  <p class="pm-desc">Pay via Debit/Credit Cards (RuPay, Visa, Mastercard) or NetBanking from 50+ Banks.</p>
-                </div>
-              </label>
-
-              <!-- Method 3: Cash on Delivery -->
-              <label class="payment-method-label" id="pm-cod-label">
-                <input type="radio" name="payment-method" id="pm-cod" value="cod" />
-                <div class="pm-info">
-                  <div class="pm-title-row">
-                    <strong>Cash on Delivery (COD)</strong>
-                    <span class="pm-badge-cod">Pay upon Delivery</span>
-                  </div>
-                  <p class="pm-desc">Pay cash or scan UPI when your saree arrives at your doorstep.</p>
-                </div>
-              </label>
-            </div>
-            <div style="margin-top:12px; text-align:right;">
-              <button type="button" class="btn-link-settings" id="btn-open-gateway-settings">⚙️ Payment Gateway Settings</button>
-            </div>
-          </div>
+      <!-- Step Indicator Bar -->
+      <div class="checkout-steps-bar">
+        <div class="step-tab active" id="step-tab-1">
+          <span class="step-dot">1</span>
+          <span>Delivery Details</span>
         </div>
+        <div class="step-divider">→</div>
+        <div class="step-tab" id="step-tab-2">
+          <span class="step-dot">2</span>
+          <span>PhonePe Payment</span>
+        </div>
+      </div>
 
-        <!-- Right Column: Order Summary & Place Order -->
-        <div class="checkout-right-col">
-          <div class="checkout-summary-card">
-            <h3 class="summary-card-title">Order Summary</h3>
-            <div class="checkout-items-list" id="checkout-items-preview"></div>
-            
-            <div class="checkout-price-breakdown">
-              <div class="cp-row">
-                <span>Items Subtotal</span>
-                <span id="checkout-subtotal">₹ 0</span>
-              </div>
-              <div class="cp-row">
-                <span>Shipping</span>
-                <span class="free-shipping-tag">FREE</span>
-              </div>
-              <div class="cp-row total-row">
-                <strong>Total Amount</strong>
+      <div class="checkout-body-content">
+        <!-- ====================================================
+             STEP 1: USER / DELIVERY DETAILS
+             ==================================================== -->
+        <div id="step-view-details" class="checkout-step-container">
+          <div class="step1-grid-layout">
+            <!-- Left: Order Summary Preview -->
+            <div class="checkout-form-section">
+              <h3 class="checkout-sec-title">🛍️ Selected Saree(s)</h3>
+              <div class="checkout-items-list" id="checkout-items-preview"></div>
+              
+              <div class="checkout-total-banner">
+                <span>Total Payable Amount:</span>
                 <strong id="checkout-total">₹ 0</strong>
               </div>
             </div>
 
-            <button type="submit" class="btn-pay-now" id="btn-submit-payment">
-              <span class="btn-lock-icon">🔒</span>
-              <span id="btn-pay-label">Pay Securely ₹ 0</span>
-            </button>
+            <!-- Right: Delivery Address Form -->
+            <div class="checkout-form-section">
+              <h3 class="checkout-sec-title">📍 Customer Delivery Address</h3>
+              
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="cust-name">Full Name *</label>
+                  <input
+                    type="text"
+                    id="cust-name"
+                    name="name"
+                    autocomplete="name"
+                    required
+                    placeholder="e.g. Priya Sharma"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="cust-phone">WhatsApp / Mobile Number *</label>
+                  <input
+                    type="tel"
+                    id="cust-phone"
+                    name="tel"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    required
+                    placeholder="10-digit mobile number"
+                    pattern="[0-9]{10}"
+                  />
+                </div>
+              </div>
 
-            <div class="checkout-assurances">
-              <p>✓ 100% Authentic Handloom Sarees</p>
-              <p>✓ 7-Day Easy Returns &amp; Exchanges</p>
-              <p>✓ Verified Razorpay Gateway</p>
+              <div class="form-group">
+                <label for="cust-address">Door No, Building, Street / Area *</label>
+                <input type="text" id="cust-address" required placeholder="Complete delivery address & landmark" />
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="cust-city">City / Town *</label>
+                  <input type="text" id="cust-city" required placeholder="e.g. Chennai" />
+                </div>
+                <div class="form-group">
+                  <label for="cust-pincode">Pincode *</label>
+                  <input type="text" id="cust-pincode" required placeholder="6-digit PIN" pattern="[0-9]{6}" />
+                </div>
+              </div>
+
+              <button type="button" class="btn-proceed-step" id="btn-goto-step-2">
+                <span>Confirm Details &amp; Proceed to Payment →</span>
+              </button>
             </div>
           </div>
         </div>
-      </form>
+
+        <!-- ====================================================
+             STEP 2: PAYMENT PAGE (PhonePe Scanner & UTR Confirmation)
+             ==================================================== -->
+        <div id="step-view-payment" class="checkout-step-container" style="display: none;">
+          <form id="checkout-payment-form">
+            <!-- Delivery Details Recap Banner -->
+            <div class="delivery-recap-banner">
+              <div class="recap-info">
+                <span>📍 Delivering to: </span>
+                <strong id="recap-name">Customer</strong> (<span id="recap-phone">Phone</span>)
+                <div id="recap-address" style="color:#555; font-size:0.78rem;">Address</div>
+              </div>
+              <button type="button" class="btn-edit-details" id="btn-edit-details">✏️ Edit Details</button>
+            </div>
+
+            <!-- PhonePe Scanner Card -->
+            <div class="phonepe-pay-card">
+              <div class="phonepe-card-top">
+                <div class="phonepe-logo-icon">पे</div>
+                <div class="phonepe-heading">
+                  <h4>PhonePe Scan &amp; Pay</h4>
+                  <p>Scan with PhonePe, Google Pay, or Paytm</p>
+                </div>
+              </div>
+
+              <!-- Amount Banner -->
+              <div class="phonepe-amount-display-box">
+                <span class="pad-label">Total Amount to Pay:</span>
+                <span class="pad-val" id="phonepe-amount-display">₹ 0</span>
+              </div>
+
+              <!-- Scanner Photo Display -->
+              <div class="phonepe-scanner-box">
+                <img id="phonepe-scanner-img" src="images/scanner.jpeg" alt="PhonePe QR Scanner" class="phonepe-scanner-img" />
+                <div class="scanner-live-badge">📱 Scan with PhonePe / Any UPI</div>
+              </div>
+
+              <!-- UPI ID & Payee Info -->
+              <div class="phonepe-upi-details">
+                <div class="p-detail-row">
+                  <span class="p-lbl">Payee Name:</span>
+                  <strong class="p-val">K SIBIYAL</strong>
+                </div>
+                <div class="p-detail-row">
+                  <span class="p-lbl">UPI ID:</span>
+                  <strong class="p-val" id="phonepe-vpa-text">k.sibiyal@ibl</strong>
+                  <button type="button" class="btn-copy-upi-pill" onclick="copyUpiId('k.sibiyal@ibl')">📋 Copy</button>
+                </div>
+              </div>
+
+              <!-- Mobile Direct Pay Button -->
+              <a id="phonepe-app-pay-btn" href="#" class="btn-open-phonepe-app" target="_blank">
+                📱 Tap to Pay on PhonePe App
+              </a>
+
+              <!-- 3 Step Guide -->
+              <div class="payment-steps-guide">
+                <div class="step-line"><span class="step-num">1</span> Scan QR &amp; complete payment on PhonePe</div>
+                <div class="step-line"><span class="step-num">2</span> Copy the 12-digit <strong>UTR Number</strong> from PhonePe</div>
+                <div class="step-line"><span class="step-num">3</span> Enter UTR below &amp; confirm order via WhatsApp</div>
+              </div>
+
+              <!-- UTR Number Input Form -->
+              <div class="phonepe-utr-group">
+                <label for="phonepe-utr-input">
+                  <strong>Enter PhonePe 12-Digit UTR / Transaction ID *</strong>
+                  <span class="utr-hint">(from your PhonePe payment screen)</span>
+                </label>
+                <input
+                  type="text"
+                  id="phonepe-utr-input"
+                  name="utr"
+                  required
+                  placeholder="e.g. 412356789012"
+                  pattern="[0-9A-Za-z]{8,22}"
+                  title="Please enter the 12-digit UTR/transaction number from PhonePe"
+                />
+              </div>
+
+              <!-- Confirm & WhatsApp Order Button -->
+              <button type="submit" class="btn-confirm-phonepe" id="btn-submit-order">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                ✓ Confirm Payment &amp; Send to WhatsApp
+              </button>
+              
+              <button type="button" class="btn-back-step" id="btn-back-to-step1">
+                ← Back to Delivery Details
+              </button>
+
+              <p class="safe-delivery-footer">🔒 We verify your PhonePe UTR and dispatch directly to your address.</p>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -595,97 +609,6 @@
       <div class="success-content-wrap" id="success-content">
         <!-- Injected dynamically upon payment success -->
       </div>
-    </div>
-  </div>
-
-  
-  <!-- ================================================
-       UPI PAYMENT MODAL (Dynamic QR Code & App Links)
-  ================================================ -->
-  <div class="modal-overlay" id="upi-modal" role="dialog" aria-modal="true" aria-label="UPI Payment">
-    <div class="modal-card upi-modal-card">
-      <button class="modal-close-btn" id="upi-modal-close" aria-label="Close UPI payment">✕</button>
-      
-      <div class="upi-header-box">
-        <div class="upi-logo-badge">BHIM UPI</div>
-        <h3>Scan &amp; Pay with Any UPI App</h3>
-        <p class="upi-order-meta">Order Reference: <strong id="upi-order-id-display">CBT_...</strong></p>
-      </div>
-
-      <div class="upi-modal-body">
-        <div class="upi-amount-pill">
-          <span>Total Amount to Pay</span>
-          <strong id="upi-amount-display">₹ 0</strong>
-        </div>
-
-        <!-- Dynamic QR Code Container -->
-        <div class="upi-qr-wrapper">
-          <img id="upi-qr-img" src="" alt="Scan UPI QR Code to Pay" class="upi-qr-image" />
-          <div class="qr-scan-hint">Scan with Google Pay, PhonePe, Paytm, or BHIM</div>
-        </div>
-
-        <!-- Store UPI Details with Copy Option -->
-        <div class="upi-id-copy-box">
-          <div class="upi-id-text">
-            <span>Pay directly to UPI ID:</span>
-            <strong id="upi-vpa-display">8778522690@upi</strong>
-          </div>
-          <button type="button" class="btn-copy-upi" id="btn-copy-upi" onclick="copyUpiId()">📋 Copy</button>
-        </div>
-
-        <!-- Mobile Quick Pay Deep-Links -->
-        <div class="upi-app-buttons-row">
-          <a id="link-gpay" href="#" class="btn-upi-app gpay-btn" target="_blank">Google Pay</a>
-          <a id="link-phonepe" href="#" class="btn-upi-app phonepe-btn" target="_blank">PhonePe</a>
-          <a id="link-paytm" href="#" class="btn-upi-app paytm-btn" target="_blank">Paytm / Any UPI</a>
-        </div>
-
-        <!-- Verification UTR Input Form -->
-        <form id="upi-verify-form" class="upi-verify-form">
-          <div class="form-group">
-            <label for="upi-utr-input">Enter 12-digit UPI Reference / UTR Number (from payment screen) *</label>
-            <input type="text" id="upi-utr-input" required placeholder="e.g. 412356789012" pattern="[0-9]{8,16}" title="8 to 16 digit UPI reference number" />
-          </div>
-          <button type="submit" class="btn-confirm-upi" id="btn-submit-upi">
-            ✓ I Have Paid — Confirm Order
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================================================
-       GATEWAY SETTINGS MODAL (Save Razorpay Keys & UPI ID)
-  ================================================ -->
-  <div class="modal-overlay" id="gateway-settings-modal" role="dialog" aria-modal="true" aria-label="Payment Settings">
-    <div class="modal-card gateway-settings-card">
-      <button class="modal-close-btn" id="gateway-settings-close" aria-label="Close settings">✕</button>
-      
-      <div class="settings-modal-header">
-        <h3>⚙️ Payment Gateway Configuration</h3>
-        <p>Set your real Razorpay Keys or UPI ID to accept real payments directly to your bank account.</p>
-      </div>
-
-      <form id="gateway-keys-form" class="gateway-keys-form">
-        <div class="form-group">
-          <label for="set-merchant-upi">Store UPI ID (For Google Pay / PhonePe / Paytm) *</label>
-          <input type="text" id="set-merchant-upi" placeholder="e.g. 8778522690@upi or your bank VPA" required />
-          <small style="color:#7A7272; font-size:0.75rem;">Customers can scan QR or pay directly to this UPI ID.</small>
-        </div>
-
-        <div class="form-group" style="margin-top:14px;">
-          <label for="set-rzp-key">Razorpay Key ID (Optional for Cards/NetBanking)</label>
-          <input type="text" id="set-rzp-key" placeholder="rzp_test_... or rzp_live_..." />
-        </div>
-
-        <div class="form-group">
-          <label for="set-rzp-secret">Razorpay Key Secret</label>
-          <input type="password" id="set-rzp-secret" placeholder="Your Razorpay secret" />
-          <small style="color:#7A7272; font-size:0.75rem;">Get these from https://dashboard.razorpay.com/app/keys</small>
-        </div>
-
-        <button type="submit" class="btn-save-keys" id="btn-save-keys">Save Credentials</button>
-      </form>
     </div>
   </div>
 
@@ -728,6 +651,14 @@
       <span>WhatsApp</span>
     </a>
   </nav>
+
+  <!-- Floating Mobile View Toggle (Click to switch between Mobile and Desktop view anytime) -->
+  <aside class="view-mode-toggle-wrap" id="view-mode-toggle-wrap" aria-label="View Switcher">
+    <button type="button" class="btn-toggle-view" id="btn-toggle-view" title="Switch between Mobile and Desktop view">
+      <span class="view-icon">📱</span>
+      <span class="view-text">Mobile View</span>
+    </button>
+  </aside>
 
   <!-- Main JavaScript File -->
   <script src="script.js"></script>
