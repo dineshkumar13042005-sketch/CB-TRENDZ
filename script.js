@@ -57,14 +57,6 @@ const PRODUCTS = [
     category: 'designer',
     image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg',
     description: 'Peacock teal sheer designer organza saree detailed with artisan zari embroidery and modern scalloped borders.'
-  
-  }
-  id: ,
-    name: 'Moonga Silk Saree',
-    price: 1150,
-    category: 'designer',
-    image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg',
-    description: 'Peacock teal sheer designer organza saree detailed with artisan zari embroidery and modern scalloped borders.'
   }
 ];
 
