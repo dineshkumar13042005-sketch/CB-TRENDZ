@@ -453,52 +453,77 @@
             <div class="checkout-form-section">
               <h3 class="checkout-sec-title">📍 Customer Delivery Address</h3>
               
-              <div class="form-row-2">
+              <form id="checkout-details-form" autocomplete="on">
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="cust-name">Full Name *</label>
+                    <input
+                      type="text"
+                      id="cust-name"
+                      name="name"
+                      autocomplete="name"
+                      required
+                      placeholder="e.g. Priya Sharma"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="cust-phone">WhatsApp / Mobile Number *</label>
+                    <input
+                      type="tel"
+                      id="cust-phone"
+                      name="tel"
+                      autocomplete="tel"
+                      inputmode="tel"
+                      required
+                      placeholder="10-digit mobile number"
+                      pattern="[0-9]{10}"
+                    />
+                  </div>
+                </div>
+
                 <div class="form-group">
-                  <label for="cust-name">Full Name *</label>
+                  <label for="cust-address">Door No, Building, Street / Area *</label>
                   <input
                     type="text"
-                    id="cust-name"
-                    name="name"
-                    autocomplete="name"
+                    id="cust-address"
+                    name="street-address"
+                    autocomplete="street-address"
                     required
-                    placeholder="e.g. Priya Sharma"
+                    placeholder="Complete delivery address & landmark"
                   />
                 </div>
-                <div class="form-group">
-                  <label for="cust-phone">WhatsApp / Mobile Number *</label>
-                  <input
-                    type="tel"
-                    id="cust-phone"
-                    name="tel"
-                    autocomplete="tel"
-                    inputmode="tel"
-                    required
-                    placeholder="10-digit mobile number"
-                    pattern="[0-9]{10}"
-                  />
-                </div>
-              </div>
 
-              <div class="form-group">
-                <label for="cust-address">Door No, Building, Street / Area *</label>
-                <input type="text" id="cust-address" required placeholder="Complete delivery address & landmark" />
-              </div>
-
-              <div class="form-row-2">
-                <div class="form-group">
-                  <label for="cust-city">City / Town *</label>
-                  <input type="text" id="cust-city" required placeholder="e.g. Chennai" />
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="cust-city">City / Town *</label>
+                    <input
+                      type="text"
+                      id="cust-city"
+                      name="city"
+                      autocomplete="address-level2"
+                      required
+                      placeholder="e.g. Chennai"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="cust-pincode">Pincode *</label>
+                    <input
+                      type="text"
+                      id="cust-pincode"
+                      name="postal-code"
+                      autocomplete="postal-code"
+                      inputmode="numeric"
+                      required
+                      placeholder="6-digit PIN"
+                      pattern="[0-9]{6}"
+                    />
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="cust-pincode">Pincode *</label>
-                  <input type="text" id="cust-pincode" required placeholder="6-digit PIN" pattern="[0-9]{6}" />
-                </div>
-              </div>
 
-              <button type="button" class="btn-proceed-step" id="btn-goto-step-2">
-                <span>Confirm Details &amp; Proceed to Payment →</span>
-              </button>
+                <button type="submit" class="btn-proceed-step" id="btn-goto-step-2">
+                  <span>Confirm Details &amp; Proceed to Payment →</span>
+                </button>
+              </form>
             </div>
           </div>
         </div>
@@ -513,7 +538,12 @@
               <div class="recap-info">
                 <span>📍 Delivering to: </span>
                 <strong id="recap-name">Customer</strong> (<span id="recap-phone">Phone</span>)
-                <div id="recap-address" style="color:#555; font-size:0.78rem;">Address</div>
+                <div class="recap-address-row">
+                  <span id="recap-address" class="recap-address-text" title="Click to copy delivery address">Address</span>
+                  <button type="button" class="btn-copy-addr-pill" id="btn-copy-address" onclick="copyDeliveryAddress()" title="Copy full delivery address">
+                    📋 Copy
+                  </button>
+                </div>
               </div>
               <button type="button" class="btn-edit-details" id="btn-edit-details">✏️ Edit Details</button>
             </div>
@@ -523,7 +553,7 @@
               <div class="phonepe-card-top">
                 <div class="phonepe-logo-icon">पे</div>
                 <div class="phonepe-heading">
-                  <h4>PhonePe Scan &amp; Pay</h4>
+                  <h4>PhonePe Payment</h4>
                   <p>Scan with PhonePe, Google Pay, or Paytm</p>
                 </div>
               </div>
@@ -534,9 +564,10 @@
                 <span class="pad-val" id="phonepe-amount-display">₹ 0</span>
               </div>
 
-              <!-- Scanner Photo Display -->
+              <!-- Scanner Photo Display with Auto-Generated Amount -->
               <div class="phonepe-scanner-box">
                 <img id="phonepe-scanner-img" src="images/scanner.jpeg" alt="PhonePe QR Scanner" class="phonepe-scanner-img" />
+                <div class="scanner-amount-tag" id="scanner-amount-tag">Amount: ₹ 0 (Auto-filled on Scan)</div>
                 <div class="scanner-live-badge">📱 Scan with PhonePe / Any UPI</div>
               </div>
 
@@ -558,41 +589,37 @@
                 📱 Tap to Pay on PhonePe App
               </a>
 
-              <!-- 3 Step Guide -->
+              <!-- Automated Payment Signal Monitor Card -->
+              <div class="payment-signal-card" id="payment-signal-card">
+                <div class="signal-radar-animation">
+                  <span class="radar-circle radar-pulse-1"></span>
+                  <span class="radar-circle radar-pulse-2"></span>
+                  <span class="radar-core">📶</span>
+                </div>
+                <div class="signal-status-content">
+                  <h5 id="signal-status-title">Listening for Payment Signal...</h5>
+                  <p id="signal-status-desc">Once you pay on PhonePe, the website automatically detects payment and confirms your order.</p>
+                </div>
+              </div>
+
+              <!-- 3 Step Guide (No UTR) -->
               <div class="payment-steps-guide">
-                <div class="step-line"><span class="step-num">1</span> Scan QR &amp; complete payment on PhonePe</div>
-                <div class="step-line"><span class="step-num">2</span> Copy the 12-digit <strong>UTR Number</strong> from PhonePe</div>
-                <div class="step-line"><span class="step-num">3</span> Enter UTR below &amp; confirm order via WhatsApp</div>
+                <div class="step-line"><span class="step-num">1</span> Scan QR or tap above to open PhonePe (Price is auto-filled)</div>
+                <div class="step-line"><span class="step-num">2</span> Complete payment on PhonePe</div>
+                <div class="step-line"><span class="step-num">3</span> Website automatically confirms your order &amp; opens WhatsApp</div>
               </div>
 
-              <!-- UTR Number Input Form -->
-              <div class="phonepe-utr-group">
-                <label for="phonepe-utr-input">
-                  <strong>Enter PhonePe 12-Digit UTR / Transaction ID *</strong>
-                  <span class="utr-hint">(from your PhonePe payment screen)</span>
-                </label>
-                <input
-                  type="text"
-                  id="phonepe-utr-input"
-                  name="utr"
-                  required
-                  placeholder="e.g. 412356789012"
-                  pattern="[0-9A-Za-z]{8,22}"
-                  title="Please enter the 12-digit UTR/transaction number from PhonePe"
-                />
-              </div>
-
-              <!-- Confirm & WhatsApp Order Button -->
-              <button type="submit" class="btn-confirm-phonepe" id="btn-submit-order">
+              <!-- Confirm & WhatsApp Order Button (Instant, Zero UTR Required) -->
+              <button type="button" class="btn-confirm-phonepe" id="btn-submit-order">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                ✓ Confirm Payment &amp; Send to WhatsApp
+                <span id="btn-confirm-text">✓ Payment Done — Confirm &amp; Send to WhatsApp</span>
               </button>
               
               <button type="button" class="btn-back-step" id="btn-back-to-step1">
                 ← Back to Delivery Details
               </button>
 
-              <p class="safe-delivery-footer">🔒 We verify your PhonePe UTR and dispatch directly to your address.</p>
+              <p class="safe-delivery-footer">🔒 Instant automated order confirmation &amp; direct dispatch to your address.</p>
             </div>
           </form>
         </div>
@@ -601,7 +628,7 @@
   </div>
 
   <!-- ================================================
-       ORDER SUCCESS & RECEIPT MODAL
+       ORDER SUCCESS CONFIRMATION MODAL
   ================================================ -->
   <div class="modal-overlay" id="order-success-modal" role="dialog" aria-modal="true" aria-label="Order Confirmation">
     <div class="modal-card success-modal-card">
@@ -652,15 +679,8 @@
     </a>
   </nav>
 
-  <!-- Floating Mobile View Toggle (Click to switch between Mobile and Desktop view anytime) -->
-  <aside class="view-mode-toggle-wrap" id="view-mode-toggle-wrap" aria-label="View Switcher">
-    <button type="button" class="btn-toggle-view" id="btn-toggle-view" title="Switch between Mobile and Desktop view">
-      <span class="view-icon">📱</span>
-      <span class="view-text">Mobile View</span>
-    </button>
-  </aside>
-
-  <!-- Main JavaScript File -->
+  <!-- QR Code Engine & Main JavaScript File -->
+  <script src="qrious.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

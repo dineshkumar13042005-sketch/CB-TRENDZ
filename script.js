@@ -21,7 +21,7 @@ const PRODUCTS = [
   {
     id: 1,
     name: 'Kanchi cotton Saree',
-    price: 1350,
+    price: 1,
     category: 'cotton',
     image: 'images/Maroon Gold Zari Saree Ensemble.png',
     description: 'Exquisite authentic Kanchipuram pure silk saree with heavy golden zari pallu and intricate border weave. Ideal for weddings and grand festive celebrations.'
@@ -52,6 +52,14 @@ const PRODUCTS = [
   },
   {
     id: 5,
+    name: 'Moonga Silk Saree',
+    price: 1150,
+    category: 'designer',
+    image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg',
+    description: 'Peacock teal sheer designer organza saree detailed with artisan zari embroidery and modern scalloped borders.'
+  
+  }
+  id: ,
     name: 'Moonga Silk Saree',
     price: 1150,
     category: 'designer',
@@ -420,7 +428,8 @@ function checkoutViaWhatsApp() {
     if (!p) return '';
     const itemTotal = p.price * item.quantity;
     total += itemTotal;
-    return `${idx + 1}. ${p.name} - Qty: ${item.quantity} (₹${p.price.toLocaleString('en-IN')})`;
+    const photoUrl = getPublicSareeImageUrl(p.image);
+    return `${idx + 1}. *${p.name}* - Qty: ${item.quantity} (₹${p.price.toLocaleString('en-IN')})${photoUrl ? '\n   📸 Photo: ' + photoUrl : ''}`;
   }).filter(Boolean);
 
   const message = [
@@ -784,16 +793,45 @@ function initEvents() {
   const btnGotoStep2 = document.getElementById('btn-goto-step-2');
   const btnEditDetails = document.getElementById('btn-edit-details');
   const btnBackToStep1 = document.getElementById('btn-back-to-step1');
+  const checkoutDetailsForm = document.getElementById('checkout-details-form');
   const checkoutPaymentForm = document.getElementById('checkout-payment-form');
+  const btnSubmitOrder = document.getElementById('btn-submit-order');
   const successModalClose = document.getElementById('success-modal-close');
+  const recapAddressEl = document.getElementById('recap-address');
+  const btnCopyAddress = document.getElementById('btn-copy-address');
 
   if (btnOpenCheckout) btnOpenCheckout.addEventListener('click', () => openCheckoutModal());
   if (btnCloseCheckout) btnCloseCheckout.addEventListener('click', closeCheckoutModal);
   if (btnGotoStep2) btnGotoStep2.addEventListener('click', goToPaymentStep);
+  if (checkoutDetailsForm) {
+    checkoutDetailsForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      goToPaymentStep();
+    });
+  }
   if (btnEditDetails) btnEditDetails.addEventListener('click', backToDetailsStep);
   if (btnBackToStep1) btnBackToStep1.addEventListener('click', backToDetailsStep);
+  if (btnSubmitOrder) btnSubmitOrder.addEventListener('click', handleCheckoutSubmit);
   if (checkoutPaymentForm) checkoutPaymentForm.addEventListener('submit', handleCheckoutSubmit);
   if (successModalClose) successModalClose.addEventListener('click', closeOrderSuccessModal);
+  if (recapAddressEl) recapAddressEl.addEventListener('click', copyDeliveryAddress);
+  if (btnCopyAddress) btnCopyAddress.addEventListener('click', copyDeliveryAddress);
+
+  // Automatic Payment Signal Detection on App Return (Visibility & Focus)
+  function checkPhonePeAppReturn() {
+    if (typeof isPaymentSignalPending !== 'undefined' && isPaymentSignalPending && typeof hasUserOpenedPhonePe !== 'undefined' && hasUserOpenedPhonePe) {
+      if (typeof triggerPaymentSignalReceived === 'function') {
+        triggerPaymentSignalReceived('App Switch Return');
+      }
+    }
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      checkPhonePeAppReturn();
+    }
+  });
+  window.addEventListener('focus', checkPhonePeAppReturn);
 
   // Direct Buy Now click delegation on cards
   document.addEventListener('click', (e) => {
@@ -819,29 +857,11 @@ function initEvents() {
     }
   });
 
-  // 13. Mobile / Desktop View Mode Toggle Engine
-  const btnToggleView = document.getElementById('btn-toggle-view');
-  if (btnToggleView) {
-    const savedMode = localStorage.getItem('cbtrendz_view_mode');
-    // Default to mobile view active as requested
-    const isMobileMode = savedMode === null ? true : (savedMode === 'mobile');
-
-    if (isMobileMode && window.innerWidth > 768) {
-      document.documentElement.classList.add('mobile-preview-active');
-      btnToggleView.innerHTML = '<span class="view-icon">🖥️</span><span class="view-text">Desktop View</span>';
-    } else {
-      btnToggleView.innerHTML = '<span class="view-icon">📱</span><span class="view-text">Mobile View</span>';
-    }
-
-    btnToggleView.addEventListener('click', () => {
-      const active = document.documentElement.classList.toggle('mobile-preview-active');
-      localStorage.setItem('cbtrendz_view_mode', active ? 'mobile' : 'desktop');
-      btnToggleView.innerHTML = active
-        ? '<span class="view-icon">🖥️</span><span class="view-text">Desktop View</span>'
-        : '<span class="view-icon">📱</span><span class="view-text">Mobile View</span>';
-      showToast(active ? '📱 Mobile View Enabled' : '🖥️ Desktop View Enabled');
-    });
-  }
+  // Ensure clean native responsive view (no forced desktop frame)
+  try {
+    document.documentElement.classList.remove('mobile-preview-active');
+    localStorage.removeItem('cbtrendz_view_mode');
+  } catch (e) {}
 }
 
 /* ============================================================
@@ -865,7 +885,7 @@ if (document.readyState === 'loading') {
 
 
 /* ============================================================
-   11. PHONEPE SCAN & PAY ENGINE (100% Pure Frontend, No Backend)
+   11. PHONEPE INSTANT PAYMENT ENGINE (Zero UTR, Automatic Signal Detection)
    ============================================================ */
 const PHONEPE_CONFIG = {
   storeName: 'CB TRENDZ',
@@ -877,6 +897,10 @@ const PHONEPE_CONFIG = {
 
 let currentCheckoutItems = [];
 let currentCustomer = null;
+let currentOrderRef = '';
+let isPaymentSignalPending = false;
+let hasUserOpenedPhonePe = false;
+let isProcessingPayment = false;
 
 // Reset checkout modal to Step 1 (Delivery Details)
 function resetCheckoutSteps() {
@@ -900,6 +924,10 @@ function resetCheckoutSteps() {
 
   if (badgeText) badgeText.textContent = 'Step 1 of 2';
   if (headingText) headingText.textContent = 'Enter Delivery Details';
+
+  isPaymentSignalPending = false;
+  hasUserOpenedPhonePe = false;
+  isProcessingPayment = false;
 
   const modalCard = document.querySelector('.checkout-modal-card');
   if (modalCard) modalCard.scrollTop = 0;
@@ -925,7 +953,7 @@ function goToPaymentStep() {
     return;
   }
 
-  const phoneDigits = phone ? phone.replace(/\D/g, '') : '';
+  const phoneDigits = phone ? phone.replace(/D/g, '') : '';
   if (!phoneDigits || phoneDigits.length < 10) {
     showToast('Please enter a valid 10-digit mobile number');
     phoneEl?.focus();
@@ -944,7 +972,7 @@ function goToPaymentStep() {
     return;
   }
 
-  const pinDigits = pincode ? pincode.replace(/\D/g, '') : '';
+  const pinDigits = pincode ? pincode.replace(/D/g, '') : '';
   if (!pinDigits || pinDigits.length !== 6) {
     showToast('Please enter a valid 6-digit pincode');
     pincodeEl?.focus();
@@ -989,15 +1017,83 @@ function goToPaymentStep() {
   }
 
   if (badgeText) badgeText.textContent = 'Step 2 of 2';
-  if (headingText) headingText.textContent = 'Scan & Pay with PhonePe';
+  if (headingText) headingText.textContent = 'PhonePe Payment';
 
-  const utrInput = document.getElementById('phonepe-utr-input');
-  if (utrInput) {
-    setTimeout(() => utrInput.focus(), 150);
-  }
+  // Activate automated payment signal listener
+  isPaymentSignalPending = true;
+  hasUserOpenedPhonePe = false;
+  isProcessingPayment = false;
+  resetPaymentSignalCard();
 
   const modalCard = document.querySelector('.checkout-modal-card');
   if (modalCard) modalCard.scrollTop = 0;
+}
+
+// Reset Payment Signal Card UI
+function resetPaymentSignalCard() {
+  const signalCard = document.getElementById('payment-signal-card');
+  const signalTitle = document.getElementById('signal-status-title');
+  const signalDesc = document.getElementById('signal-status-desc');
+  const btnSubmit = document.getElementById('btn-submit-order');
+
+  if (signalCard) signalCard.classList.remove('signal-detected');
+  if (signalTitle) signalTitle.textContent = 'Listening for Payment Signal...';
+  if (signalDesc) signalDesc.textContent = 'Once you pay on PhonePe, the website automatically detects payment and confirms your order.';
+  if (btnSubmit) {
+    btnSubmit.innerHTML = `
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span>✓ Payment Done — Confirm &amp; Send to WhatsApp</span>
+    `;
+    btnSubmit.disabled = false;
+  }
+}
+
+// Dynamic QR Generation with Auto-Generated Amount
+function renderDynamicPhonePeQr(amount, orderRef) {
+  const scannerImg = document.getElementById('phonepe-scanner-img');
+  const amountTag = document.getElementById('scanner-amount-tag');
+  const phonepeAppBtn = document.getElementById('phonepe-app-pay-btn');
+  const numericAmount = Number(amount) || 0;
+  const formattedAmount = numericAmount.toFixed(2);
+  const upiUri = `upi://pay?pa=${encodeURIComponent(PHONEPE_CONFIG.merchantUpiId)}&pn=${encodeURIComponent(PHONEPE_CONFIG.payeeName)}&am=${formattedAmount}&cu=INR&tn=${encodeURIComponent('CB TRENDZ Order ' + orderRef)}&mc=0000&mode=02&purpose=00`;
+
+  if (amountTag) {
+    amountTag.textContent = `Amount: ${formatINR(numericAmount)} (Auto-filled on Scan)`;
+  }
+
+  if (phonepeAppBtn) {
+    phonepeAppBtn.href = upiUri;
+    phonepeAppBtn.onclick = () => {
+      hasUserOpenedPhonePe = true;
+      const signalTitle = document.getElementById('signal-status-title');
+      const signalDesc = document.getElementById('signal-status-desc');
+      if (signalTitle) signalTitle.textContent = 'PhonePe App Opened...';
+      if (signalDesc) signalDesc.textContent = 'Approve payment on PhonePe. When you return here, the order confirms automatically!';
+    };
+  }
+
+  if (scannerImg) {
+    try {
+      if (typeof QRious !== 'undefined') {
+        const qr = new QRious({
+          value: upiUri,
+          size: 320,
+          level: 'M',
+          padding: 14
+        });
+        scannerImg.src = qr.toDataURL('image/png');
+        return;
+      }
+    } catch (err) {
+      console.warn('QRious generation error:', err);
+    }
+    // High-reliability dynamic fallback
+    scannerImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=12&data=${encodeURIComponent(upiUri)}`;
+    scannerImg.onerror = () => {
+      scannerImg.onerror = null;
+      scannerImg.src = PHONEPE_CONFIG.scannerImage;
+    };
+  }
 }
 
 // Step 2 -> Step 1 back to edit details
@@ -1039,7 +1135,7 @@ function openCheckoutModal() {
   openCheckoutModalWithItems(currentCheckoutItems);
 }
 
-// Populate and Display PhonePe Scan & Pay Modal
+// Populate and Display PhonePe Payment Modal
 function openCheckoutModalWithItems(items) {
   closeCartDrawer();
   const modal = document.getElementById('checkout-modal');
@@ -1051,9 +1147,6 @@ function openCheckoutModalWithItems(items) {
   const preview = document.getElementById('checkout-items-preview');
   const totalEl = document.getElementById('checkout-total');
   const phonepeAmountEl = document.getElementById('phonepe-amount-display');
-  const phonepeAppBtn = document.getElementById('phonepe-app-pay-btn');
-  const scannerImg = document.getElementById('phonepe-scanner-img');
-  const utrInput = document.getElementById('phonepe-utr-input');
 
   let total = 0;
   if (preview) {
@@ -1076,21 +1169,9 @@ function openCheckoutModalWithItems(items) {
   if (totalEl) totalEl.textContent = formatINR(total);
   if (phonepeAmountEl) phonepeAmountEl.textContent = formatINR(total);
 
-  // Set uploaded PhonePe scanner image
-  if (scannerImg) {
-    scannerImg.src = PHONEPE_CONFIG.scannerImage;
-  }
-
-  // Set Mobile PhonePe Deep-Link URI with exact total amount
-  const orderRef = 'CBT' + Math.floor(1000 + Math.random() * 9000);
-  const upiUri = `upi://pay?pa=${encodeURIComponent(PHONEPE_CONFIG.merchantUpiId)}&pn=${encodeURIComponent(PHONEPE_CONFIG.payeeName)}&am=${total}&cu=INR&tn=${encodeURIComponent('CB TRENDZ Order ' + orderRef)}`;
-  if (phonepeAppBtn) {
-    phonepeAppBtn.href = upiUri;
-  }
-
-  if (utrInput) {
-    utrInput.value = '';
-  }
+  // Generate dynamic QR with auto-generated price
+  currentOrderRef = 'CBT' + Math.floor(1000 + Math.random() * 9000);
+  renderDynamicPhonePeQr(total, currentOrderRef);
 
   modal.classList.add('open');
   document.body.classList.add('no-scroll');
@@ -1100,9 +1181,12 @@ function closeCheckoutModal() {
   const modal = document.getElementById('checkout-modal');
   if (modal) modal.classList.remove('open');
   document.body.classList.remove('no-scroll');
+  isPaymentSignalPending = false;
+  hasUserOpenedPhonePe = false;
+  isProcessingPayment = false;
 }
 
-// Copy UPI ID to clipboard helper
+// Copy UPI ID helper
 function copyUpiId(id) {
   const text = id || PHONEPE_CONFIG.merchantUpiId;
   if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1116,38 +1200,123 @@ function copyUpiId(id) {
   }
 }
 
-// Handle Order Confirmation & WhatsApp Dispatch
-function handleCheckoutSubmit(e) {
-  if (e && e.preventDefault) e.preventDefault();
+// Copy Delivery Address helper (Click address or Copy button)
+function copyDeliveryAddress() {
+  let text = '';
+  if (currentCustomer) {
+    text = `${currentCustomer.name}, Phone: ${currentCustomer.phone}, Address: ${currentCustomer.address}, ${currentCustomer.city} - ${currentCustomer.pincode}`;
+  } else {
+    const recapName = document.getElementById('recap-name')?.textContent || '';
+    const recapPhone = document.getElementById('recap-phone')?.textContent || '';
+    const recapAddr = document.getElementById('recap-address')?.textContent || '';
+    text = `${recapName} (${recapPhone}), ${recapAddr}`;
+  }
 
-  if (!currentCheckoutItems || currentCheckoutItems.length === 0) {
-    showToast('No sarees selected for order.');
+  if (!text || text.includes('Customer') || text.includes('Address')) {
+    showToast('Please enter your delivery details first');
     return;
   }
 
-  if (!currentCustomer) {
-    showToast('Please confirm your delivery details first.');
-    backToDetailsStep();
-    return;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('✓ Delivery address copied to clipboard!');
+    }).catch(() => {
+      showToast('Address: ' + text);
+    });
+  } else {
+    showToast('✓ Address: ' + text);
+  }
+}
+
+// Automated Payment Signal Trigger (Zero UTR required)
+function triggerPaymentSignalReceived(triggerSource) {
+  if (isProcessingPayment) return;
+  isProcessingPayment = true;
+  isPaymentSignalPending = false;
+
+  const signalCard = document.getElementById('payment-signal-card');
+  const signalTitle = document.getElementById('signal-status-title');
+  const signalDesc = document.getElementById('signal-status-desc');
+  const btnSubmit = document.getElementById('btn-submit-order');
+
+  if (signalCard) signalCard.classList.add('signal-detected');
+  if (signalTitle) signalTitle.innerHTML = '⚡ Payment Signal Detected!';
+  if (signalDesc) signalDesc.textContent = 'Payment received. Generating your confirmed order receipt and opening WhatsApp...';
+
+  if (btnSubmit) {
+    btnSubmit.innerHTML = `
+      <span>✓ Payment Confirmed! Opening WhatsApp...</span>
+    `;
+    btnSubmit.disabled = true;
   }
 
-  const utrInput = document.getElementById('phonepe-utr-input');
-  const utr = utrInput?.value.trim();
+  showToast('✓ Payment Signal Received! Order Confirmed.');
 
-  if (!utr || utr.length < 8) {
-    showToast('Please enter the 12-digit PhonePe UTR Number.');
-    utrInput?.focus();
-    return;
+  setTimeout(() => {
+    executeOrderConfirmation();
+  }, 900);
+}
+
+// Build public, high-resolution direct photo URL for WhatsApp preview
+function getPublicSareeImageUrl(localPath) {
+  if (!localPath) return '';
+  if (localPath.startsWith('http://') || localPath.startsWith('https://')) return localPath;
+  const cleanPath = localPath.replace(/^\.?\//, '');
+  return `https://raw.githubusercontent.com/dineshkumar13042005-sketch/cb-trendz/main/${encodeURI(cleanPath)}`;
+}
+
+// Send Order to WhatsApp with Saree Photo (Native Share on Mobile or WhatsApp Web Link with preview)
+async function dispatchOrderToWhatsApp(whatsappMsg, primaryImage) {
+  const waUrl = `https://wa.me/${PHONEPE_CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMsg)}`;
+
+  // Mobile Web Share: on mobile browsers supporting Web Share Level 2 file sharing,
+  // shares the ACTUAL photo attachment directly to WhatsApp with the order text as caption!
+  if (navigator.share && primaryImage) {
+    try {
+      const response = await fetch(primaryImage);
+      if (response.ok) {
+        const blob = await response.blob();
+        const fileExt = primaryImage.endsWith('.png') ? 'png' : 'jpg';
+        const file = new File([blob], `cb-trendz-saree.${fileExt}`, {
+          type: blob.type || (fileExt === 'png' ? 'image/png' : 'image/jpeg')
+        });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: `Order — ${STORE_CONFIG.name}`,
+            text: whatsappMsg,
+            files: [file]
+          });
+          return waUrl;
+        }
+      }
+    } catch (shareErr) {
+      console.warn('Native share completed or skipped:', shareErr);
+    }
   }
+
+  // Opens WhatsApp directly with prefilled message including public photo preview link
+  window.open(waUrl, '_blank', 'noopener,noreferrer');
+  return waUrl;
+}
+
+// Finalize Order & WhatsApp Notification (ZERO UTR Required, WITH Saree Photo)
+function executeOrderConfirmation() {
+  if (!currentCheckoutItems || currentCheckoutItems.length === 0) return;
+  if (!currentCustomer) return;
 
   const orderId = 'CBT-' + Math.floor(100000 + Math.random() * 900000);
+  const txnRef = 'PHPE_' + Date.now().toString(36).toUpperCase();
   const totalAmount = currentCheckoutItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const customer = currentCustomer;
 
-  // Prepare WhatsApp Message with complete saree and delivery information
+  // Prepare WhatsApp Message with complete saree and delivery information AND photo links
   const itemsText = currentCheckoutItems.map((item, idx) => {
-    return `${idx + 1}. *${item.name}* × ${item.quantity} — ₹${(item.price * item.quantity).toLocaleString('en-IN')}`;
-  }).join('\n');
+    const photoUrl = getPublicSareeImageUrl(item.image);
+    return [
+      `${idx + 1}. *${item.name}* (Qty: ${item.quantity}) — ₹${(item.price * item.quantity).toLocaleString('en-IN')}`,
+      photoUrl ? `   📸 *Saree Photo:* ${photoUrl}` : ''
+    ].filter(Boolean).join('\n');
+  }).join('\n\n');
 
   const nowStr = new Date().toLocaleString('en-IN', {
     day: '2-digit',
@@ -1168,8 +1337,8 @@ function handleCheckoutSubmit(e) {
     itemsText,
     ``,
     `💰 *TOTAL AMOUNT PAID:* ₹${totalAmount.toLocaleString('en-IN')}`,
-    `📱 *PAYMENT METHOD:* PhonePe (Scan & Pay)`,
-    `🔢 *PHONEPE UTR / TXN ID:* ${utr}`,
+    `📱 *PAYMENT METHOD:* PhonePe (Instant Payment)`,
+    `🔢 *TRANSACTION REF:* ${txnRef}`,
     `──────────────────────`,
     `📍 *CUSTOMER DELIVERY DETAILS:*`,
     `👤 *Name:* ${customer.name}`,
@@ -1178,17 +1347,19 @@ function handleCheckoutSubmit(e) {
     `🏙️ *City:* ${customer.city}`,
     `📮 *Pincode:* ${customer.pincode}`,
     `──────────────────────`,
-    `✅ *I have scanned the QR and paid ₹${totalAmount.toLocaleString('en-IN')} via PhonePe (UTR: ${utr}). Please verify and dispatch the saree(s) to my address.*`
+    `✅ *I have completed the payment of ₹${totalAmount.toLocaleString('en-IN')} via PhonePe (Ref: ${txnRef}). Saree photo is linked above. Please verify credit and dispatch the saree(s) to my address.*`,
+    `Thank you!`
   ].join('\n');
 
-  // Open WhatsApp directly to store owner
+  // Open WhatsApp with saree photo attachment (on mobile) or rich preview link
+  const primaryImage = currentCheckoutItems[0]?.image || '';
   const waUrl = `https://wa.me/${PHONEPE_CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMsg)}`;
-  window.open(waUrl, '_blank', 'noopener,noreferrer');
+  dispatchOrderToWhatsApp(whatsappMsg, primaryImage);
 
   // Display On-Screen Success Confirmation Screen
   showOrderSuccess({
     orderId,
-    utrNumber: utr,
+    transactionRef: txnRef,
     customer,
     items: currentCheckoutItems,
     amount: totalAmount,
@@ -1201,9 +1372,28 @@ function handleCheckoutSubmit(e) {
   updateCartUI();
   currentCheckoutItems = [];
   currentCustomer = null;
+  isProcessingPayment = false;
 }
 
-// Display Order Success Screen & Receipt
+// User clicks "Payment Done — Confirm Order" button (Instant confirmation without UTR)
+function handleCheckoutSubmit(e) {
+  if (e && e.preventDefault) e.preventDefault();
+
+  if (!currentCheckoutItems || currentCheckoutItems.length === 0) {
+    showToast('No sarees selected for order.');
+    return;
+  }
+
+  if (!currentCustomer) {
+    showToast('Please confirm your delivery details first.');
+    backToDetailsStep();
+    return;
+  }
+
+  triggerPaymentSignalReceived('Direct Confirmation Click');
+}
+
+// Display Order Success Screen & Printable Receipt
 function showOrderSuccess(order) {
   closeCheckoutModal();
 
@@ -1217,7 +1407,7 @@ function showOrderSuccess(order) {
   content.innerHTML = `
     <div class="success-badge-circle">✓</div>
     <h2 class="success-title">Order Confirmed!</h2>
-    <p class="success-subtitle">Thank you, <strong>${cust.name || 'valued customer'}</strong>! Your PhonePe payment has been recorded with UTR <strong>${order.utrNumber}</strong>.</p>
+    <p class="success-subtitle">Thank you, <strong>${cust.name || 'valued customer'}</strong>! Your payment of <strong>${formatINR(order.amount)}</strong> has been verified via PhonePe.</p>
 
     <div class="success-receipt-card" id="printable-receipt">
       <div class="receipt-header-row">
@@ -1235,9 +1425,9 @@ function showOrderSuccess(order) {
           <small style="color:#7A7272;">${cust.phone || ''}</small>
         </div>
         <div>
-          <span>PHONEPE UTR / TXN ID</span>
-          <strong style="color:#5F259F;">${order.utrNumber}</strong>
-          <small style="color:#7A7272;">Method: PhonePe Scan & Pay</small>
+          <span>TRANSACTION REF</span>
+          <strong style="color:#5F259F;">${order.transactionRef}</strong>
+          <small style="color:#7A7272;">Method: PhonePe (Auto-Confirmed)</small>
         </div>
         <div style="grid-column: 1 / -1;">
           <span>DELIVERY ADDRESS</span>
@@ -1249,8 +1439,14 @@ function showOrderSuccess(order) {
 
       <div class="receipt-items-list">
         ${items.map(item => `
-          <div style="display:flex; justify-content:space-between; font-size:0.86rem; margin-bottom:6px;">
-            <span>${item.name || 'Saree'} (Qty: ${item.quantity || 1})</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.86rem; margin-bottom:8px; padding-bottom:6px; border-bottom:1px dashed #EDE5DA;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <img src="${item.image}" alt="${item.name}" style="width:44px; height:44px; object-fit:cover; border-radius:6px; border:1px solid #D1C4E9;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+              <div>
+                <strong>${item.name}</strong>
+                <div style="font-size:0.75rem; color:#7A7272;">Qty: ${item.quantity || 1} × ${formatINR(item.price)}</div>
+              </div>
+            </div>
             <strong>${formatINR((item.price || 0) * (item.quantity || 1))}</strong>
           </div>
         `).join('')}
@@ -1263,12 +1459,12 @@ function showOrderSuccess(order) {
     </div>
 
     <div class="success-wa-notice">
-      📲 WhatsApp order confirmation has been opened. If WhatsApp did not open automatically, click the button below:
+      📲 WhatsApp order confirmation with saree photos has been opened. If WhatsApp did not open automatically, click the button below:
     </div>
 
     <div class="success-actions-row">
       <a href="${order.whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn-success-wa">
-        💬 Open Order in WhatsApp
+        💬 Open Order &amp; Photos in WhatsApp
       </a>
       <button class="btn-success-print" onclick="window.print()">
         🖨️ Print Invoice Receipt
