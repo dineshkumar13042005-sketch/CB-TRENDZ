@@ -1011,11 +1011,16 @@ function goToPaymentStep() {
   if (badgeText) badgeText.textContent = 'Step 2 of 2';
   if (headingText) headingText.textContent = 'PhonePe Payment';
 
-  // Activate automated payment signal listener
+  // Reset UTR input and prepare Step 2
+  const utrInput = document.getElementById('phonepe-utr-input');
+  if (utrInput) {
+    utrInput.value = '';
+    setTimeout(() => utrInput.focus(), 200);
+  }
+
   isPaymentSignalPending = true;
   hasUserOpenedPhonePe = false;
   isProcessingPayment = false;
-  resetPaymentSignalCard();
 
   const modalCard = document.querySelector('.checkout-modal-card');
   if (modalCard) modalCard.scrollTop = 0;
@@ -1291,13 +1296,13 @@ async function dispatchOrderToWhatsApp(whatsappMsg, primaryImage) {
   return waUrl;
 }
 
-// Finalize Order & WhatsApp Notification (ZERO UTR Required, WITH Saree Photo)
-function executeOrderConfirmation() {
+// Finalize Order & WhatsApp Notification (WITH PhonePe UTR & Saree Photo)
+function executeOrderConfirmation(utr) {
   if (!currentCheckoutItems || currentCheckoutItems.length === 0) return;
   if (!currentCustomer) return;
 
   const orderId = 'CBT-' + Math.floor(100000 + Math.random() * 900000);
-  const txnRef = 'PHPE_' + Date.now().toString(36).toUpperCase();
+  const utrNumber = utr || ('PHPE_' + Date.now().toString(36).toUpperCase());
   const totalAmount = currentCheckoutItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const customer = currentCustomer;
 
@@ -1329,8 +1334,8 @@ function executeOrderConfirmation() {
     itemsText,
     ``,
     `💰 *TOTAL AMOUNT PAID:* ₹${totalAmount.toLocaleString('en-IN')}`,
-    `📱 *PAYMENT METHOD:* PhonePe (Instant Payment)`,
-    `🔢 *TRANSACTION REF:* ${txnRef}`,
+    `📱 *PAYMENT METHOD:* PhonePe`,
+    `🔢 *PHONEPE UTR / TXN ID:* ${utrNumber}`,
     `──────────────────────`,
     `📍 *CUSTOMER DELIVERY DETAILS:*`,
     `👤 *Name:* ${customer.name}`,
@@ -1339,7 +1344,7 @@ function executeOrderConfirmation() {
     `🏙️ *City:* ${customer.city}`,
     `📮 *Pincode:* ${customer.pincode}`,
     `──────────────────────`,
-    `✅ *I have completed the payment of ₹${totalAmount.toLocaleString('en-IN')} via PhonePe (Ref: ${txnRef}). Saree photo is linked above. Please verify credit and dispatch the saree(s) to my address.*`,
+    `✅ *I have completed the payment of ₹${totalAmount.toLocaleString('en-IN')} via PhonePe (UTR: ${utrNumber}). Saree photo is linked above. Please verify credit and dispatch the saree(s) to my address.*`,
     `Thank you!`
   ].join('\n');
 
@@ -1351,7 +1356,7 @@ function executeOrderConfirmation() {
   // Display On-Screen Success Confirmation Screen
   showOrderSuccess({
     orderId,
-    transactionRef: txnRef,
+    utrNumber,
     customer,
     items: currentCheckoutItems,
     amount: totalAmount,
@@ -1367,7 +1372,7 @@ function executeOrderConfirmation() {
   isProcessingPayment = false;
 }
 
-// User clicks "Payment Done — Confirm Order" button (Instant confirmation without UTR)
+// User confirms payment with PhonePe 12-digit UTR number
 function handleCheckoutSubmit(e) {
   if (e && e.preventDefault) e.preventDefault();
 
@@ -1382,7 +1387,28 @@ function handleCheckoutSubmit(e) {
     return;
   }
 
-  triggerPaymentSignalReceived('Direct Confirmation Click');
+  const utrInput = document.getElementById('phonepe-utr-input');
+  const utr = utrInput?.value.trim();
+
+  if (!utr || utr.length < 8) {
+    showToast('Please enter your 12-digit PhonePe UTR number');
+    utrInput?.focus();
+    return;
+  }
+
+  const btnSubmit = document.getElementById('btn-submit-order');
+  if (btnSubmit) {
+    btnSubmit.innerHTML = `
+      <span>✓ UTR Confirmed! Opening WhatsApp...</span>
+    `;
+    btnSubmit.disabled = true;
+  }
+
+  showToast('✓ UTR Confirmed! Opening WhatsApp...');
+
+  setTimeout(() => {
+    executeOrderConfirmation(utr);
+  }, 400);
 }
 
 // Display Order Success Screen & Printable Receipt
@@ -1399,7 +1425,7 @@ function showOrderSuccess(order) {
   content.innerHTML = `
     <div class="success-badge-circle">✓</div>
     <h2 class="success-title">Order Confirmed!</h2>
-    <p class="success-subtitle">Thank you, <strong>${cust.name || 'valued customer'}</strong>! Your payment of <strong>${formatINR(order.amount)}</strong> has been verified via PhonePe.</p>
+    <p class="success-subtitle">Thank you, <strong>${cust.name || 'valued customer'}</strong>! Your PhonePe payment has been recorded with UTR <strong>${order.utrNumber}</strong>.</p>
 
     <div class="success-receipt-card" id="printable-receipt">
       <div class="receipt-header-row">
@@ -1417,9 +1443,9 @@ function showOrderSuccess(order) {
           <small style="color:#7A7272;">${cust.phone || ''}</small>
         </div>
         <div>
-          <span>TRANSACTION REF</span>
-          <strong style="color:#5F259F;">${order.transactionRef}</strong>
-          <small style="color:#7A7272;">Method: PhonePe (Auto-Confirmed)</small>
+          <span>PHONEPE UTR / TXN ID</span>
+          <strong style="color:#5F259F;">${order.utrNumber}</strong>
+          <small style="color:#7A7272;">Method: PhonePe Verified</small>
         </div>
         <div style="grid-column: 1 / -1;">
           <span>DELIVERY ADDRESS</span>
