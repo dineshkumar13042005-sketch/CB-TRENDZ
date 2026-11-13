@@ -794,7 +794,16 @@ function initEvents() {
 
   if (btnOpenCheckout) btnOpenCheckout.addEventListener('click', () => openCheckoutModal());
   if (btnCloseCheckout) btnCloseCheckout.addEventListener('click', closeCheckoutModal);
-  if (btnGotoStep2) btnGotoStep2.addEventListener('click', goToPaymentStep);
+  if (btnGotoStep2) {
+    btnGotoStep2.addEventListener('click', (e) => {
+      if (checkoutDetailsForm && !checkoutDetailsForm.checkValidity()) {
+        checkoutDetailsForm.reportValidity();
+        return;
+      }
+      e.preventDefault();
+      goToPaymentStep();
+    });
+  }
   if (checkoutDetailsForm) {
     checkoutDetailsForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -876,6 +885,11 @@ const RAZORPAY_FRONTEND_CONFIG = {
   whatsappNumber: '918778522690',
   defaultScannerImage: 'images/scanner.jpeg'
 };
+
+// Automatic API origin resolution (Works on localhost:5000, 127.0.0.1:5500, or file://)
+const API_BASE = (typeof window !== 'undefined' && window.location && (window.location.protocol === 'http:' || window.location.protocol === 'https:') && window.location.port === '5000')
+  ? ''
+  : 'http://localhost:5000';
 
 let currentCheckoutItems = [];
 let currentCustomer = null;
@@ -1023,7 +1037,7 @@ async function goToPaymentStep() {
 
   // Request genuine order & dynamic QR from backend server
   try {
-    const res = await fetch('/api/create-qr', {
+    const res = await fetch(`${API_BASE}/api/create-qr`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1103,7 +1117,7 @@ async function checkPaymentStatusOnce(orderId, isManualClick = false) {
   if (!orderId || isOrderConfirmed) return;
 
   try {
-    const res = await fetch(`/api/payment-status/${encodeURIComponent(orderId)}`);
+    const res = await fetch(`${API_BASE}/api/payment-status/${encodeURIComponent(orderId)}`);
     if (!res.ok) {
       if (isManualClick) showToast('Could not reach payment server. Please verify network.');
       return;
@@ -1172,7 +1186,7 @@ function openRazorpayCheckoutModal() {
     handler: async function (response) {
       showToast('✓ Payment received! Verifying HMAC signature on server...');
       try {
-        const verifyRes = await fetch('/api/verify-payment', {
+        const verifyRes = await fetch(`${API_BASE}/api/verify-payment`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -1292,10 +1306,6 @@ function openCheckoutModalWithItems(items) {
 
   if (totalEl) totalEl.textContent = formatINR(total);
   if (phonepeAmountEl) phonepeAmountEl.textContent = formatINR(total);
-
-  // Generate dynamic QR with auto-generated price
-  currentOrderRef = 'CBT' + Math.floor(1000 + Math.random() * 9000);
-  renderDynamicPhonePeQr(total, currentOrderRef);
 
   modal.classList.add('open');
   document.body.classList.add('no-scroll');
