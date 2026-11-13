@@ -4394,3 +4394,44 @@ ul {
 .btn-save-keys:hover {
   background: var(--maroon-hover);
 }
+
+/* ============================================================
+   REAL RAZORPAY PAYMENT & STATUS BUTTONS
+   ============================================================ */
+.btn-rzp-checkout {
+  background: linear-gradient(135deg, #5F259F 0%, #311B92 100%) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(95, 37, 159, 0.35) !important;
+  margin-bottom: 8px !important;
+  cursor: pointer;
+}
+
+.btn-rzp-checkout:hover {
+  background: linear-gradient(135deg, #4A148C 0%, #1A237E 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(95, 37, 159, 0.45) !important;
+}
+
+.btn-check-status-sec {
+  width: 100%;
+  background: #FFFFFF;
+  color: #5F259F;
+  border: 1.5px solid #D1C4E9;
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-check-status-sec:hover {
+  background: #EDE7F6;
+  border-color: #5F259F;
+}
+

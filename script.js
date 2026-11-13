@@ -779,15 +779,15 @@ function initEvents() {
     });
   }
 
-  // 12. Checkout Modal (2-Step: User Details -> PhonePe Payment)
+  // 12. Checkout Modal (2-Step: User Details -> Real Razorpay Payment)
   const btnOpenCheckout = document.getElementById('btn-open-checkout');
   const btnCloseCheckout = document.getElementById('checkout-modal-close');
   const btnGotoStep2 = document.getElementById('btn-goto-step-2');
   const btnEditDetails = document.getElementById('btn-edit-details');
   const btnBackToStep1 = document.getElementById('btn-back-to-step1');
   const checkoutDetailsForm = document.getElementById('checkout-details-form');
-  const checkoutPaymentForm = document.getElementById('checkout-payment-form');
-  const btnSubmitOrder = document.getElementById('btn-submit-order');
+  const btnOpenRzpCheckout = document.getElementById('btn-open-rzp-checkout');
+  const btnManualCheckStatus = document.getElementById('btn-manual-check-status');
   const successModalClose = document.getElementById('success-modal-close');
   const recapAddressEl = document.getElementById('recap-address');
   const btnCopyAddress = document.getElementById('btn-copy-address');
@@ -803,27 +803,19 @@ function initEvents() {
   }
   if (btnEditDetails) btnEditDetails.addEventListener('click', backToDetailsStep);
   if (btnBackToStep1) btnBackToStep1.addEventListener('click', backToDetailsStep);
-  if (btnSubmitOrder) btnSubmitOrder.addEventListener('click', handleCheckoutSubmit);
-  if (checkoutPaymentForm) checkoutPaymentForm.addEventListener('submit', handleCheckoutSubmit);
+  if (btnOpenRzpCheckout) btnOpenRzpCheckout.addEventListener('click', openRazorpayCheckoutModal);
+  if (btnManualCheckStatus) {
+    btnManualCheckStatus.addEventListener('click', () => {
+      if (currentRazorpayOrder && currentRazorpayOrder.orderId) {
+        checkPaymentStatusOnce(currentRazorpayOrder.orderId, true);
+      } else {
+        showToast('Initializing payment, please wait...');
+      }
+    });
+  }
   if (successModalClose) successModalClose.addEventListener('click', closeOrderSuccessModal);
   if (recapAddressEl) recapAddressEl.addEventListener('click', copyDeliveryAddress);
   if (btnCopyAddress) btnCopyAddress.addEventListener('click', copyDeliveryAddress);
-
-  // Automatic Payment Signal Detection on App Return (Visibility & Focus)
-  function checkPhonePeAppReturn() {
-    if (typeof isPaymentSignalPending !== 'undefined' && isPaymentSignalPending && typeof hasUserOpenedPhonePe !== 'undefined' && hasUserOpenedPhonePe) {
-      if (typeof triggerPaymentSignalReceived === 'function') {
-        triggerPaymentSignalReceived('App Switch Return');
-      }
-    }
-  }
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
-      checkPhonePeAppReturn();
-    }
-  });
-  window.addEventListener('focus', checkPhonePeAppReturn);
 
   // Direct Buy Now click delegation on cards
   document.addEventListener('click', (e) => {
@@ -877,19 +869,19 @@ if (document.readyState === 'loading') {
 
 
 /* ============================================================
-   11. PHONEPE INSTANT PAYMENT ENGINE (Zero UTR, Automatic Signal Detection)
+   11. REAL RAZORPAY PAYMENT ENGINE & DYNAMIC UPI QR
    ============================================================ */
-const PHONEPE_CONFIG = {
+const RAZORPAY_FRONTEND_CONFIG = {
   storeName: 'CB TRENDZ',
   whatsappNumber: '918778522690',
-  merchantUpiId: 'k.sibiyal@ibl',
-  payeeName: 'K SIBIYAL',
-  scannerImage: 'images/scanner.jpeg'
+  defaultScannerImage: 'images/scanner.jpeg'
 };
 
 let currentCheckoutItems = [];
 let currentCustomer = null;
-let currentOrderRef = '';
+let currentRazorpayOrder = null;
+let paymentStatusPollingInterval = null;
+let isOrderConfirmed = false;
 let isPaymentSignalPending = false;
 let hasUserOpenedPhonePe = false;
 let isProcessingPayment = false;
@@ -926,7 +918,7 @@ function resetCheckoutSteps() {
 }
 
 // Step 1 -> Step 2 validation and transition
-function goToPaymentStep() {
+async function goToPaymentStep() {
   const nameEl = document.getElementById('cust-name');
   const phoneEl = document.getElementById('cust-phone');
   const addressEl = document.getElementById('cust-address');
@@ -945,7 +937,7 @@ function goToPaymentStep() {
     return;
   }
 
-  const phoneDigits = phone ? phone.replace(/D/g, '') : '';
+  const phoneDigits = phone ? phone.replace(/\D/g, '') : '';
   if (!phoneDigits || phoneDigits.length < 10) {
     showToast('Please enter a valid 10-digit mobile number');
     phoneEl?.focus();
@@ -964,7 +956,7 @@ function goToPaymentStep() {
     return;
   }
 
-  const pinDigits = pincode ? pincode.replace(/D/g, '') : '';
+  const pinDigits = pincode ? pincode.replace(/\D/g, '') : '';
   if (!pinDigits || pinDigits.length !== 6) {
     showToast('Please enter a valid 6-digit pincode');
     pincodeEl?.focus();
@@ -1009,87 +1001,222 @@ function goToPaymentStep() {
   }
 
   if (badgeText) badgeText.textContent = 'Step 2 of 2';
-  if (headingText) headingText.textContent = 'PhonePe Payment';
+  if (headingText) headingText.textContent = 'Razorpay & UPI Payment';
 
-  // Reset UTR input and prepare Step 2
-  const utrInput = document.getElementById('phonepe-utr-input');
-  if (utrInput) {
-    utrInput.value = '';
-    setTimeout(() => utrInput.focus(), 200);
-  }
-
-  isPaymentSignalPending = true;
-  hasUserOpenedPhonePe = false;
-  isProcessingPayment = false;
-
-  const modalCard = document.querySelector('.checkout-modal-card');
-  if (modalCard) modalCard.scrollTop = 0;
-}
-
-// Reset Payment Signal Card UI
-function resetPaymentSignalCard() {
+  // Prepare UI for genuine server order creation
+  isOrderConfirmed = false;
   const signalCard = document.getElementById('payment-signal-card');
   const signalTitle = document.getElementById('signal-status-title');
   const signalDesc = document.getElementById('signal-status-desc');
-  const btnSubmit = document.getElementById('btn-submit-order');
+  const signalCore = document.getElementById('signal-radar-core');
+  const scannerImg = document.getElementById('phonepe-scanner-img');
+  const amountTag = document.getElementById('scanner-amount-tag');
 
   if (signalCard) signalCard.classList.remove('signal-detected');
-  if (signalTitle) signalTitle.textContent = 'Listening for Payment Signal...';
-  if (signalDesc) signalDesc.textContent = 'Once you pay on PhonePe, the website automatically detects payment and confirms your order.';
-  if (btnSubmit) {
-    btnSubmit.innerHTML = `
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      <span>✓ Payment Done — Confirm &amp; Send to WhatsApp</span>
-    `;
-    btnSubmit.disabled = false;
+  if (signalCore) signalCore.textContent = '⏳';
+  if (signalTitle) signalTitle.textContent = 'Creating Secure Razorpay Order...';
+  if (signalDesc) signalDesc.textContent = 'Contacting server to verify prices and generate genuine payment QR...';
+  if (amountTag) amountTag.textContent = 'Generating verified payment QR...';
+
+  const modalCard = document.querySelector('.checkout-modal-card');
+  if (modalCard) modalCard.scrollTop = 0;
+
+  // Request genuine order & dynamic QR from backend server
+  try {
+    const res = await fetch('/api/create-qr', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: currentCheckoutItems,
+        customer: currentCustomer
+      })
+    });
+
+    const data = await res.json();
+    if (!data.success) {
+      showToast(data.message || 'Error generating order on server.');
+      if (signalTitle) signalTitle.textContent = '⚠️ Payment Setup Notice';
+      if (signalDesc) signalDesc.textContent = data.message || 'Please configure Razorpay keys in server/.env.';
+      return;
+    }
+
+    currentRazorpayOrder = data;
+
+    const phonepeAmountEl = document.getElementById('phonepe-amount-display');
+    if (phonepeAmountEl) phonepeAmountEl.textContent = formatINR(data.amount);
+
+    if (data.qrAvailable && data.qrImageUrl) {
+      if (scannerImg) scannerImg.src = data.qrImageUrl;
+      if (amountTag) amountTag.textContent = `Amount: ${formatINR(data.amount)} (Verified Dynamic QR)`;
+      const liveBadge = document.getElementById('scanner-live-badge');
+      if (liveBadge) liveBadge.textContent = '📱 Scan with GPay / PhonePe / Paytm';
+      if (signalTitle) signalTitle.textContent = 'Listening for Genuine Payment...';
+      if (signalDesc) signalDesc.textContent = 'Scan QR above with any UPI app or click below to pay online. Server verifies payment automatically.';
+    } else {
+      // Feature fallback if Razorpay Dynamic QR is not activated on this account
+      if (amountTag) amountTag.textContent = `Amount: ${formatINR(data.amount)} (Razorpay Online Checkout)`;
+      const liveBadge = document.getElementById('scanner-live-badge');
+      if (liveBadge) liveBadge.textContent = '💳 Cards / UPI Apps / NetBanking';
+      if (signalTitle) signalTitle.textContent = 'Ready for Razorpay Checkout';
+      if (signalDesc) signalDesc.textContent = data.message || 'Click "Pay Online via Razorpay" below to pay securely with UPI, Cards, or NetBanking.';
+      if (scannerImg) scannerImg.src = 'cb-trendz-logo-hd.png';
+    }
+
+    // Start live server payment status polling
+    startPaymentStatusPolling(data.orderId);
+  } catch (err) {
+    console.error('Error contacting backend server:', err);
+    showToast('Could not connect to payment backend server. Make sure "node server.js" is running.');
+    if (signalTitle) signalTitle.textContent = '⚠️ Backend Offline';
+    if (signalDesc) signalDesc.textContent = 'Start the backend server on port 5000 to enable real payment processing.';
   }
 }
 
-// Dynamic QR Generation with Auto-Generated Amount
-function renderDynamicPhonePeQr(amount, orderRef) {
-  const scannerImg = document.getElementById('phonepe-scanner-img');
-  const amountTag = document.getElementById('scanner-amount-tag');
-  const phonepeAppBtn = document.getElementById('phonepe-app-pay-btn');
-  const numericAmount = Number(amount) || 0;
-  const formattedAmount = numericAmount.toFixed(2);
-  const upiUri = `upi://pay?pa=${encodeURIComponent(PHONEPE_CONFIG.merchantUpiId)}&pn=${encodeURIComponent(PHONEPE_CONFIG.payeeName)}&am=${formattedAmount}&cu=INR&tn=${encodeURIComponent('CB TRENDZ Order ' + orderRef)}&mc=0000&mode=02&purpose=00`;
-
-  if (amountTag) {
-    amountTag.textContent = `Amount: ${formatINR(numericAmount)} (Auto-filled on Scan)`;
+// Stop polling loop
+function stopPaymentStatusPolling() {
+  if (paymentStatusPollingInterval) {
+    clearInterval(paymentStatusPollingInterval);
+    paymentStatusPollingInterval = null;
   }
+}
 
-  if (phonepeAppBtn) {
-    phonepeAppBtn.href = upiUri;
-    phonepeAppBtn.onclick = () => {
-      hasUserOpenedPhonePe = true;
+// Active polling loop for live payment status from backend
+function startPaymentStatusPolling(orderId) {
+  stopPaymentStatusPolling();
+  if (!orderId) return;
+
+  let pollCount = 0;
+  const maxPolls = 360; // 15 minutes (360 * 2.5s)
+
+  paymentStatusPollingInterval = setInterval(async () => {
+    pollCount++;
+    if (pollCount > maxPolls || isOrderConfirmed) {
+      stopPaymentStatusPolling();
+      return;
+    }
+    await checkPaymentStatusOnce(orderId, false);
+  }, 2500);
+}
+
+// Check payment status once against server
+async function checkPaymentStatusOnce(orderId, isManualClick = false) {
+  if (!orderId || isOrderConfirmed) return;
+
+  try {
+    const res = await fetch(`/api/payment-status/${encodeURIComponent(orderId)}`);
+    if (!res.ok) {
+      if (isManualClick) showToast('Could not reach payment server. Please verify network.');
+      return;
+    }
+    const data = await res.json();
+
+    if (data.success && data.status === 'PAID') {
+      stopPaymentStatusPolling();
+      const signalCard = document.getElementById('payment-signal-card');
       const signalTitle = document.getElementById('signal-status-title');
       const signalDesc = document.getElementById('signal-status-desc');
-      if (signalTitle) signalTitle.textContent = 'PhonePe App Opened...';
-      if (signalDesc) signalDesc.textContent = 'Approve payment on PhonePe. When you return here, the order confirms automatically!';
-    };
+      const signalCore = document.getElementById('signal-radar-core');
+
+      if (signalCard) signalCard.classList.add('signal-detected');
+      if (signalCore) signalCore.textContent = '✓';
+      if (signalTitle) signalTitle.textContent = '⚡ Payment Verified by Razorpay!';
+      if (signalDesc) signalDesc.textContent = `Genuine payment captured (ID: ${data.paymentId}). Confirming your order and opening WhatsApp...`;
+
+      showToast('✓ Razorpay Payment Verified! Order Confirmed.');
+
+      setTimeout(() => {
+        executeOrderConfirmation(data);
+      }, 700);
+    } else if (data.status === 'FAILED') {
+      stopPaymentStatusPolling();
+      const signalTitle = document.getElementById('signal-status-title');
+      const signalDesc = document.getElementById('signal-status-desc');
+      if (signalTitle) signalTitle.textContent = '❌ Payment Failed or Cancelled';
+      if (signalDesc) signalDesc.textContent = data.message || 'Payment was not completed. Please retry using Razorpay Checkout.';
+      showToast('⚠️ Payment was not completed. Please retry.');
+    } else if (isManualClick) {
+      showToast('⏳ Payment is still pending. If you just paid, please allow 3-5 seconds for bank confirmation.');
+    }
+  } catch (err) {
+    console.warn('Payment status check error:', err);
+    if (isManualClick) showToast('Checking payment status...');
+  }
+}
+
+// Open Official Razorpay Checkout Modal (Cards, NetBanking, UPI Apps)
+function openRazorpayCheckoutModal() {
+  if (!currentRazorpayOrder) {
+    showToast('Payment order is initializing, please wait a moment...');
+    return;
   }
 
-  if (scannerImg) {
-    try {
-      if (typeof QRious !== 'undefined') {
-        const qr = new QRious({
-          value: upiUri,
-          size: 320,
-          level: 'M',
-          padding: 14
+  if (typeof window.Razorpay === 'undefined') {
+    showToast('Razorpay checkout SDK is loading. Please check your internet connection.');
+    return;
+  }
+
+  const keyToUse = currentRazorpayOrder.keyId;
+  if (!keyToUse || keyToUse.includes('YourKeyId') || keyToUse.includes('YourRazorpay')) {
+    showToast('Please configure your RAZORPAY_KEY_ID in server/.env');
+    return;
+  }
+
+  const options = {
+    key: keyToUse,
+    amount: currentRazorpayOrder.amountInPaise,
+    currency: currentRazorpayOrder.currency || 'INR',
+    name: STORE_CONFIG.name,
+    description: `Order ${currentRazorpayOrder.orderId}`,
+    image: 'cb-trendz-logo-hd.png',
+    order_id: currentRazorpayOrder.razorpayOrderId,
+    handler: async function (response) {
+      showToast('✓ Payment received! Verifying HMAC signature on server...');
+      try {
+        const verifyRes = await fetch('/api/verify-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            razorpayOrderId: response.razorpay_order_id,
+            razorpayPaymentId: response.razorpay_payment_id,
+            razorpaySignature: response.razorpay_signature,
+            orderId: currentRazorpayOrder.orderId
+          })
         });
-        scannerImg.src = qr.toDataURL('image/png');
-        return;
+        const verifyData = await verifyRes.json();
+        if (verifyData.success && verifyData.status === 'PAID') {
+          stopPaymentStatusPolling();
+          executeOrderConfirmation(verifyData);
+        } else {
+          showToast(verifyData.message || 'Signature verification failed.');
+        }
+      } catch (verifyErr) {
+        console.error('Error verifying payment signature:', verifyErr);
+        checkPaymentStatusOnce(currentRazorpayOrder.orderId, true);
       }
-    } catch (err) {
-      console.warn('QRious generation error:', err);
+    },
+    prefill: {
+      name: currentCustomer ? currentCustomer.name : '',
+      contact: currentCustomer ? currentCustomer.phone : ''
+    },
+    notes: {
+      orderId: currentRazorpayOrder.orderId
+    },
+    theme: {
+      color: '#5F259F'
+    },
+    modal: {
+      ondismiss: function () {
+        console.log('Razorpay modal dismissed by customer');
+      }
     }
-    // High-reliability dynamic fallback
-    scannerImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=12&data=${encodeURIComponent(upiUri)}`;
-    scannerImg.onerror = () => {
-      scannerImg.onerror = null;
-      scannerImg.src = PHONEPE_CONFIG.scannerImage;
-    };
+  };
+
+  try {
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  } catch (err) {
+    console.error('Error opening Razorpay checkout:', err);
+    showToast('Error opening Razorpay: ' + err.message);
   }
 }
 
@@ -1178,6 +1305,7 @@ function closeCheckoutModal() {
   const modal = document.getElementById('checkout-modal');
   if (modal) modal.classList.remove('open');
   document.body.classList.remove('no-scroll');
+  stopPaymentStatusPolling();
   isPaymentSignalPending = false;
   hasUserOpenedPhonePe = false;
   isProcessingPayment = false;
@@ -1185,7 +1313,7 @@ function closeCheckoutModal() {
 
 // Copy UPI ID helper
 function copyUpiId(id) {
-  const text = id || PHONEPE_CONFIG.merchantUpiId;
+  const text = id || '8778522690@upi';
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => {
       showToast('✓ UPI ID copied: ' + text);
@@ -1225,35 +1353,6 @@ function copyDeliveryAddress() {
   }
 }
 
-// Automated Payment Signal Trigger (Zero UTR required)
-function triggerPaymentSignalReceived(triggerSource) {
-  if (isProcessingPayment) return;
-  isProcessingPayment = true;
-  isPaymentSignalPending = false;
-
-  const signalCard = document.getElementById('payment-signal-card');
-  const signalTitle = document.getElementById('signal-status-title');
-  const signalDesc = document.getElementById('signal-status-desc');
-  const btnSubmit = document.getElementById('btn-submit-order');
-
-  if (signalCard) signalCard.classList.add('signal-detected');
-  if (signalTitle) signalTitle.innerHTML = '⚡ Payment Signal Detected!';
-  if (signalDesc) signalDesc.textContent = 'Payment received. Generating your confirmed order receipt and opening WhatsApp...';
-
-  if (btnSubmit) {
-    btnSubmit.innerHTML = `
-      <span>✓ Payment Confirmed! Opening WhatsApp...</span>
-    `;
-    btnSubmit.disabled = true;
-  }
-
-  showToast('✓ Payment Signal Received! Order Confirmed.');
-
-  setTimeout(() => {
-    executeOrderConfirmation();
-  }, 900);
-}
-
 // Build public, high-resolution direct photo URL for WhatsApp preview
 function getPublicSareeImageUrl(localPath) {
   if (!localPath) return '';
@@ -1264,7 +1363,8 @@ function getPublicSareeImageUrl(localPath) {
 
 // Send Order to WhatsApp with Saree Photo (Native Share on Mobile or WhatsApp Web Link with preview)
 async function dispatchOrderToWhatsApp(whatsappMsg, primaryImage) {
-  const waUrl = `https://wa.me/${PHONEPE_CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMsg)}`;
+  const waNumber = STORE_CONFIG.whatsappNumber || '918778522690';
+  const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(whatsappMsg)}`;
 
   // Mobile Web Share: on mobile browsers supporting Web Share Level 2 file sharing,
   // shares the ACTUAL photo attachment directly to WhatsApp with the order text as caption!
@@ -1296,13 +1396,18 @@ async function dispatchOrderToWhatsApp(whatsappMsg, primaryImage) {
   return waUrl;
 }
 
-// Finalize Order & WhatsApp Notification (WITH PhonePe UTR & Saree Photo)
-function executeOrderConfirmation(utr) {
+// Finalize Order & WhatsApp Notification (GENUINE Razorpay Payment & Saree Photo)
+function executeOrderConfirmation(paymentResult) {
+  if (isOrderConfirmed) return;
   if (!currentCheckoutItems || currentCheckoutItems.length === 0) return;
   if (!currentCustomer) return;
 
-  const orderId = 'CBT-' + Math.floor(100000 + Math.random() * 900000);
-  const utrNumber = utr || ('PHPE_' + Date.now().toString(36).toUpperCase());
+  isOrderConfirmed = true;
+  stopPaymentStatusPolling();
+
+  const orderId = paymentResult?.orderId || currentRazorpayOrder?.orderId || ('CBT-' + Math.floor(100000 + Math.random() * 900000));
+  const paymentId = paymentResult?.paymentId || ('pay_' + Date.now().toString(36));
+  const transactionRef = paymentResult?.transactionRef || paymentId;
   const totalAmount = currentCheckoutItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const customer = currentCustomer;
 
@@ -1325,7 +1430,7 @@ function executeOrderConfirmation(utr) {
   });
 
   const whatsappMsg = [
-    `🛍️ *NEW SAREE ORDER — ${STORE_CONFIG.name}*`,
+    `🛍️ *CONFIRMED SAREE ORDER — ${STORE_CONFIG.name}*`,
     `──────────────────────`,
     `🆔 *Order ID:* ${orderId}`,
     `📅 *Date:* ${nowStr}`,
@@ -1334,8 +1439,9 @@ function executeOrderConfirmation(utr) {
     itemsText,
     ``,
     `💰 *TOTAL AMOUNT PAID:* ₹${totalAmount.toLocaleString('en-IN')}`,
-    `📱 *PAYMENT METHOD:* PhonePe`,
-    `🔢 *PHONEPE UTR / TXN ID:* ${utrNumber}`,
+    `📱 *PAYMENT METHOD:* Razorpay Verified`,
+    `🔢 *RAZORPAY PAYMENT ID:* ${paymentId}`,
+    `💳 *BANK TXN REF:* ${transactionRef}`,
     `──────────────────────`,
     `📍 *CUSTOMER DELIVERY DETAILS:*`,
     `👤 *Name:* ${customer.name}`,
@@ -1344,71 +1450,34 @@ function executeOrderConfirmation(utr) {
     `🏙️ *City:* ${customer.city}`,
     `📮 *Pincode:* ${customer.pincode}`,
     `──────────────────────`,
-    `✅ *I have completed the payment of ₹${totalAmount.toLocaleString('en-IN')} via PhonePe (UTR: ${utrNumber}). Saree photo is linked above. Please verify credit and dispatch the saree(s) to my address.*`,
+    `✅ *Payment of ₹${totalAmount.toLocaleString('en-IN')} has been genuinely verified by Razorpay (ID: ${paymentId}). Saree photo is linked above. Please dispatch the saree(s) to my address.*`,
     `Thank you!`
   ].join('\n');
 
   // Open WhatsApp with saree photo attachment (on mobile) or rich preview link
   const primaryImage = currentCheckoutItems[0]?.image || '';
-  const waUrl = `https://wa.me/${PHONEPE_CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMsg)}`;
+  const waNumber = STORE_CONFIG.whatsappNumber || '918778522690';
+  const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(whatsappMsg)}`;
   dispatchOrderToWhatsApp(whatsappMsg, primaryImage);
 
   // Display On-Screen Success Confirmation Screen
   showOrderSuccess({
     orderId,
-    utrNumber,
+    paymentId,
+    transactionRef,
     customer,
     items: currentCheckoutItems,
     amount: totalAmount,
     whatsappUrl: waUrl
   });
 
-  // Reset shopping bag
+  // Reset shopping bag ONLY after verified payment
   cart = [];
   saveStorage();
   updateCartUI();
   currentCheckoutItems = [];
   currentCustomer = null;
-  isProcessingPayment = false;
-}
-
-// User confirms payment with PhonePe 12-digit UTR number
-function handleCheckoutSubmit(e) {
-  if (e && e.preventDefault) e.preventDefault();
-
-  if (!currentCheckoutItems || currentCheckoutItems.length === 0) {
-    showToast('No sarees selected for order.');
-    return;
-  }
-
-  if (!currentCustomer) {
-    showToast('Please confirm your delivery details first.');
-    backToDetailsStep();
-    return;
-  }
-
-  const utrInput = document.getElementById('phonepe-utr-input');
-  const utr = utrInput?.value.trim();
-
-  if (!utr || utr.length < 8) {
-    showToast('Please enter your 12-digit PhonePe UTR number');
-    utrInput?.focus();
-    return;
-  }
-
-  const btnSubmit = document.getElementById('btn-submit-order');
-  if (btnSubmit) {
-    btnSubmit.innerHTML = `
-      <span>✓ UTR Confirmed! Opening WhatsApp...</span>
-    `;
-    btnSubmit.disabled = true;
-  }
-
-  showToast('✓ UTR Confirmed! Opening WhatsApp...');
-
-  setTimeout(() => {
-    executeOrderConfirmation(utr);
-  }, 400);
+  currentRazorpayOrder = null;
 }
 
 // Display Order Success Screen & Printable Receipt
@@ -1425,7 +1494,7 @@ function showOrderSuccess(order) {
   content.innerHTML = `
     <div class="success-badge-circle">✓</div>
     <h2 class="success-title">Order Confirmed!</h2>
-    <p class="success-subtitle">Thank you, <strong>${cust.name || 'valued customer'}</strong>! Your PhonePe payment has been recorded with UTR <strong>${order.utrNumber}</strong>.</p>
+    <p class="success-subtitle">Thank you, <strong>${cust.name || 'valued customer'}</strong>! Your payment of <strong>${formatINR(order.amount)}</strong> has been verified by Razorpay (Payment ID: <strong>${order.paymentId || order.transactionRef}</strong>).</p>
 
     <div class="success-receipt-card" id="printable-receipt">
       <div class="receipt-header-row">
@@ -1433,7 +1502,7 @@ function showOrderSuccess(order) {
           <span style="font-size:0.75rem; color:#7A7272; display:block;">ORDER REFERENCE</span>
           <strong class="receipt-order-id">${order.orderId}</strong>
         </div>
-        <span class="receipt-status-pill">PAID via PhonePe</span>
+        <span class="receipt-status-pill">PAID via Razorpay</span>
       </div>
 
       <div class="receipt-info-grid">
@@ -1443,9 +1512,9 @@ function showOrderSuccess(order) {
           <small style="color:#7A7272;">${cust.phone || ''}</small>
         </div>
         <div>
-          <span>PHONEPE UTR / TXN ID</span>
-          <strong style="color:#5F259F;">${order.utrNumber}</strong>
-          <small style="color:#7A7272;">Method: PhonePe Verified</small>
+          <span>RAZORPAY PAYMENT ID</span>
+          <strong style="color:#5F259F;">${order.paymentId || order.transactionRef}</strong>
+          <small style="color:#7A7272;">Method: Razorpay Captured</small>
         </div>
         <div style="grid-column: 1 / -1;">
           <span>DELIVERY ADDRESS</span>

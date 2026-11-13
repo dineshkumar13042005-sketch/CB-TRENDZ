@@ -1,0 +1,26 @@
+{
+  "name": "cb-trendz-server",
+  "version": "1.0.0",
+  "description": "CB TRENDZ Real Razorpay Payment Server (Orders API, Dynamic QR Codes, Webhooks, Verification)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "razorpay",
+    "ecommerce",
+    "payment-gateway",
+    "webhook",
+    "qr-code"
+  ],
+  "author": "CB TRENDZ",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "qrcode": "^1.5.3",
+    "razorpay": "^2.9.2"
+  }
+}
