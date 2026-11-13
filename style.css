@@ -4398,6 +4398,110 @@ ul {
 /* ============================================================
    REAL RAZORPAY PAYMENT & STATUS BUTTONS
    ============================================================ */
+/* ============================================================
+   PHONEPE & GPAY INSTANT PAYMENT OPTION CARDS
+   ============================================================ */
+.payment-method-selector-wrap {
+  margin: 14px 0 16px 0;
+  text-align: left;
+}
+
+.payment-options-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7A2838;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.payment-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .payment-options-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+.btn-pay-option {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 12px 14px !important;
+  border-radius: var(--radius-sm) !important;
+  border: 1.5px solid #E2D9D2 !important;
+  background: #FFFFFF !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+  text-align: left !important;
+  width: 100% !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+.btn-pay-option:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.09) !important;
+}
+
+.btn-pay-phonepe {
+  border-color: #5F259F !important;
+  background: linear-gradient(to right, #FAF5FF, #FFFFFF) !important;
+}
+
+.btn-pay-phonepe:hover {
+  border-color: #4A148C !important;
+  background: #F3E8FF !important;
+}
+
+.btn-pay-gpay {
+  border-color: #4285F4 !important;
+  background: linear-gradient(to right, #F8FAFC, #FFFFFF) !important;
+}
+
+.btn-pay-gpay:hover {
+  border-color: #1A73E8 !important;
+  background: #EFF6FF !important;
+}
+
+.pay-option-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-option-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pay-option-info strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1E1B4B;
+  line-height: 1.2;
+}
+
+.pay-option-info span {
+  font-size: 0.72rem;
+  color: #6B7280;
+}
+
+.pay-option-arrow {
+  font-size: 1.1rem;
+  color: #D4AF37;
+  font-weight: bold;
+}
+
 .btn-cashfree-checkout {
   background: linear-gradient(135deg, #4F46E5 0%, #312E81 100%) !important;
   color: #FFFFFF !important;

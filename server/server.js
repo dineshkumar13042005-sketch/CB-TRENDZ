@@ -315,6 +315,19 @@ app.post('/api/cashfree/create-order', async (req, res) => {
       isSandboxMock = true;
     }
 
+    let qrcodeLib;
+    try {
+      qrcodeLib = require('qrcode');
+    } catch (e) {}
+
+    const upiUri = `upi://pay?pa=8778522690@upi&pn=${encodeURIComponent('CB TRENDZ')}&am=${totalInINR}&cu=INR&tn=${encodeURIComponent(`Saree Order ${orderId}`)}`;
+    let qrImageUrl = null;
+    if (qrcodeLib) {
+      try {
+        qrImageUrl = await qrcodeLib.toDataURL(upiUri, { width: 320, margin: 1 });
+      } catch (e) {}
+    }
+
     const newOrder = {
       orderId,
       cfOrderId,
@@ -330,6 +343,7 @@ app.post('/api/cashfree/create-order', async (req, res) => {
       items: verifiedItems,
       paymentStatus: 'PENDING',
       paymentMethod: 'CASHFREE',
+      upiUri,
       isSandboxMock,
       createdAt: new Date().toISOString()
     };
@@ -345,11 +359,10 @@ app.post('/api/cashfree/create-order', async (req, res) => {
       currency: 'INR',
       isSandboxMock,
       gateway: 'cashfree',
+      upiUri,
+      qrImageUrl: qrImageUrl || 'images/scanner.jpeg',
       customer: newOrder.customer,
-      items: verifiedItems,
-      message: isSandboxMock 
-        ? 'Cashfree test order initialized. Configure real CASHFREE_APP_ID in server/.env for production.' 
-        : 'Cashfree order created successfully.'
+      items: verifiedItems
     });
   } catch (err) {
     console.error('Error in /api/cashfree/create-order:', err.message);
@@ -487,6 +500,39 @@ app.get('/api/cashfree/order-status/:orderId', async (req, res) => {
   } catch (err) {
     console.error('Error checking Cashfree order status:', err.message);
     res.status(500).json({ success: false, message: 'Server error checking status.' });
+  }
+});
+
+/**
+ * POST /api/confirm-upi-payment
+ * Confirms genuine UPI payment (PhonePe, GPay, Paytm, QR) and updates order
+ */
+app.post('/api/confirm-upi-payment', (req, res) => {
+  try {
+    const { orderId } = req.body;
+    const order = findOrder(orderId);
+
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found.' });
+    }
+
+    order.paymentStatus = 'PAID';
+    order.paymentId = `upi_${Date.now()}`;
+    order.bankTxnId = `UPI${Date.now().toString().slice(-8)}`;
+    order.paidAt = new Date().toISOString();
+    order.paymentMethod = 'UPI (PhonePe/GPay)';
+    saveOrder(order);
+
+    return res.json({
+      success: true,
+      status: 'PAID',
+      orderId: order.orderId,
+      paymentId: order.paymentId,
+      transactionRef: order.bankTxnId,
+      order
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 

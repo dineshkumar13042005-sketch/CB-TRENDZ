@@ -524,7 +524,7 @@
                 </div>
 
                 <button type="submit" class="btn-proceed-step" id="btn-goto-step-2">
-                  <span>Confirm Details &amp; Proceed to Payment →</span>
+                  <span>Confirm Details &amp; View Payment Options (PhonePe / GPay) →</span>
                 </button>
               </form>
             </div>
@@ -532,7 +532,7 @@
         </div>
 
         <!-- ====================================================
-             STEP 2: PAYMENT PAGE (PhonePe Scanner & UTR Confirmation)
+             STEP 2: PAYMENT PAGE (PhonePe, GPay & Cashfree Options)
              ==================================================== -->
         <div id="step-view-payment" class="checkout-step-container" style="display: none;">
           <form id="checkout-payment-form">
@@ -557,7 +557,7 @@
                 <div class="phonepe-logo-icon">₹</div>
                 <div class="phonepe-heading">
                   <h4>Cashfree &amp; UPI Payment</h4>
-                  <p>Scan with Google Pay, PhonePe, Paytm or Pay Online with Cashfree</p>
+                  <p>Choose PhonePe, Google Pay, QR Code or Pay via Cashfree</p>
                 </div>
               </div>
 
@@ -565,6 +565,36 @@
               <div class="phonepe-amount-display-box">
                 <span class="pad-label">Total Amount to Pay:</span>
                 <span class="pad-val" id="phonepe-amount-display">₹ 0</span>
+              </div>
+
+              <!-- UPI Payment Options: PhonePe & GPay -->
+              <div class="payment-method-selector-wrap">
+                <div class="payment-options-title">⚡ Select Payment Option:</div>
+                <div class="payment-options-grid">
+                  <!-- PhonePe Button -->
+                  <button type="button" class="btn-pay-option btn-pay-phonepe" id="btn-pay-phonepe" title="Pay with PhonePe via Cashfree">
+                    <div class="pay-option-icon">
+                      <svg viewBox="0 0 48 48" width="30" height="30"><circle cx="24" cy="24" r="23" fill="#5F259F"/><path d="M24 10l-9 14h6v14h6V24h6z" fill="#FFF"/></svg>
+                    </div>
+                    <div class="pay-option-info">
+                      <strong>PhonePe</strong>
+                      <span>Pay via PhonePe UPI</span>
+                    </div>
+                    <span class="pay-option-arrow">→</span>
+                  </button>
+
+                  <!-- Google Pay (GPay) Button -->
+                  <button type="button" class="btn-pay-option btn-pay-gpay" id="btn-pay-gpay" title="Pay with Google Pay via Cashfree">
+                    <div class="pay-option-icon">
+                      <svg viewBox="0 0 48 48" width="30" height="30"><circle cx="24" cy="24" r="23" fill="#FFFFFF" stroke="#4285F4" stroke-width="1.5"/><path fill="#4285F4" d="M33 24.3c0-.7-.1-1.3-.2-1.9H24v3.8h5.1c-.2 1.2-1 2.3-2 3v2.5h3.3c1.9-1.8 3-4.4 3-7.4z"/><path fill="#34A853" d="M24 33.5c2.6 0 4.8-.9 6.4-2.4l-3.3-2.5c-.9.6-2 1-3.1 1-2.4 0-4.5-1.6-5.2-3.8h-3.4v2.6c1.7 3.3 5.1 5.1 8.6 5.1z"/><path fill="#FBBC05" d="M18.8 25.8c-.2-.6-.3-1.2-.3-1.8s.1-1.2.3-1.8v-2.6h-3.4c-.7 1.4-1.1 3-1.1 4.4s.4 3 1.1 4.4l3.4-2.6z"/><path fill="#EA4335" d="M24 18.2c1.4 0 2.7.5 3.7 1.4l2.8-2.8c-1.7-1.6-3.9-2.6-6.5-2.6-3.5 0-6.9 1.8-8.6 5.1l3.4 2.6c.7-2.2 2.8-3.7 5.2-3.7z"/></svg>
+                    </div>
+                    <div class="pay-option-info">
+                      <strong>Google Pay</strong>
+                      <span>Pay via GPay UPI</span>
+                    </div>
+                    <span class="pay-option-arrow">→</span>
+                  </button>
+                </div>
               </div>
 
               <!-- Dynamic QR Scanner Display -->
@@ -583,20 +613,20 @@
                 </div>
                 <div class="signal-status-content">
                   <h5 id="signal-status-title">Listening for Cashfree Payment...</h5>
-                  <p id="signal-status-desc">Scan QR above with any UPI app or complete payment in Cashfree. Server verifies genuine payment in real-time.</p>
+                  <p id="signal-status-desc">Choose PhonePe, Google Pay, scan QR, or click below to confirm on Cashfree.</p>
                 </div>
               </div>
 
-              <!-- Pay with Official Cashfree Checkout Button (Cards / UPI / NetBanking) -->
+              <!-- Confirm Payment on Cashfree Page Button -->
               <button type="button" class="btn-confirm-phonepe btn-cashfree-checkout btn-rzp-checkout" id="btn-open-cashfree-checkout">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                <span id="btn-cashfree-checkout-text">💳 Pay Online via Cashfree (UPI / GPay / PhonePe / Cards)</span>
+                <span id="btn-cashfree-checkout-text">💳 Pay via Cashfree (Credit / Debit Card / NetBanking / UPI)</span>
               </button>
 
-              <!-- Instant Sandbox Test Button -->
-              <button type="button" class="btn-check-status-sec btn-simulate-cashfree" id="btn-simulate-cashfree" style="display: none; background: #FFFBEB; border-color: #F59E0B; color: #B45309;">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                <span>⚡ Simulate Test Payment (Instant Verification)</span>
+              <!-- Real Payment Confirmation Button -->
+              <button type="button" class="btn-confirm-phonepe btn-paid-confirm" id="btn-confirm-paid-order" style="background: linear-gradient(135deg, #10B981 0%, #047857 100%) !important; color: #FFFFFF !important; margin-bottom: 8px !important; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>✓ I Have Paid — Confirm Order &amp; WhatsApp Receipt</span>
               </button>
 
               <!-- Check Status Button -->
