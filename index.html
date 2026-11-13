@@ -456,14 +456,14 @@
             <div class="checkout-form-section">
               <h3 class="checkout-sec-title">📍 Customer Delivery Details</h3>
               
-              <form id="checkout-details-form" autocomplete="on">
+              <form id="checkout-details-form" autocomplete="off">
                 <div class="form-group">
                   <label for="cust-name">Name *</label>
                   <input
                     type="text"
                     id="cust-name"
-                    name="name"
-                    autocomplete="name"
+                    name="customer_full_name"
+                    autocomplete="off"
                     required
                     placeholder="Enter your full name"
                   />
@@ -474,8 +474,8 @@
                   <input
                     type="tel"
                     id="cust-phone"
-                    name="tel"
-                    autocomplete="tel"
+                    name="customer_phone_no"
+                    autocomplete="off"
                     inputmode="tel"
                     required
                     placeholder="Enter 10-digit mobile number"
@@ -487,8 +487,8 @@
                   <label for="cust-address">Address *</label>
                   <textarea
                     id="cust-address"
-                    name="street-address"
-                    autocomplete="street-address"
+                    name="customer_delivery_address"
+                    autocomplete="off"
                     required
                     rows="2"
                     placeholder="Door No, Building, Street, Area / Landmark"
@@ -501,8 +501,8 @@
                     <input
                       type="text"
                       id="cust-city"
-                      name="city"
-                      autocomplete="address-level2"
+                      name="customer_city_name"
+                      autocomplete="off"
                       required
                       placeholder="e.g. Chennai"
                     />
@@ -512,8 +512,8 @@
                     <input
                       type="text"
                       id="cust-pincode"
-                      name="postal-code"
-                      autocomplete="postal-code"
+                      name="customer_pin_code"
+                      autocomplete="off"
                       inputmode="numeric"
                       required
                       placeholder="6-digit PIN"

@@ -98,6 +98,7 @@ function saveStorage() {
 
 function loadStorage() {
   try {
+    localStorage.removeItem('cbtrendz_customer_info');
     const savedCart = localStorage.getItem('cbtrendz_cart');
     const savedWish = localStorage.getItem('cbtrendz_wishlist');
     if (savedCart) cart = JSON.parse(savedCart);
@@ -1026,7 +1027,7 @@ async function goToPaymentStep() {
     return;
   }
 
-  // Store confirmed customer and persist in localStorage for instant return purchases
+  // Store confirmed customer for the current active order session
   currentCustomer = {
     name,
     phone: phoneDigits.length === 10 ? phoneDigits : phoneDigits.slice(-10),
@@ -1034,10 +1035,6 @@ async function goToPaymentStep() {
     city,
     pincode: pinDigits
   };
-
-  try {
-    localStorage.setItem('cbtrendz_customer_info', JSON.stringify(currentCustomer));
-  } catch (e) {}
 
   // Populate delivery recap banner in Step 2
   const recapName = document.getElementById('recap-name');
@@ -1441,25 +1438,23 @@ function openCheckoutModalWithItems(items) {
   // Always initialize on Step 1 (Delivery Details)
   resetCheckoutSteps();
 
-  // Pre-fill previously saved delivery address if available
+  // Always start with clean, blank input fields so customer can fill her own details
   try {
-    const saved = localStorage.getItem('cbtrendz_customer_info');
-    if (saved) {
-      const info = JSON.parse(saved);
-      if (info) {
-        const nameEl = document.getElementById('cust-name');
-        const phoneEl = document.getElementById('cust-phone');
-        const addrEl = document.getElementById('cust-address');
-        const cityEl = document.getElementById('cust-city');
-        const pinEl = document.getElementById('cust-pincode');
-        if (nameEl && !nameEl.value && info.name) nameEl.value = info.name;
-        if (phoneEl && !phoneEl.value && info.phone) phoneEl.value = info.phone;
-        if (addrEl && !addrEl.value && info.address) addrEl.value = info.address;
-        if (cityEl && !cityEl.value && info.city) cityEl.value = info.city;
-        if (pinEl && !pinEl.value && info.pincode) pinEl.value = info.pincode;
-      }
-    }
+    localStorage.removeItem('cbtrendz_customer_info');
   } catch (e) {}
+
+  const form = document.getElementById('checkout-details-form');
+  if (form) form.reset();
+  const nameEl = document.getElementById('cust-name');
+  const phoneEl = document.getElementById('cust-phone');
+  const addrEl = document.getElementById('cust-address');
+  const cityEl = document.getElementById('cust-city');
+  const pinEl = document.getElementById('cust-pincode');
+  if (nameEl) nameEl.value = '';
+  if (phoneEl) phoneEl.value = '';
+  if (addrEl) addrEl.value = '';
+  if (cityEl) cityEl.value = '';
+  if (pinEl) pinEl.value = '';
 
   const preview = document.getElementById('checkout-items-preview');
   const totalEl = document.getElementById('checkout-total');
