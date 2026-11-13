@@ -10,7 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <!-- Razorpay Official Checkout SDK -->
+  <!-- Cashfree & Razorpay Official Checkout SDKs -->
+  <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
@@ -430,7 +431,7 @@
         <div class="step-divider">→</div>
         <div class="step-tab" id="step-tab-2">
           <span class="step-dot">2</span>
-          <span>PhonePe Payment</span>
+          <span>Cashfree Payment</span>
         </div>
       </div>
 
@@ -550,13 +551,13 @@
               <button type="button" class="btn-edit-details" id="btn-edit-details">✏️ Edit Details</button>
             </div>
 
-            <!-- Razorpay Payment & Scanner Card -->
+            <!-- Cashfree Payment & Scanner Card -->
             <div class="phonepe-pay-card">
               <div class="phonepe-card-top">
                 <div class="phonepe-logo-icon">₹</div>
                 <div class="phonepe-heading">
-                  <h4>Razorpay &amp; UPI Payment</h4>
-                  <p>Scan with Google Pay, PhonePe, Paytm or Pay Online</p>
+                  <h4>Cashfree &amp; UPI Payment</h4>
+                  <p>Scan with Google Pay, PhonePe, Paytm or Pay Online with Cashfree</p>
                 </div>
               </div>
 
@@ -568,7 +569,7 @@
 
               <!-- Dynamic QR Scanner Display -->
               <div class="phonepe-scanner-box">
-                <img id="phonepe-scanner-img" src="images/scanner.jpeg" alt="Razorpay Payment QR" class="phonepe-scanner-img" />
+                <img id="phonepe-scanner-img" src="images/scanner.jpeg" alt="Cashfree Payment QR" class="phonepe-scanner-img" />
                 <div class="scanner-amount-tag" id="scanner-amount-tag">Generating dynamic payment QR...</div>
                 <div class="scanner-live-badge" id="scanner-live-badge">📱 Scan with GPay / PhonePe / Paytm</div>
               </div>
@@ -581,15 +582,21 @@
                   <span class="radar-core" id="signal-radar-core">⏳</span>
                 </div>
                 <div class="signal-status-content">
-                  <h5 id="signal-status-title">Listening for Razorpay Payment...</h5>
-                  <p id="signal-status-desc">Scan QR above with any UPI app or click below to pay online. Server verifies genuine payment in real-time.</p>
+                  <h5 id="signal-status-title">Listening for Cashfree Payment...</h5>
+                  <p id="signal-status-desc">Scan QR above with any UPI app or complete payment in Cashfree. Server verifies genuine payment in real-time.</p>
                 </div>
               </div>
 
-              <!-- Pay with Official Razorpay Checkout Button (Cards / UPI / NetBanking) -->
-              <button type="button" class="btn-confirm-phonepe btn-rzp-checkout" id="btn-open-rzp-checkout">
+              <!-- Pay with Official Cashfree Checkout Button (Cards / UPI / NetBanking) -->
+              <button type="button" class="btn-confirm-phonepe btn-cashfree-checkout btn-rzp-checkout" id="btn-open-cashfree-checkout">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                <span id="btn-rzp-checkout-text">💳 Pay Online via Razorpay (UPI / Card / NetBanking)</span>
+                <span id="btn-cashfree-checkout-text">💳 Pay Online via Cashfree (UPI / GPay / PhonePe / Cards)</span>
+              </button>
+
+              <!-- Instant Sandbox Test Button -->
+              <button type="button" class="btn-check-status-sec btn-simulate-cashfree" id="btn-simulate-cashfree" style="display: none; background: #FFFBEB; border-color: #F59E0B; color: #B45309;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                <span>⚡ Simulate Test Payment (Instant Verification)</span>
               </button>
 
               <!-- Check Status Button -->
@@ -602,7 +609,7 @@
                 ← Back to Delivery Details
               </button>
 
-              <p class="safe-delivery-footer">🔒 100% Secure Server-Side Payment Verification powered by Razorpay.</p>
+              <p class="safe-delivery-footer">🔒 100% Secure Server-Side Payment Verification powered by Cashfree Payments.</p>
             </div>
           </form>
         </div>

@@ -779,14 +779,15 @@ function initEvents() {
     });
   }
 
-  // 12. Checkout Modal (2-Step: User Details -> Real Razorpay Payment)
+  // 12. Checkout Modal (2-Step: User Details -> Real Cashfree Payment)
   const btnOpenCheckout = document.getElementById('btn-open-checkout');
   const btnCloseCheckout = document.getElementById('checkout-modal-close');
   const btnGotoStep2 = document.getElementById('btn-goto-step-2');
   const btnEditDetails = document.getElementById('btn-edit-details');
   const btnBackToStep1 = document.getElementById('btn-back-to-step1');
   const checkoutDetailsForm = document.getElementById('checkout-details-form');
-  const btnOpenRzpCheckout = document.getElementById('btn-open-rzp-checkout');
+  const btnOpenCashfreeCheckout = document.getElementById('btn-open-cashfree-checkout') || document.getElementById('btn-open-rzp-checkout');
+  const btnSimulateCashfree = document.getElementById('btn-simulate-cashfree');
   const btnManualCheckStatus = document.getElementById('btn-manual-check-status');
   const successModalClose = document.getElementById('success-modal-close');
   const recapAddressEl = document.getElementById('recap-address');
@@ -812,11 +813,13 @@ function initEvents() {
   }
   if (btnEditDetails) btnEditDetails.addEventListener('click', backToDetailsStep);
   if (btnBackToStep1) btnBackToStep1.addEventListener('click', backToDetailsStep);
-  if (btnOpenRzpCheckout) btnOpenRzpCheckout.addEventListener('click', openRazorpayCheckoutModal);
+  if (btnOpenCashfreeCheckout) btnOpenCashfreeCheckout.addEventListener('click', () => openCashfreeCheckoutModal());
+  if (btnSimulateCashfree) btnSimulateCashfree.addEventListener('click', simulateSandboxPayment);
   if (btnManualCheckStatus) {
     btnManualCheckStatus.addEventListener('click', () => {
-      if (currentRazorpayOrder && currentRazorpayOrder.orderId) {
-        checkPaymentStatusOnce(currentRazorpayOrder.orderId, true);
+      const activeOrder = currentCashfreeOrder || currentRazorpayOrder;
+      if (activeOrder && activeOrder.orderId) {
+        checkPaymentStatusOnce(activeOrder.orderId, true);
       } else {
         showToast('Initializing payment, please wait...');
       }
@@ -866,8 +869,9 @@ function initApp() {
   updateWishlistUI();
   renderProducts();
   initEvents();
+  fetchGatewayConfig();
 
-  console.log('%c✦ CB TRENDZ — Pure Frontend PhonePe Scan & Pay Loaded ✦', 'color:#D4AF70; background:#3E0A16; font-size:1.15rem; padding:8px 14px; font-weight:bold;');
+  console.log('%c✦ CB TRENDZ — Cashfree & Pure Payment Engine Loaded ✦', 'color:#D4AF70; background:#3E0A16; font-size:1.15rem; padding:8px 14px; font-weight:bold;');
 }
 
 if (document.readyState === 'loading') {
@@ -878,9 +882,9 @@ if (document.readyState === 'loading') {
 
 
 /* ============================================================
-   11. REAL RAZORPAY PAYMENT ENGINE & DYNAMIC UPI QR
+   11. REAL CASHFREE & RAZORPAY PAYMENT ENGINE (Dynamic UPI QR & Modal Checkout)
    ============================================================ */
-const RAZORPAY_FRONTEND_CONFIG = {
+const PAYMENT_FRONTEND_CONFIG = {
   storeName: 'CB TRENDZ',
   whatsappNumber: '918778522690',
   defaultScannerImage: 'images/scanner.jpeg'
@@ -893,12 +897,30 @@ const API_BASE = (typeof window !== 'undefined' && window.location && (window.lo
 
 let currentCheckoutItems = [];
 let currentCustomer = null;
+let currentCashfreeOrder = null;
 let currentRazorpayOrder = null;
+let cashfreeGatewayConfig = null;
+let cashfreeSdkInstance = null;
 let paymentStatusPollingInterval = null;
 let isOrderConfirmed = false;
 let isPaymentSignalPending = false;
 let hasUserOpenedPhonePe = false;
 let isProcessingPayment = false;
+
+// Query backend payment config
+async function fetchGatewayConfig() {
+  try {
+    const res = await fetch(`${API_BASE}/api/config`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.cashfree) {
+        cashfreeGatewayConfig = data.cashfree;
+      }
+    }
+  } catch (e) {
+    console.warn('Payment gateway config notice:', e.message);
+  }
+}
 
 // Reset checkout modal to Step 1 (Delivery Details)
 function resetCheckoutSteps() {
@@ -908,9 +930,11 @@ function resetCheckoutSteps() {
   const tab2 = document.getElementById('step-tab-2');
   const badgeText = document.getElementById('modal-step-title-badge');
   const headingText = document.getElementById('modal-heading-text');
+  const simBtn = document.getElementById('btn-simulate-cashfree');
 
   if (step1) step1.style.display = 'block';
   if (step2) step2.style.display = 'none';
+  if (simBtn) simBtn.style.display = 'none';
 
   if (tab1) {
     tab1.classList.add('active');
@@ -931,7 +955,7 @@ function resetCheckoutSteps() {
   if (modalCard) modalCard.scrollTop = 0;
 }
 
-// Step 1 -> Step 2 validation and transition
+// Step 1 -> Step 2 validation and transition to Cashfree Payment
 async function goToPaymentStep() {
   const nameEl = document.getElementById('cust-name');
   const phoneEl = document.getElementById('cust-phone');
@@ -977,14 +1001,18 @@ async function goToPaymentStep() {
     return;
   }
 
-  // Store confirmed customer
+  // Store confirmed customer and persist in localStorage for instant return purchases
   currentCustomer = {
     name,
-    phone: phoneDigits.length === 10 ? phoneDigits : phone,
+    phone: phoneDigits.length === 10 ? phoneDigits : phoneDigits.slice(-10),
     address,
     city,
     pincode: pinDigits
   };
+
+  try {
+    localStorage.setItem('cbtrendz_customer_info', JSON.stringify(currentCustomer));
+  } catch (e) {}
 
   // Populate delivery recap banner in Step 2
   const recapName = document.getElementById('recap-name');
@@ -1015,7 +1043,7 @@ async function goToPaymentStep() {
   }
 
   if (badgeText) badgeText.textContent = 'Step 2 of 2';
-  if (headingText) headingText.textContent = 'Razorpay & UPI Payment';
+  if (headingText) headingText.textContent = 'Cashfree & UPI Payment';
 
   // Prepare UI for genuine server order creation
   isOrderConfirmed = false;
@@ -1025,19 +1053,20 @@ async function goToPaymentStep() {
   const signalCore = document.getElementById('signal-radar-core');
   const scannerImg = document.getElementById('phonepe-scanner-img');
   const amountTag = document.getElementById('scanner-amount-tag');
+  const simBtn = document.getElementById('btn-simulate-cashfree');
 
   if (signalCard) signalCard.classList.remove('signal-detected');
   if (signalCore) signalCore.textContent = '⏳';
-  if (signalTitle) signalTitle.textContent = 'Creating Secure Razorpay Order...';
-  if (signalDesc) signalDesc.textContent = 'Contacting server to verify prices and generate genuine payment QR...';
-  if (amountTag) amountTag.textContent = 'Generating verified payment QR...';
+  if (signalTitle) signalTitle.textContent = 'Connecting to Cashfree...';
+  if (signalDesc) signalDesc.textContent = 'Creating secure Cashfree order and opening payment checkout...';
+  if (amountTag) amountTag.textContent = 'Initializing Cashfree payment session...';
 
   const modalCard = document.querySelector('.checkout-modal-card');
   if (modalCard) modalCard.scrollTop = 0;
 
-  // Request genuine order & dynamic QR from backend server
+  // Request genuine order from Cashfree backend server
   try {
-    const res = await fetch(`${API_BASE}/api/create-qr`, {
+    const res = await fetch(`${API_BASE}/api/cashfree/create-order`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1050,34 +1079,40 @@ async function goToPaymentStep() {
     if (!data.success) {
       showToast(data.message || 'Error generating order on server.');
       if (signalTitle) signalTitle.textContent = '⚠️ Payment Setup Notice';
-      if (signalDesc) signalDesc.textContent = data.message || 'Please configure Razorpay keys in server/.env.';
+      if (signalDesc) signalDesc.textContent = data.message || 'Please check Cashfree credentials in server/.env.';
       return;
     }
 
-    currentRazorpayOrder = data;
+    currentCashfreeOrder = data;
+    currentRazorpayOrder = data; // backward compatibility
 
     const phonepeAmountEl = document.getElementById('phonepe-amount-display');
     if (phonepeAmountEl) phonepeAmountEl.textContent = formatINR(data.amount);
 
-    if (data.qrAvailable && data.qrImageUrl) {
-      if (scannerImg) scannerImg.src = data.qrImageUrl;
-      if (amountTag) amountTag.textContent = `Amount: ${formatINR(data.amount)} (Verified Dynamic QR)`;
-      const liveBadge = document.getElementById('scanner-live-badge');
-      if (liveBadge) liveBadge.textContent = '📱 Scan with GPay / PhonePe / Paytm';
-      if (signalTitle) signalTitle.textContent = 'Listening for Genuine Payment...';
-      if (signalDesc) signalDesc.textContent = 'Scan QR above with any UPI app or click below to pay online. Server verifies payment automatically.';
+    if (amountTag) amountTag.textContent = `Amount: ${formatINR(data.amount)} (Cashfree Verified)`;
+    const liveBadge = document.getElementById('scanner-live-badge');
+    if (liveBadge) liveBadge.textContent = '📱 UPI / GPay / PhonePe / Paytm / Cards';
+
+    if (data.isSandboxMock) {
+      if (simBtn) simBtn.style.display = 'flex';
+      if (signalTitle) signalTitle.textContent = '🧪 Cashfree Sandbox Ready';
+      if (signalDesc) signalDesc.textContent = 'Click "Pay Online via Cashfree" or click the instant test simulation button below.';
+      showToast('🧪 Sandbox mode ready! Complete test payment below.');
     } else {
-      // Feature fallback if Razorpay Dynamic QR is not activated on this account
-      if (amountTag) amountTag.textContent = `Amount: ${formatINR(data.amount)} (Razorpay Online Checkout)`;
-      const liveBadge = document.getElementById('scanner-live-badge');
-      if (liveBadge) liveBadge.textContent = '💳 Cards / UPI Apps / NetBanking';
-      if (signalTitle) signalTitle.textContent = 'Ready for Razorpay Checkout';
-      if (signalDesc) signalDesc.textContent = data.message || 'Click "Pay Online via Razorpay" below to pay securely with UPI, Cards, or NetBanking.';
-      if (scannerImg) scannerImg.src = 'cb-trendz-logo-hd.png';
+      if (simBtn) simBtn.style.display = 'none';
+      if (signalTitle) signalTitle.textContent = 'Listening for Cashfree Payment...';
+      if (signalDesc) signalDesc.textContent = 'Complete payment in the Cashfree checkout window. Server verifies genuine payment in real-time.';
     }
 
     // Start live server payment status polling
     startPaymentStatusPolling(data.orderId);
+
+    // 🚀 AUTOMATICALLY OPEN CASHFREE CHECKOUT MODAL!
+    // As soon as the customer clicks "Buy Now" -> Proceed, the Cashfree payment window pops up
+    setTimeout(() => {
+      openCashfreeCheckoutModal(data.paymentSessionId);
+    }, 350);
+
   } catch (err) {
     console.error('Error contacting backend server:', err);
     showToast('Could not connect to payment backend server. Make sure "node server.js" is running.');
@@ -1112,12 +1147,12 @@ function startPaymentStatusPolling(orderId) {
   }, 2500);
 }
 
-// Check payment status once against server
+// Check payment status once against Cashfree server
 async function checkPaymentStatusOnce(orderId, isManualClick = false) {
   if (!orderId || isOrderConfirmed) return;
 
   try {
-    const res = await fetch(`${API_BASE}/api/payment-status/${encodeURIComponent(orderId)}`);
+    const res = await fetch(`${API_BASE}/api/cashfree/order-status/${encodeURIComponent(orderId)}`);
     if (!res.ok) {
       if (isManualClick) showToast('Could not reach payment server. Please verify network.');
       return;
@@ -1133,10 +1168,10 @@ async function checkPaymentStatusOnce(orderId, isManualClick = false) {
 
       if (signalCard) signalCard.classList.add('signal-detected');
       if (signalCore) signalCore.textContent = '✓';
-      if (signalTitle) signalTitle.textContent = '⚡ Payment Verified by Razorpay!';
-      if (signalDesc) signalDesc.textContent = `Genuine payment captured (ID: ${data.paymentId}). Confirming your order and opening WhatsApp...`;
+      if (signalTitle) signalTitle.textContent = '⚡ Payment Verified by Cashfree!';
+      if (signalDesc) signalDesc.textContent = `Genuine payment captured (Ref: ${data.transactionRef || data.paymentId}). Confirming your order and opening WhatsApp...`;
 
-      showToast('✓ Razorpay Payment Verified! Order Confirmed.');
+      showToast('✓ Cashfree Payment Verified! Order Confirmed.');
 
       setTimeout(() => {
         executeOrderConfirmation(data);
@@ -1146,7 +1181,7 @@ async function checkPaymentStatusOnce(orderId, isManualClick = false) {
       const signalTitle = document.getElementById('signal-status-title');
       const signalDesc = document.getElementById('signal-status-desc');
       if (signalTitle) signalTitle.textContent = '❌ Payment Failed or Cancelled';
-      if (signalDesc) signalDesc.textContent = data.message || 'Payment was not completed. Please retry using Razorpay Checkout.';
+      if (signalDesc) signalDesc.textContent = data.message || 'Payment was not completed. Please retry using Cashfree Checkout.';
       showToast('⚠️ Payment was not completed. Please retry.');
     } else if (isManualClick) {
       showToast('⏳ Payment is still pending. If you just paid, please allow 3-5 seconds for bank confirmation.');
@@ -1157,81 +1192,109 @@ async function checkPaymentStatusOnce(orderId, isManualClick = false) {
   }
 }
 
-// Open Official Razorpay Checkout Modal (Cards, NetBanking, UPI Apps)
-function openRazorpayCheckoutModal() {
-  if (!currentRazorpayOrder) {
+// Cashfree SDK Instance Loader
+function getCashfreeSdkInstance() {
+  if (cashfreeSdkInstance) return cashfreeSdkInstance;
+  if (typeof window.Cashfree !== 'undefined') {
+    const mode = (cashfreeGatewayConfig && cashfreeGatewayConfig.env === 'production') ? 'production' : 'sandbox';
+    try {
+      cashfreeSdkInstance = window.Cashfree({ mode });
+      return cashfreeSdkInstance;
+    } catch (e) {
+      console.warn('Cashfree constructor error:', e.message);
+    }
+  }
+  return null;
+}
+
+// Open Official Cashfree Checkout Modal (Cards, NetBanking, UPI Apps)
+function openCashfreeCheckoutModal(customSessionId) {
+  const order = currentCashfreeOrder || currentRazorpayOrder;
+  if (!order) {
     showToast('Payment order is initializing, please wait a moment...');
     return;
   }
 
-  if (typeof window.Razorpay === 'undefined') {
-    showToast('Razorpay checkout SDK is loading. Please check your internet connection.');
+  const sessionId = customSessionId || order.paymentSessionId;
+  if (!sessionId) {
+    showToast('Payment session ID not available. Please retry.');
     return;
   }
 
-  const keyToUse = currentRazorpayOrder.keyId;
-  if (!keyToUse || keyToUse.includes('YourKeyId') || keyToUse.includes('YourRazorpay')) {
-    showToast('Please configure your RAZORPAY_KEY_ID in server/.env');
+  // If in sandbox demo mode with placeholder keys
+  if (order.isSandboxMock || sessionId.startsWith('session_sandbox_demo_')) {
+    const simBtn = document.getElementById('btn-simulate-cashfree');
+    if (simBtn) simBtn.style.display = 'flex';
+    showToast('🧪 Sandbox Mode: Click "Simulate Test Payment" below or configure CASHFREE_APP_ID in server/.env');
     return;
   }
 
-  const options = {
-    key: keyToUse,
-    amount: currentRazorpayOrder.amountInPaise,
-    currency: currentRazorpayOrder.currency || 'INR',
-    name: STORE_CONFIG.name,
-    description: `Order ${currentRazorpayOrder.orderId}`,
-    image: 'cb-trendz-logo-hd.png',
-    order_id: currentRazorpayOrder.razorpayOrderId,
-    handler: async function (response) {
-      showToast('✓ Payment received! Verifying HMAC signature on server...');
-      try {
-        const verifyRes = await fetch(`${API_BASE}/api/verify-payment`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            razorpayOrderId: response.razorpay_order_id,
-            razorpayPaymentId: response.razorpay_payment_id,
-            razorpaySignature: response.razorpay_signature,
-            orderId: currentRazorpayOrder.orderId
-          })
-        });
-        const verifyData = await verifyRes.json();
-        if (verifyData.success && verifyData.status === 'PAID') {
-          stopPaymentStatusPolling();
-          executeOrderConfirmation(verifyData);
-        } else {
-          showToast(verifyData.message || 'Signature verification failed.');
-        }
-      } catch (verifyErr) {
-        console.error('Error verifying payment signature:', verifyErr);
-        checkPaymentStatusOnce(currentRazorpayOrder.orderId, true);
-      }
-    },
-    prefill: {
-      name: currentCustomer ? currentCustomer.name : '',
-      contact: currentCustomer ? currentCustomer.phone : ''
-    },
-    notes: {
-      orderId: currentRazorpayOrder.orderId
-    },
-    theme: {
-      color: '#5F259F'
-    },
-    modal: {
-      ondismiss: function () {
-        console.log('Razorpay modal dismissed by customer');
-      }
-    }
-  };
+  if (typeof window.Cashfree === 'undefined') {
+    showToast('Cashfree checkout SDK is loading. Please check internet connection.');
+    return;
+  }
 
   try {
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+    const cf = getCashfreeSdkInstance();
+    if (cf) {
+      const checkoutOptions = {
+        paymentSessionId: sessionId,
+        redirectTarget: '_modal'
+      };
+
+      cf.checkout(checkoutOptions).then((result) => {
+        console.log('Cashfree checkout modal callback:', result);
+        if (result.error) {
+          console.warn('Cashfree checkout notice:', result.error);
+        }
+        if (result.paymentDetails) {
+          checkPaymentStatusOnce(order.orderId, true);
+        }
+      });
+    }
   } catch (err) {
-    console.error('Error opening Razorpay checkout:', err);
-    showToast('Error opening Razorpay: ' + err.message);
+    console.error('Error opening Cashfree checkout:', err);
+    showToast('Error opening Cashfree: ' + err.message);
   }
+}
+
+// Instant Sandbox Simulator Action
+async function simulateSandboxPayment() {
+  const order = currentCashfreeOrder || currentRazorpayOrder;
+  if (!order || !order.orderId) {
+    showToast('No active order to simulate.');
+    return;
+  }
+
+  showToast('⚡ Simulating successful test payment...');
+  try {
+    const res = await fetch(`${API_BASE}/api/cashfree/simulate-test-payment`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ orderId: order.orderId })
+    });
+    const data = await res.json();
+    if (data.success && data.status === 'PAID') {
+      stopPaymentStatusPolling();
+      showToast('✓ Sandbox Payment Confirmed!');
+      executeOrderConfirmation({
+        ...order,
+        status: 'PAID',
+        paymentId: data.paymentId,
+        transactionRef: data.transactionRef,
+        paymentMethod: 'CASHFREE (Sandbox Simulated)'
+      });
+    } else {
+      showToast(data.message || 'Simulation failed.');
+    }
+  } catch (err) {
+    showToast('Simulation error: ' + err.message);
+  }
+}
+
+// Backward-compatible Razorpay checkout opener
+function openRazorpayCheckoutModal() {
+  openCashfreeCheckoutModal();
 }
 
 // Step 2 -> Step 1 back to edit details
@@ -1273,7 +1336,7 @@ function openCheckoutModal() {
   openCheckoutModalWithItems(currentCheckoutItems);
 }
 
-// Populate and Display PhonePe Payment Modal
+// Populate and Display Payment Modal
 function openCheckoutModalWithItems(items) {
   closeCartDrawer();
   const modal = document.getElementById('checkout-modal');
@@ -1281,6 +1344,26 @@ function openCheckoutModalWithItems(items) {
 
   // Always initialize on Step 1 (Delivery Details)
   resetCheckoutSteps();
+
+  // Pre-fill previously saved delivery address if available
+  try {
+    const saved = localStorage.getItem('cbtrendz_customer_info');
+    if (saved) {
+      const info = JSON.parse(saved);
+      if (info) {
+        const nameEl = document.getElementById('cust-name');
+        const phoneEl = document.getElementById('cust-phone');
+        const addrEl = document.getElementById('cust-address');
+        const cityEl = document.getElementById('cust-city');
+        const pinEl = document.getElementById('cust-pincode');
+        if (nameEl && !nameEl.value && info.name) nameEl.value = info.name;
+        if (phoneEl && !phoneEl.value && info.phone) phoneEl.value = info.phone;
+        if (addrEl && !addrEl.value && info.address) addrEl.value = info.address;
+        if (cityEl && !cityEl.value && info.city) cityEl.value = info.city;
+        if (pinEl && !pinEl.value && info.pincode) pinEl.value = info.pincode;
+      }
+    }
+  } catch (e) {}
 
   const preview = document.getElementById('checkout-items-preview');
   const totalEl = document.getElementById('checkout-total');
@@ -1406,7 +1489,7 @@ async function dispatchOrderToWhatsApp(whatsappMsg, primaryImage) {
   return waUrl;
 }
 
-// Finalize Order & WhatsApp Notification (GENUINE Razorpay Payment & Saree Photo)
+// Finalize Order & WhatsApp Notification (GENUINE Cashfree Payment & Saree Photo)
 function executeOrderConfirmation(paymentResult) {
   if (isOrderConfirmed) return;
   if (!currentCheckoutItems || currentCheckoutItems.length === 0) return;
@@ -1415,8 +1498,8 @@ function executeOrderConfirmation(paymentResult) {
   isOrderConfirmed = true;
   stopPaymentStatusPolling();
 
-  const orderId = paymentResult?.orderId || currentRazorpayOrder?.orderId || ('CBT-' + Math.floor(100000 + Math.random() * 900000));
-  const paymentId = paymentResult?.paymentId || ('pay_' + Date.now().toString(36));
+  const orderId = paymentResult?.orderId || currentCashfreeOrder?.orderId || currentRazorpayOrder?.orderId || ('CBT-' + Math.floor(100000 + Math.random() * 900000));
+  const paymentId = paymentResult?.paymentId || ('cf_pay_' + Date.now().toString(36));
   const transactionRef = paymentResult?.transactionRef || paymentId;
   const totalAmount = currentCheckoutItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const customer = currentCustomer;
@@ -1449,9 +1532,9 @@ function executeOrderConfirmation(paymentResult) {
     itemsText,
     ``,
     `💰 *TOTAL AMOUNT PAID:* ₹${totalAmount.toLocaleString('en-IN')}`,
-    `📱 *PAYMENT METHOD:* Razorpay Verified`,
-    `🔢 *RAZORPAY PAYMENT ID:* ${paymentId}`,
-    `💳 *BANK TXN REF:* ${transactionRef}`,
+    `📱 *PAYMENT METHOD:* Cashfree Verified (UPI / Card)`,
+    `🔢 *CASHFREE PAYMENT ID:* ${paymentId}`,
+    `💳 *TRANSACTION REF:* ${transactionRef}`,
     `──────────────────────`,
     `📍 *CUSTOMER DELIVERY DETAILS:*`,
     `👤 *Name:* ${customer.name}`,
@@ -1460,7 +1543,7 @@ function executeOrderConfirmation(paymentResult) {
     `🏙️ *City:* ${customer.city}`,
     `📮 *Pincode:* ${customer.pincode}`,
     `──────────────────────`,
-    `✅ *Payment of ₹${totalAmount.toLocaleString('en-IN')} has been genuinely verified by Razorpay (ID: ${paymentId}). Saree photo is linked above. Please dispatch the saree(s) to my address.*`,
+    `✅ *Payment of ₹${totalAmount.toLocaleString('en-IN')} has been genuinely verified by Cashfree (Ref: ${transactionRef}). Saree photo is linked above. Please dispatch the saree(s) to my address.*`,
     `Thank you!`
   ].join('\n');
 
@@ -1487,6 +1570,7 @@ function executeOrderConfirmation(paymentResult) {
   updateCartUI();
   currentCheckoutItems = [];
   currentCustomer = null;
+  currentCashfreeOrder = null;
   currentRazorpayOrder = null;
 }
 
@@ -1504,7 +1588,7 @@ function showOrderSuccess(order) {
   content.innerHTML = `
     <div class="success-badge-circle">✓</div>
     <h2 class="success-title">Order Confirmed!</h2>
-    <p class="success-subtitle">Thank you, <strong>${cust.name || 'valued customer'}</strong>! Your payment of <strong>${formatINR(order.amount)}</strong> has been verified by Razorpay (Payment ID: <strong>${order.paymentId || order.transactionRef}</strong>).</p>
+    <p class="success-subtitle">Thank you, <strong>${cust.name || 'valued customer'}</strong>! Your payment of <strong>${formatINR(order.amount)}</strong> has been verified by Cashfree (Reference ID: <strong>${order.transactionRef || order.paymentId}</strong>).</p>
 
     <div class="success-receipt-card" id="printable-receipt">
       <div class="receipt-header-row">
@@ -1512,7 +1596,7 @@ function showOrderSuccess(order) {
           <span style="font-size:0.75rem; color:#7A7272; display:block;">ORDER REFERENCE</span>
           <strong class="receipt-order-id">${order.orderId}</strong>
         </div>
-        <span class="receipt-status-pill">PAID via Razorpay</span>
+        <span class="receipt-status-pill">PAID via Cashfree</span>
       </div>
 
       <div class="receipt-info-grid">
@@ -1522,12 +1606,17 @@ function showOrderSuccess(order) {
           <small style="color:#7A7272;">${cust.phone || ''}</small>
         </div>
         <div>
-          <span>RAZORPAY PAYMENT ID</span>
-          <strong style="color:#5F259F;">${order.paymentId || order.transactionRef}</strong>
-          <small style="color:#7A7272;">Method: Razorpay Captured</small>
+          <span>CASHFREE REFERENCE ID</span>
+          <strong style="color:#4F46E5;">${order.transactionRef || order.paymentId}</strong>
+          <small style="color:#7A7272;">Method: Cashfree Verified</small>
         </div>
         <div style="grid-column: 1 / -1;">
           <span>DELIVERY ADDRESS</span>
+          <p style="margin:0; font-size:0.85rem; color:#443F44;">
+            ${cust.address || ''}, ${cust.city || ''} - ${cust.pincode || ''}
+          </p>
+        </div>
+      </div>
           <p style="margin:0; font-size:0.85rem; color:#443F44;">
             ${cust.address || ''}, ${cust.city || ''} - ${cust.pincode || ''}
           </p>
