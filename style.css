@@ -2668,13 +2668,15 @@ ul {
 }
 
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group textarea {
   width: 100% !important;
   box-sizing: border-box !important;
   min-width: 0 !important;
   padding: 10px 14px;
   border: 1.5px solid #D8D0C5;
   border-radius: var(--radius-sm);
+  font-family: inherit;
   font-size: 0.92rem;
   color: var(--charcoal);
   background: #FFFFFF;
@@ -2699,7 +2701,8 @@ ul {
 }
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
   border-color: var(--maroon-primary);
   box-shadow: 0 0 0 3px rgba(74, 18, 32, 0.12);
 }
@@ -3452,13 +3455,15 @@ ul {
 }
 
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group textarea {
   width: 100% !important;
   box-sizing: border-box !important;
   min-width: 0 !important;
   padding: 10px 14px;
   border: 1.5px solid #D8D0C5;
   border-radius: var(--radius-sm);
+  font-family: inherit;
   font-size: 0.92rem;
   color: var(--charcoal);
   background: #FFFFFF;
@@ -3483,7 +3488,8 @@ ul {
 }
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
   border-color: var(--maroon-primary);
   box-shadow: 0 0 0 3px rgba(74, 18, 32, 0.12);
 }

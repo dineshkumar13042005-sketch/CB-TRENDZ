@@ -975,11 +975,11 @@ async function goToPaymentStep() {
   const name = nameEl?.value.trim();
   const phone = phoneEl?.value.trim();
   const address = addressEl?.value.trim();
-  const city = cityEl?.value.trim();
-  const pincode = pincodeEl?.value.trim();
+  let city = cityEl?.value.trim();
+  let pincode = pincodeEl?.value.trim();
 
   if (!name) {
-    showToast('Please enter your full name');
+    showToast('Please enter your name');
     nameEl?.focus();
     return;
   }
@@ -995,6 +995,22 @@ async function goToPaymentStep() {
     showToast('Please enter complete delivery address');
     addressEl?.focus();
     return;
+  }
+
+  if (!pincode && address) {
+    const pinMatch = address.match(/\b([1-9][0-9]{5})\b/);
+    if (pinMatch) {
+      pincode = pinMatch[1];
+      if (pincodeEl) pincodeEl.value = pincode;
+    }
+  }
+
+  if (!city && address) {
+    const parts = address.split(',').map(s => s.trim()).filter(Boolean);
+    if (parts.length > 1) {
+      city = parts[parts.length - 1].replace(/[0-9]/g, '').trim();
+      if (cityEl && city) cityEl.value = city;
+    }
   }
 
   if (!city) {
