@@ -247,22 +247,18 @@ app.post('/api/cashfree/create-order', async (req, res) => {
   try {
     const { items, customer } = req.body;
 
-    if (!customer || !customer.name || !customer.phone) {
-      return res.status(400).json({
-        success: false,
-        message: 'Customer name and phone number are required.'
-      });
-    }
-
     const { verifiedItems, totalInINR, totalInPaise } = verifyCartItems(items);
 
     // Cashfree order_id: Alphanumeric and characters _ or - up to 45 chars
     const orderId = `CBT_${Date.now()}_${Math.floor(1000 + Math.random() * 9000)}`;
 
     const cf = getCashfreeConfig();
-    const cleanPhone = String(customer.phone).replace(/\D/g, '').slice(-10);
-    const customerId = `cust_${cleanPhone || Date.now()}`;
-    const customerEmail = customer.email || `${cleanPhone || 'customer'}@cbtrendz.com`;
+    const cust = customer || {};
+    const rawPhone = cust.phone ? String(cust.phone).replace(/\D/g, '') : '';
+    const cleanPhone = (rawPhone.length >= 10) ? rawPhone.slice(-10) : (process.env.STORE_PHONE || '918778522690').slice(-10);
+    const customerName = cust.name || 'Valued Customer';
+    const customerId = `cust_${cleanPhone}_${Date.now().toString().slice(-4)}`;
+    const customerEmail = cust.email || `${cleanPhone}@cbtrendz.com`;
 
     let paymentSessionId = null;
     let cfOrderId = null;
@@ -276,7 +272,7 @@ app.post('/api/cashfree/create-order', async (req, res) => {
           order_currency: 'INR',
           customer_details: {
             customer_id: customerId,
-            customer_name: customer.name,
+            customer_name: customerName,
             customer_phone: cleanPhone,
             customer_email: customerEmail
           },
@@ -327,7 +323,8 @@ app.post('/api/cashfree/create-order', async (req, res) => {
       amountInPaise: totalInPaise,
       currency: 'INR',
       customer: {
-        ...customer,
+        ...cust,
+        name: customerName,
         phone: cleanPhone
       },
       items: verifiedItems,

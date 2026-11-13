@@ -870,6 +870,7 @@ function initApp() {
   renderProducts();
   initEvents();
   fetchGatewayConfig();
+  checkReturnedOrder();
 
   console.log('%c✦ CB TRENDZ — Cashfree & Pure Payment Engine Loaded ✦', 'color:#D4AF70; background:#3E0A16; font-size:1.15rem; padding:8px 14px; font-weight:bold;');
 }
@@ -1297,12 +1298,103 @@ function openRazorpayCheckoutModal() {
   openCashfreeCheckoutModal();
 }
 
+// Automatically check order status when customer is redirected back from Cashfree
+async function checkReturnedOrder() {
+  if (typeof window === 'undefined' || !window.location) return;
+  const urlParams = new URLSearchParams(window.location.search);
+  const orderId = urlParams.get('cf_order_id') || urlParams.get('order_id');
+  if (!orderId) return;
+
+  showToast('Verifying payment with Cashfree...');
+  try {
+    const res = await fetch(`${API_BASE}/api/cashfree/order-status/${encodeURIComponent(orderId)}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && data.status === 'PAID') {
+        showToast('✓ Payment Verified by Cashfree! Order Confirmed.');
+        executeOrderConfirmation(data);
+        try {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        } catch (e) {}
+      } else if (data.status === 'PENDING') {
+        showToast('⏳ Cashfree payment is processing. Checking status...');
+        startPaymentStatusPolling(orderId);
+      }
+    }
+  } catch (err) {
+    console.warn('Error checking returned Cashfree order:', err);
+  }
+}
+
+// 🚀 DIRECT BUY NOW: Creates order and navigates DIRECTLY to Cashfree Payment Page
+async function initiateDirectCashfreeCheckout(items, customer = null) {
+  if (!items || items.length === 0) {
+    showToast('Please select a saree to purchase.');
+    return;
+  }
+
+  // Retrieve customer info from storage if available
+  let cust = customer || currentCustomer;
+  if (!cust) {
+    try {
+      const saved = localStorage.getItem('cbtrendz_customer_info');
+      if (saved) cust = JSON.parse(saved);
+    } catch (e) {}
+  }
+
+  showToast('Connecting directly to Cashfree Payments...');
+
+  try {
+    const res = await fetch(`${API_BASE}/api/cashfree/create-order`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: items,
+        customer: cust || {
+          name: 'Valued Customer',
+          phone: STORE_CONFIG.whatsappNumber || '918778522690'
+        }
+      })
+    });
+
+    const data = await res.json();
+    if (!data.success) {
+      showToast(data.message || 'Error generating order on server.');
+      openCheckoutModalWithItems(items);
+      return;
+    }
+
+    currentCashfreeOrder = data;
+    currentRazorpayOrder = data;
+
+    // DIRECT REDIRECT TO CASHFREE PAYMENT PAGE (when real Cashfree keys are configured)
+    const cf = getCashfreeSdkInstance();
+    if (cf && data.paymentSessionId && !data.isSandboxMock && !data.paymentSessionId.startsWith('session_sandbox_demo_')) {
+      showToast('Redirecting directly to Cashfree payment page...');
+      cf.checkout({
+        paymentSessionId: data.paymentSessionId,
+        redirectTarget: '_self'
+      });
+      return;
+    }
+
+    // In sandbox demo mode (before user inputs real Cashfree keys in server/.env)
+    // Seamlessly open payment screen with instant simulator button
+    openCheckoutModalWithItems(items);
+    goToPaymentStep();
+  } catch (err) {
+    console.error('Error initiating direct Cashfree checkout:', err);
+    showToast('Opening payment screen...');
+    openCheckoutModalWithItems(items);
+  }
+}
+
 // Step 2 -> Step 1 back to edit details
 function backToDetailsStep() {
   resetCheckoutSteps();
 }
 
-// Buy Now clicked on a specific saree card or modal
+// Buy Now clicked on a specific saree card or modal -> DIRECT CASHFREE PAYMENT
 function buyNowSingleProduct(productId) {
   const p = PRODUCTS.find(item => item.id === productId);
   if (!p) return;
@@ -1313,10 +1405,11 @@ function buyNowSingleProduct(productId) {
     price: p.price,
     image: p.image
   }];
-  openCheckoutModalWithItems(currentCheckoutItems);
+  // Directly trigger Cashfree payment without delay
+  initiateDirectCashfreeCheckout(currentCheckoutItems);
 }
 
-// Open Checkout from Shopping Bag
+// Open Checkout from Shopping Bag -> DIRECT CASHFREE PAYMENT
 function openCheckoutModal() {
   if (cart.length === 0) {
     showToast('Your bag is empty! Click "Buy Now" on any saree.');
@@ -1333,7 +1426,7 @@ function openCheckoutModal() {
       image: p ? p.image : 'images/saree1.jpg'
     };
   });
-  openCheckoutModalWithItems(currentCheckoutItems);
+  initiateDirectCashfreeCheckout(currentCheckoutItems);
 }
 
 // Populate and Display Payment Modal
@@ -1492,20 +1585,25 @@ async function dispatchOrderToWhatsApp(whatsappMsg, primaryImage) {
 // Finalize Order & WhatsApp Notification (GENUINE Cashfree Payment & Saree Photo)
 function executeOrderConfirmation(paymentResult) {
   if (isOrderConfirmed) return;
-  if (!currentCheckoutItems || currentCheckoutItems.length === 0) return;
-  if (!currentCustomer) return;
+
+  const orderData = paymentResult?.order || paymentResult || {};
+  const items = (currentCheckoutItems && currentCheckoutItems.length > 0)
+    ? currentCheckoutItems
+    : (orderData?.items || []);
+  const customer = currentCustomer || orderData?.customer || { name: 'Valued Customer', phone: STORE_CONFIG.whatsappNumber || '918778522690' };
+
+  if (!items || items.length === 0) return;
 
   isOrderConfirmed = true;
   stopPaymentStatusPolling();
 
-  const orderId = paymentResult?.orderId || currentCashfreeOrder?.orderId || currentRazorpayOrder?.orderId || ('CBT-' + Math.floor(100000 + Math.random() * 900000));
-  const paymentId = paymentResult?.paymentId || ('cf_pay_' + Date.now().toString(36));
-  const transactionRef = paymentResult?.transactionRef || paymentId;
-  const totalAmount = currentCheckoutItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const customer = currentCustomer;
+  const orderId = paymentResult?.orderId || orderData?.orderId || currentCashfreeOrder?.orderId || currentRazorpayOrder?.orderId || ('CBT-' + Math.floor(100000 + Math.random() * 900000));
+  const paymentId = paymentResult?.paymentId || orderData?.paymentId || ('cf_pay_' + Date.now().toString(36));
+  const transactionRef = paymentResult?.transactionRef || orderData?.bankTxnId || paymentId;
+  const totalAmount = paymentResult?.amount || orderData?.amount || items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   // Prepare WhatsApp Message with complete saree and delivery information AND photo links
-  const itemsText = currentCheckoutItems.map((item, idx) => {
+  const itemsText = items.map((item, idx) => {
     const photoUrl = getPublicSareeImageUrl(item.image);
     return [
       `${idx + 1}. *${item.name}* (Qty: ${item.quantity}) — ₹${(item.price * item.quantity).toLocaleString('en-IN')}`,
@@ -1548,7 +1646,7 @@ function executeOrderConfirmation(paymentResult) {
   ].join('\n');
 
   // Open WhatsApp with saree photo attachment (on mobile) or rich preview link
-  const primaryImage = currentCheckoutItems[0]?.image || '';
+  const primaryImage = items[0]?.image || '';
   const waNumber = STORE_CONFIG.whatsappNumber || '918778522690';
   const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(whatsappMsg)}`;
   dispatchOrderToWhatsApp(whatsappMsg, primaryImage);
@@ -1559,7 +1657,7 @@ function executeOrderConfirmation(paymentResult) {
     paymentId,
     transactionRef,
     customer,
-    items: currentCheckoutItems,
+    items: items,
     amount: totalAmount,
     whatsappUrl: waUrl
   });
