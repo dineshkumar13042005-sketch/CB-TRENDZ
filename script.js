@@ -81,6 +81,14 @@ const PRODUCTS = [
     category: 'cotton',
     image: 'images/image.png_f03ac051_2K.jpg',
     description: 'Comfortable and breathable soft cotton saree with authentic ethnic prints and elegant border design. Perfect for daily wear and warm weather.'
+  },
+  {
+    id: 9,
+    name: 'Cotton Saree',
+    price: 599,
+    category: 'cotton',
+    image: 'images/Folded Multicolor Silk Saree on White.png',
+    description: 'Vibrant multicolor cotton saree with elegant traditional patterns, breathable soft weave, and contrasting borders. Perfect for both casual wear and festive occasions.'
   }
 ];
 

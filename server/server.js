@@ -115,7 +115,8 @@ const SERVER_CATALOG = {
   5: { id: 5, name: 'Moonga Silk Saree', price: 1150, category: 'designer', image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg' },
   6: { id: 6, name: 'Linen silk Saree', price: 799, category: 'silk', image: 'images/image.png_1dbc01cd_2K.jpg' },
   7: { id: 7, name: 'Shimmer linen Saree', price: 799, category: 'party', image: 'images/image.png_26f0abe6_2K.jpg' },
-  8: { id: 8, name: 'Cotton Saree', price: 499, category: 'cotton', image: 'images/image.png_f03ac051_2K.jpg' }
+  8: { id: 8, name: 'Cotton Saree', price: 499, category: 'cotton', image: 'images/image.png_f03ac051_2K.jpg' },
+  9: { id: 9, name: 'Cotton Saree', price: 599, category: 'cotton', image: 'images/Folded Multicolor Silk Saree on White.png' }
 };
 
 // Helper: Calculate and verify cart items against master catalog
