@@ -73,6 +73,14 @@ const PRODUCTS = [
     category: 'party',
     image: 'images/image.png_26f0abe6_2K.jpg',
     description: 'Exquisite shimmer linen saree with subtle metallic sheen and graceful drape. Perfect blend of breathable comfort and festive glamour.'
+  },
+  {
+    id: 8,
+    name: 'Cotton Saree',
+    price: 499,
+    category: 'cotton',
+    image: 'images/image.png_f03ac051_2K.jpg',
+    description: 'Comfortable and breathable soft cotton saree with authentic ethnic prints and elegant border design. Perfect for daily wear and warm weather.'
   }
 ];
 

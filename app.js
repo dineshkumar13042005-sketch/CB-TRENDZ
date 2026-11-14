@@ -7,7 +7,8 @@ const products = [
   { id: 4, name: "Daily wear Georgette Saree", category: "Party Wear Sarees", price: 550, image: "images/Folded_floral_yellow_saree_displ…_f635d66d_2K.jpg" },
   { id: 5, name: "Moonga Silk Saree", category: "Designer Sarees", price: 1150, image: "images/Folded_green_saree_with_border_c449f9bc_2K.jpg" },
   { id: 6, name: "Linen silk Saree", category: "Silk Sarees", price: 799, image: "images/image.png_1dbc01cd_2K.jpg" },
-  { id: 7, name: "Shimmer linen Saree", category: "Party Wear Sarees", price: 799, image: "images/image.png_26f0abe6_2K.jpg" }
+  { id: 7, name: "Shimmer linen Saree", category: "Party Wear Sarees", price: 799, image: "images/image.png_26f0abe6_2K.jpg" },
+  { id: 8, name: "Cotton Saree", category: "Cotton Sarees", price: 499, image: "images/image.png_f03ac051_2K.jpg" }
 ];
 
 const money = amount => new Intl.NumberFormat("en-IN", {
