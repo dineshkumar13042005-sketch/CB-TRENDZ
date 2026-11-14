@@ -13,10 +13,10 @@ const STORE_CONFIG = {
   tagline: 'Ladies Fashion & Accessories',
   whatsappNumber: '918778522690',
   currencySymbol: '₹',
-  itemsPerPage: 5
+  itemsPerPage: 12
 };
 
-// 5 Saree Products
+// Saree Products Collection
 const PRODUCTS = [
   {
     id: 1,
@@ -57,6 +57,22 @@ const PRODUCTS = [
     category: 'designer',
     image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg',
     description: 'Peacock teal sheer designer organza saree detailed with artisan zari embroidery and modern scalloped borders.'
+  },
+  {
+    id: 6,
+    name: 'Linen silk Saree',
+    price: 799,
+    category: 'silk',
+    image: 'images/image.png_1dbc01cd_2K.jpg',
+    description: 'Charming sky blue and magenta pink linen silk saree with geometric zig-zag ikat pattern and contrasting vibrant border. Breathable, lightweight, and elegant.'
+  },
+  {
+    id: 7,
+    name: 'Shimmer linen Saree',
+    price: 799,
+    category: 'party',
+    image: 'images/image.png_26f0abe6_2K.jpg',
+    description: 'Exquisite shimmer linen saree with subtle metallic sheen and graceful drape. Perfect blend of breathable comfort and festive glamour.'
   }
 ];
 
