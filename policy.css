@@ -1,0 +1,433 @@
+/* ============================================================
+   CB TRENDZ — Policy & Legal Pages Stylesheet
+   Matches Dark Royal Maroon & Warm Gold Luxury Boutique Aesthetic
+   ============================================================ */
+
+:root {
+  --maroon-dark:     #380C16;
+  --maroon-nav:      #3E0A16;
+  --maroon-primary:  #4A1220;
+  --maroon-hover:    #651B2B;
+  --gold:            #D4AF70;
+  --gold-light:      #E8D09A;
+  --gold-pale:       #F7F1E5;
+  --ivory-page:      #FAF7F2;
+  --ivory-card:      #FFFFFF;
+  --charcoal:        #242124;
+  --charcoal-light:  #443F44;
+  --charcoal-muted:  #7A7272;
+  --border-subtle:   #EFE8DE;
+  --border-card:     #ECE5DC;
+
+  --font-serif:      'Cormorant Garamond', Georgia, serif;
+  --font-sans:       'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --shadow-sm:       0 2px 8px rgba(36, 33, 36, 0.04);
+  --shadow-md:       0 4px 16px rgba(36, 33, 36, 0.08);
+  --radius-sm:       6px;
+  --radius-md:       10px;
+  --radius-pill:     50px;
+  --transition:      0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--ivory-page);
+  color: var(--charcoal);
+  line-height: 1.65;
+  font-size: 1rem;
+}
+
+/* ------------------------------------------------------------
+   1. TOP NAVBAR
+   ------------------------------------------------------------ */
+.top {
+  background-color: var(--maroon-nav);
+  border-bottom: 1px solid rgba(212, 175, 112, 0.25);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 14px rgba(56, 12, 22, 0.25);
+}
+
+.top-in {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  text-decoration: none;
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.06em;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  transition: opacity var(--transition);
+}
+
+.brand:hover {
+  opacity: 0.95;
+}
+
+.brand small {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--gold-light);
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border: 1px solid rgba(212, 175, 112, 0.4);
+  border-radius: var(--radius-pill);
+  transition: all var(--transition);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.back:hover {
+  background: var(--gold);
+  color: var(--maroon-dark);
+  border-color: var(--gold);
+  transform: translateX(-2px);
+}
+
+/* ------------------------------------------------------------
+   2. HERO BANNER
+   ------------------------------------------------------------ */
+.hero {
+  background: linear-gradient(135deg, #2E0711 0%, #4A1220 50%, #380C16 100%);
+  color: #FFFFFF;
+  text-align: center;
+  padding: 50px 20px 45px;
+  border-bottom: 2px solid var(--gold);
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--gold-light);
+  border-radius: 2px;
+}
+
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: var(--gold-light);
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* ------------------------------------------------------------
+   3. MAIN CONTENT LAYOUT
+   ------------------------------------------------------------ */
+.wrap {
+  max-width: 1200px;
+  margin: 40px auto 60px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+/* Table of Contents (Sticky Aside) */
+.toc {
+  background: var(--ivory-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 24px 20px;
+  position: sticky;
+  top: 90px;
+  box-shadow: var(--shadow-sm);
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.toc h2 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--maroon-primary);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  letter-spacing: 0.02em;
+}
+
+.toc ol {
+  list-style: none;
+  counter-reset: toc-counter;
+}
+
+.toc li {
+  counter-increment: toc-counter;
+  margin-bottom: 8px;
+}
+
+.toc a {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--charcoal-light);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  line-height: 1.35;
+}
+
+.toc a:hover {
+  background: var(--gold-pale);
+  color: var(--maroon-primary);
+  font-weight: 500;
+  padding-left: 14px;
+}
+
+/* Policy Tabs Navigation */
+.pnav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.pnav a {
+  padding: 10px 20px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--charcoal-light);
+  text-decoration: none;
+  background: var(--ivory-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-pill);
+  transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.pnav a:hover {
+  border-color: var(--gold);
+  color: var(--maroon-primary);
+  transform: translateY(-1px);
+}
+
+.pnav a.on {
+  background: var(--maroon-primary);
+  color: #FFFFFF;
+  border-color: var(--maroon-primary);
+  box-shadow: 0 4px 12px rgba(74, 18, 32, 0.25);
+}
+
+/* Article Card */
+article {
+  background: var(--ivory-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 40px 44px;
+  box-shadow: var(--shadow-sm);
+}
+
+.upd {
+  font-size: 0.85rem;
+  color: var(--charcoal-muted);
+  font-style: italic;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--border-card);
+}
+
+article h2 {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--maroon-primary);
+  margin-top: 32px;
+  margin-bottom: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+article h2:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+article p {
+  color: var(--charcoal-light);
+  margin-bottom: 14px;
+  font-size: 0.96rem;
+}
+
+article ul, article ol {
+  margin: 12px 0 18px 24px;
+  color: var(--charcoal-light);
+}
+
+article li {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+article strong {
+  color: var(--charcoal);
+  font-weight: 600;
+}
+
+article a {
+  color: var(--maroon-primary);
+  font-weight: 500;
+  text-decoration: underline;
+  transition: color var(--transition);
+}
+
+article a:hover {
+  color: var(--gold);
+}
+
+.note {
+  background-color: #FDF9F0;
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 18px;
+  margin: 18px 0;
+  color: #5A4723;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.note strong {
+  color: #380C16;
+}
+
+/* ------------------------------------------------------------
+   4. FOOTER
+   ------------------------------------------------------------ */
+footer {
+  background-color: var(--maroon-dark);
+  color: #D8CCC4;
+  text-align: center;
+  padding: 24px 20px;
+  font-size: 0.88rem;
+  border-top: 1px solid rgba(212, 175, 112, 0.2);
+  line-height: 1.8;
+}
+
+footer a {
+  color: var(--gold-light);
+  text-decoration: none;
+  margin: 0 4px;
+  transition: color var(--transition);
+}
+
+footer a:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------
+   5. RESPONSIVE DESIGN
+   ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .wrap {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin: 24px auto 40px;
+  }
+
+  .toc {
+    position: static;
+    max-height: none;
+    padding: 18px;
+  }
+
+  article {
+    padding: 28px 22px;
+  }
+
+  .hero {
+    padding: 36px 16px 32px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .top-in {
+    padding: 12px 16px;
+  }
+
+  .brand {
+    font-size: 1.35rem;
+  }
+
+  .back {
+    padding: 6px 12px;
+    font-size: 0.82rem;
+  }
+
+  .hero h1 {
+    font-size: 1.7rem;
+  }
+
+  .hero p {
+    font-size: 0.92rem;
+  }
+
+  .pnav {
+    flex-direction: column;
+  }
+
+  .pnav a {
+    text-align: center;
+  }
+
+  article h2 {
+    font-size: 1.35rem;
+  }
+}
