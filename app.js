@@ -3,7 +3,7 @@ const WHATSAPP_NUMBER = "918778522690";
 const products = [
   { id: 1, name: "Kanchi cotton Saree", category: "Cotton Sarees", price: 1, image: "images/IMG_6513.jpg", images: ["images/IMG_6513.jpg", "images/IMG_6511.jpg", "images/IMG_6510.jpg"] },
   { id: 2, name: "Semi silk Saree", category: "Silk Sarees", price: 850, image: "images/Teal and Gold Banarasi Saree Fold.png" },
-  { id: 3, name: "Semi silk Saree", category: "Silk Sarees", price: 650, image: "images/Lime Green Silk Saree with Teal Zari Border.png" },
+  { id: 3, name: "Semi silk Saree", category: "Silk Sarees", price: 650, image: "images/IMG_6517_enhanced_straight.jpg", images: ["images/IMG_6517_enhanced_straight.jpg", "images/IMG_6518_enhanced_straight.jpg"] },
   { id: 4, name: "Daily wear Georgette Saree", category: "Party Wear Sarees", price: 550, image: "images/Folded_floral_yellow_saree_displ…_f635d66d_2K.jpg" },
   { id: 5, name: "Moonga Silk Saree", category: "Designer Sarees", price: 1150, image: "images/Folded_green_saree_with_border_c449f9bc_2K.jpg" },
   { id: 6, name: "Linen silk Saree", category: "Silk Sarees", price: 799, image: "images/image.png_1dbc01cd_2K.jpg" },

@@ -44,8 +44,12 @@ const PRODUCTS = [
     name: 'Semi silk Saree',
     price: 650,
     category: 'silk',
-    image: 'images/Lime Green Silk Saree with Teal Zari Border.png',
-    description: 'Regal bridal red Kanjivaram silk saree woven with ceremonial temple zari borders and heavy embossed floral motifs.'
+    image: 'images/IMG_6517_enhanced_straight.jpg',
+    images: [
+      'images/IMG_6517_enhanced_straight.jpg',
+      'images/IMG_6518_enhanced_straight.jpg'
+    ],
+    description: 'Gorgeous lime green semi-silk saree adorned with rich golden buttas and a vibrant cyan teal zari woven border. Lightweight, graceful, and perfect for festivals and special celebrations.'
   },
   {
     id: 4,
