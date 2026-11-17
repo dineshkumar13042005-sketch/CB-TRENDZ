@@ -908,12 +908,12 @@ ul {
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   z-index: 10;
-  padding: 4px 10px;
-  background: rgba(26, 4, 9, 0.72);
+  padding: 3px 8px;
+  background: rgba(26, 4, 9, 0.55);
   border-radius: 20px;
-  border: 1px solid rgba(212, 175, 112, 0.4);
+  border: 1px solid rgba(212, 175, 112, 0.35);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   pointer-events: auto;
@@ -980,7 +980,7 @@ ul {
   min-height: 400px;
   max-height: 520px;
   overflow: hidden;
-  background: #23040B;
+  background: #EFE8DF;
   display: flex;
   align-items: center;
   justify-content: center;
