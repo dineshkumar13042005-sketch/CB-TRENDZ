@@ -815,6 +815,277 @@ ul {
   transform: translateY(-1px);
 }
 
+/* ============================================================
+   CARD PHOTO SLIDER / CAROUSEL (Multiple Saree Views)
+   ============================================================ */
+.card-slider {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y pinch-zoom;
+  z-index: 2;
+}
+
+.card-slider-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.38s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.card-slider-img {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.product-thumb:hover .card-slider .card-slider-img,
+.product-card:hover .card-slider .card-slider-img {
+  transform: none !important;
+}
+
+/* Prev / Next Navigation Arrows on Card */
+.card-slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(42, 5, 14, 0.82);
+  border: 1.5px solid #D4AF70;
+  color: #FFFFFF;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.9;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 0 0 2px 0;
+}
+
+.card-slider-prev {
+  left: 8px;
+}
+
+.card-slider-next {
+  right: 8px;
+}
+
+.card-slider-btn:hover {
+  opacity: 1;
+  background: #6A142A;
+  border-color: #F8D58A;
+  color: #FFFFFF;
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55), 0 0 12px rgba(212, 175, 112, 0.5);
+}
+
+.card-slider-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Dots Indicator */
+.card-slider-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 10;
+  padding: 4px 10px;
+  background: rgba(26, 4, 9, 0.72);
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 112, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: auto;
+}
+
+.card-slider-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+  display: inline-block;
+}
+
+.card-slider-dot:hover {
+  background: #FFFFFF;
+}
+
+.card-slider-dot.active {
+  width: 20px;
+  border-radius: 4px;
+  background: #D4AF70;
+  box-shadow: 0 0 8px rgba(212, 175, 112, 0.9);
+}
+
+/* Slide Counter Badge (Top Right) */
+.card-slider-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(42, 5, 14, 0.85);
+  border: 1px solid rgba(212, 175, 112, 0.75);
+  color: #F8D58A;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: 12px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+/* Do not let hover popup obstruct slider photo cards */
+.product-thumb:has(.card-slider) .thumb-hover-popup,
+.product-card:hover .product-thumb:has(.card-slider) .thumb-hover-popup {
+  display: none !important;
+}
+
+/* ============================================================
+   QUICK VIEW GALLERY SLIDER (Modal Image Carousel)
+   ============================================================ */
+.qv-slider-box {
+  display: flex;
+  flex-direction: column;
+  background: #1A0308;
+}
+
+.qv-main-display {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  max-height: 520px;
+  overflow: hidden;
+  background: #23040B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qv-main-display img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  max-height: 520px;
+  transition: opacity 0.22s ease;
+}
+
+.qv-slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(42, 5, 14, 0.85);
+  border: 1.5px solid #D4AF70;
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.qv-slider-prev {
+  left: 12px;
+}
+
+.qv-slider-next {
+  right: 12px;
+}
+
+.qv-slider-btn:hover {
+  background: #6A142A;
+  border-color: #F8D58A;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.qv-slider-counter {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(42, 5, 14, 0.85);
+  border: 1px solid rgba(212, 175, 112, 0.6);
+  color: #F8D58A;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 12px;
+  z-index: 5;
+}
+
+.qv-thumbs-row {
+  display: flex;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #140206;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid rgba(212, 175, 112, 0.3);
+}
+
+.qv-thumb-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: transparent;
+  padding: 0;
+  transition: all 0.22s ease;
+  opacity: 0.65;
+}
+
+.qv-thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.qv-thumb-btn:hover {
+  opacity: 0.95;
+  transform: scale(1.05);
+}
+
+.qv-thumb-btn.active {
+  opacity: 1;
+  border-color: #D4AF70;
+  box-shadow: 0 0 10px rgba(212, 175, 112, 0.85);
+  transform: scale(1.05);
+}
+
 /* Product Badges (Top-Left) */
 .product-badge {
   position: absolute;

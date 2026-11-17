@@ -23,7 +23,12 @@ const PRODUCTS = [
     name: 'Kanchi cotton Saree',
     price: 1,
     category: 'cotton',
-    image: 'images/Maroon Gold Zari Saree Ensemble.png',
+    image: 'images/IMG_6513.jpg',
+    images: [
+      'images/IMG_6513.jpg',
+      'images/IMG_6511.jpg',
+      'images/IMG_6510.jpg'
+    ],
     description: 'Exquisite authentic Kanchipuram pure silk saree with heavy golden zari pallu and intricate border weave. Ideal for weddings and grand festive celebrations.'
   },
   {
@@ -216,25 +221,42 @@ function renderProducts() {
       <article class="product-card" data-id="${p.id}">
         <!-- Image Thumbnail -->
         <div class="product-thumb">
-          <img src="${p.image}" alt="${p.name}" loading="lazy" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+          ${p.images && p.images.length > 1 ? `
+            <div class="card-slider" data-id="${p.id}" data-index="0">
+              <div class="card-slider-badge">1 / ${p.images.length}</div>
+              <div class="card-slider-track">
+                ${p.images.map((img, i) => `
+                  <img src="${img}" alt="${p.name} - View ${i + 1}" class="card-slider-img" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+                `).join('')}
+              </div>
+              <button type="button" class="card-slider-btn card-slider-prev" data-id="${p.id}" data-dir="-1" aria-label="Previous photo">‹</button>
+              <button type="button" class="card-slider-btn card-slider-next" data-id="${p.id}" data-dir="1" aria-label="Next photo">›</button>
+              <div class="card-slider-dots">
+                ${p.images.map((_, i) => `
+                  <span class="card-slider-dot ${i === 0 ? 'active' : ''}" data-id="${p.id}" data-index="${i}" aria-label="Photo ${i + 1}"></span>
+                `).join('')}
+              </div>
+            </div>
+          ` : `
+            <img src="${p.image}" alt="${p.name}" loading="lazy" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+            <!-- Hover Pop-Up Window Showing Saree Details & Price for single images -->
+            <div class="thumb-hover-popup" role="region" aria-label="Saree preview">
+              <h4 class="popup-title">${p.name}</h4>
+              <div class="popup-price-row">
+                <span class="popup-price">${formatINR(p.price)}</span>
+              </div>
+              <p class="popup-desc">${p.description || ''}</p>
+              <div class="popup-action-row">
+                <button type="button" class="btn-popup-buynow btn-card-buynow" data-id="${p.id}">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  <span>Buy Now</span>
+                </button>
+              </div>
+            </div>
+          `}
           <button class="product-wish-btn ${isWish ? 'active' : ''}" data-id="${p.id}" aria-label="Add ${p.name} to wishlist" title="Add to wishlist">
             ${isWish ? '♥' : '♡'}
           </button>
-
-          <!-- Hover Pop-Up Window Showing Saree Details & Price -->
-          <div class="thumb-hover-popup" role="region" aria-label="Saree preview">
-            <h4 class="popup-title">${p.name}</h4>
-            <div class="popup-price-row">
-              <span class="popup-price">${formatINR(p.price)}</span>
-            </div>
-            <p class="popup-desc">${p.description || ''}</p>
-            <div class="popup-action-row">
-              <button type="button" class="btn-popup-buynow btn-card-buynow" data-id="${p.id}">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                <span>Buy Now</span>
-              </button>
-            </div>
-          </div>
         </div>
 
         <!-- Product Details -->
@@ -259,6 +281,90 @@ function renderProducts() {
 
   // Render Pagination Bar
   renderPagination(totalPages);
+
+  // Initialize interactive touch swipe for multi-image sliders
+  initCardSliderTouch();
+}
+
+/**
+ * Slide Product Card Carousel (Prev/Next or Direct Index)
+ */
+function slideCardImage(productId, stepOrIndex, isAbsolute = false) {
+  const p = PRODUCTS.find(item => item.id === productId);
+  if (!p || !p.images || p.images.length <= 1) return;
+
+  const slider = document.querySelector(`.card-slider[data-id="${productId}"]`);
+  if (!slider) return;
+
+  const track = slider.querySelector('.card-slider-track');
+  const dots = slider.querySelectorAll('.card-slider-dot');
+  const badge = slider.querySelector('.card-slider-badge');
+  const total = p.images.length;
+
+  let current = parseInt(slider.dataset.index || '0', 10);
+  let nextIndex;
+
+  if (isAbsolute) {
+    nextIndex = Math.max(0, Math.min(total - 1, stepOrIndex));
+  } else {
+    nextIndex = (current + stepOrIndex + total) % total;
+  }
+
+  slider.dataset.index = nextIndex;
+
+  if (track) {
+    track.style.transform = `translateX(-${nextIndex * 100}%)`;
+  }
+
+  dots.forEach((dot, idx) => {
+    dot.classList.toggle('active', idx === nextIndex);
+  });
+
+  if (badge) {
+    badge.textContent = `${nextIndex + 1} / ${total}`;
+  }
+}
+
+/**
+ * Initialize Touch Swipe Gestures for Mobile Browsers
+ */
+function initCardSliderTouch() {
+  const sliders = document.querySelectorAll('.card-slider');
+  sliders.forEach(slider => {
+    if (slider.dataset.touchInit === 'true') return;
+    slider.dataset.touchInit = 'true';
+
+    let startX = 0;
+    let startY = 0;
+    let isTouching = false;
+
+    slider.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isTouching = true;
+      }
+    }, { passive: true });
+
+    slider.addEventListener('touchend', (e) => {
+      if (!isTouching || e.changedTouches.length === 0) return;
+      isTouching = false;
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      const diffX = endX - startX;
+      const diffY = endY - startY;
+
+      // Detect intentional horizontal swipe
+      if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+        const id = parseInt(slider.dataset.id, 10);
+        if (diffX < 0) {
+          slideCardImage(id, 1);
+        } else {
+          slideCardImage(id, -1);
+        }
+      }
+    }, { passive: true });
+  });
 }
 
 function renderPagination(totalPages) {
@@ -475,6 +581,9 @@ function checkoutViaWhatsApp() {
 /* ============================================================
    7. QUICK VIEW MODAL
    ============================================================ */
+let currentQvProductId = null;
+let currentQvIndex = 0;
+
 function openQuickView(productId) {
   const p = PRODUCTS.find(prod => prod.id === productId);
   if (!p) return;
@@ -483,10 +592,32 @@ function openQuickView(productId) {
   const content = document.getElementById('qv-content');
   if (!modal || !content) return;
 
+  currentQvProductId = productId;
+  currentQvIndex = 0;
+  const hasMultipleImages = p.images && p.images.length > 1;
+
   content.innerHTML = `
-    <div class="modal-img-box">
-      <img src="${p.image}" alt="${p.name}" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-    </div>
+    ${hasMultipleImages ? `
+      <div class="modal-img-box qv-slider-box">
+        <div class="qv-main-display">
+          <img id="qv-main-img" src="${p.images[0]}" alt="${p.name}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+          <button type="button" class="qv-slider-btn qv-slider-prev" onclick="slideQuickView(${p.id}, -1)" aria-label="Previous view">‹</button>
+          <button type="button" class="qv-slider-btn qv-slider-next" onclick="slideQuickView(${p.id}, 1)" aria-label="Next view">›</button>
+          <div class="qv-slider-counter"><span id="qv-counter-cur">1</span> / ${p.images.length}</div>
+        </div>
+        <div class="qv-thumbs-row">
+          ${p.images.map((img, i) => `
+            <button type="button" class="qv-thumb-btn ${i === 0 ? 'active' : ''}" data-index="${i}" onclick="selectQuickViewImage(${p.id}, ${i})" aria-label="View photo ${i + 1}">
+              <img src="${img}" alt="${p.name} view ${i + 1}" />
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    ` : `
+      <div class="modal-img-box">
+        <img src="${p.image}" alt="${p.name}" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+      </div>
+    `}
     <div class="modal-details-box">
       <h2 class="modal-title">${p.name}</h2>
 
@@ -510,6 +641,29 @@ function openQuickView(productId) {
 
   modal.classList.add('open');
   document.body.classList.add('no-scroll');
+}
+
+function selectQuickViewImage(productId, index) {
+  const p = PRODUCTS.find(prod => prod.id === productId);
+  if (!p || !p.images) return;
+  currentQvIndex = Math.max(0, Math.min(p.images.length - 1, index));
+  const mainImg = document.getElementById('qv-main-img');
+  if (mainImg) {
+    mainImg.style.opacity = '0.4';
+    mainImg.src = p.images[currentQvIndex];
+    setTimeout(() => { mainImg.style.opacity = '1'; }, 70);
+  }
+  const counter = document.getElementById('qv-counter-cur');
+  if (counter) counter.textContent = currentQvIndex + 1;
+  const thumbs = document.querySelectorAll('.qv-thumb-btn');
+  thumbs.forEach((t, i) => t.classList.toggle('active', i === currentQvIndex));
+}
+
+function slideQuickView(productId, dir) {
+  const p = PRODUCTS.find(prod => prod.id === productId);
+  if (!p || !p.images) return;
+  const nextIdx = (currentQvIndex + dir + p.images.length) % p.images.length;
+  selectQuickViewImage(productId, nextIdx);
 }
 
 function closeQuickView() {
@@ -649,6 +803,28 @@ function initEvents() {
   const grid = document.getElementById('products-grid');
   if (grid) {
     grid.addEventListener('click', (e) => {
+      // 1. Slider Next/Prev arrow button click
+      const sliderBtn = e.target.closest('.card-slider-btn');
+      if (sliderBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = parseInt(sliderBtn.dataset.id, 10);
+        const dir = parseInt(sliderBtn.dataset.dir, 10);
+        if (id && dir) slideCardImage(id, dir);
+        return;
+      }
+
+      // 2. Slider Dot indicator click
+      const sliderDot = e.target.closest('.card-slider-dot');
+      if (sliderDot) {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = parseInt(sliderDot.dataset.id, 10);
+        const index = parseInt(sliderDot.dataset.index, 10);
+        if (id !== undefined && !isNaN(index)) slideCardImage(id, index, true);
+        return;
+      }
+
       const buyBtn = e.target.closest('.btn-card-buynow');
       if (buyBtn) {
         const id = parseInt(buyBtn.dataset.id || buyBtn.getAttribute('data-id'), 10);
@@ -677,9 +853,9 @@ function initEvents() {
         return;
       }
 
-      // Clicking photo thumbnail opens Quick View (only if not clicking a button)
+      // Clicking photo thumbnail opens Quick View (only if not clicking a button or dot)
       const thumb = e.target.closest('.product-thumb');
-      if (thumb && !e.target.closest('button')) {
+      if (thumb && !e.target.closest('button') && !e.target.closest('.card-slider-dot')) {
         const card = thumb.closest('.product-card');
         const id = parseInt(card?.dataset?.id, 10);
         if (id) openQuickView(id);

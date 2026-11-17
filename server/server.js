@@ -108,7 +108,7 @@ function findOrder(identifier) {
  * Every order total is recalculated and verified strictly from server catalog.
  */
 const SERVER_CATALOG = {
-  1: { id: 1, name: 'Kanchi cotton Saree', price: 1, category: 'cotton', image: 'images/Maroon Gold Zari Saree Ensemble.png' },
+  1: { id: 1, name: 'Kanchi cotton Saree', price: 1, category: 'cotton', image: 'images/IMG_6513.jpg', images: ['images/IMG_6513.jpg', 'images/IMG_6511.jpg', 'images/IMG_6510.jpg'] },
   2: { id: 2, name: 'Semi silk Saree', price: 850, category: 'silk', image: 'images/Teal and Gold Banarasi Saree Fold.png' },
   3: { id: 3, name: 'Semi silk Saree', price: 650, category: 'silk', image: 'images/Lime Green Silk Saree with Teal Zari Border.png' },
   4: { id: 4, name: 'Daily wear Georgette Saree', price: 550, category: 'party', image: 'images/Folded_floral_yellow_saree_displ…_f635d66d_2K.jpg' },
