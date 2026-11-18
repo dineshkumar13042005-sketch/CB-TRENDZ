@@ -49,7 +49,33 @@ const PRODUCTS = [
       'images/IMG_6517_enhanced_straight.jpg',
       'images/IMG_6518_enhanced_straight.jpg'
     ],
-    description: 'Gorgeous lime green semi-silk saree adorned with rich golden buttas and a vibrant cyan teal zari woven border. Lightweight, graceful, and perfect for festivals and special celebrations.'
+    selectedColor: 'green',
+    colors: [
+      {
+        id: 'green',
+        name: 'Olive Green',
+        hex: '#7A8C18',
+        borderHex: '#0892A5',
+        image: 'images/IMG_6517_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6517_enhanced_straight.jpg',
+          'images/IMG_6518_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'yellow',
+        name: 'Mustard Yellow',
+        hex: '#E5A510',
+        borderHex: '#B2184B',
+        image: 'images/IMG_6514_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6514_enhanced_straight.jpg',
+          'images/IMG_6515_enhanced_straight.jpg',
+          'images/IMG_6516_enhanced_straight.jpg'
+        ]
+      }
+    ],
+    description: 'Gorgeous semi-silk saree adorned with rich golden buttas and elegant zari woven border. Available in vibrant Olive Green with Cyan-Teal border and Mustard Yellow with Rani Pink border. Lightweight, graceful, and perfect for festivals and special celebrations.'
   },
   {
     id: 4,
@@ -220,29 +246,33 @@ function renderProducts() {
   // Render Product Cards (Clean, luxury presentation with Only Buy Now button)
   grid.innerHTML = pageProducts.map(p => {
     const isWish = wishlist.includes(p.id);
+    const activeColorObj = p.colors ? p.colors.find(c => c.id === (p.selectedColor || p.colors[0].id)) : null;
+    const currentImages = activeColorObj ? activeColorObj.images : p.images;
+    const currentPrimary = activeColorObj ? activeColorObj.image : p.image;
+    const hasMultipleImages = currentImages && currentImages.length > 1;
 
     return `
       <article class="product-card" data-id="${p.id}">
         <!-- Image Thumbnail -->
         <div class="product-thumb">
-          ${p.images && p.images.length > 1 ? `
+          ${hasMultipleImages ? `
             <div class="card-slider" data-id="${p.id}" data-index="0">
-              <div class="card-slider-badge">1 / ${p.images.length}</div>
+              <div class="card-slider-badge">1 / ${currentImages.length}</div>
               <div class="card-slider-track">
-                ${p.images.map((img, i) => `
+                ${currentImages.map((img, i) => `
                   <img src="${img}" alt="${p.name} - View ${i + 1}" class="card-slider-img" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
                 `).join('')}
               </div>
               <button type="button" class="card-slider-btn card-slider-prev" data-id="${p.id}" data-dir="-1" aria-label="Previous photo">‹</button>
               <button type="button" class="card-slider-btn card-slider-next" data-id="${p.id}" data-dir="1" aria-label="Next photo">›</button>
               <div class="card-slider-dots">
-                ${p.images.map((_, i) => `
+                ${currentImages.map((_, i) => `
                   <span class="card-slider-dot ${i === 0 ? 'active' : ''}" data-id="${p.id}" data-index="${i}" aria-label="Photo ${i + 1}"></span>
                 `).join('')}
               </div>
             </div>
           ` : `
-            <img src="${p.image}" alt="${p.name}" loading="lazy" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+            <img src="${currentPrimary}" alt="${p.name}" loading="lazy" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
             <!-- Hover Pop-Up Window Showing Saree Details & Price for single images -->
             <div class="thumb-hover-popup" role="region" aria-label="Saree preview">
               <h4 class="popup-title">${p.name}</h4>
@@ -271,6 +301,19 @@ function renderProducts() {
             <span class="price-now">${formatINR(p.price)}</span>
           </div>
 
+          <!-- Color Swatches (if product has multiple colors) -->
+          ${p.colors && p.colors.length > 1 ? `
+            <div class="card-color-swatches" data-id="${p.id}">
+              <span class="card-color-label">Color:</span>
+              ${p.colors.map(c => `
+                <button type="button" class="color-swatch-pill ${c.id === (p.selectedColor || p.colors[0].id) ? 'active' : ''}" data-id="${p.id}" data-color="${c.id}" aria-label="Select ${c.name}">
+                  <span class="swatch-dot" style="background: ${c.hex}; border: 1.5px solid ${c.borderHex || '#D4AF70'};"></span>
+                  <span class="swatch-text">${c.id === 'green' ? 'Green' : 'Yellow'}</span>
+                </button>
+              `).join('')}
+            </div>
+          ` : ''}
+
           <!-- Only Buy Now Button with Effects -->
           <div class="product-btn-group">
             <button class="btn-card-buynow" data-id="${p.id}">
@@ -295,7 +338,10 @@ function renderProducts() {
  */
 function slideCardImage(productId, stepOrIndex, isAbsolute = false) {
   const p = PRODUCTS.find(item => item.id === productId);
-  if (!p || !p.images || p.images.length <= 1) return;
+  if (!p) return;
+  const activeColorObj = p.colors ? p.colors.find(c => c.id === (p.selectedColor || p.colors[0].id)) : null;
+  const currentImages = activeColorObj ? activeColorObj.images : p.images;
+  if (!currentImages || currentImages.length <= 1) return;
 
   const slider = document.querySelector(`.card-slider[data-id="${productId}"]`);
   if (!slider) return;
@@ -303,7 +349,7 @@ function slideCardImage(productId, stepOrIndex, isAbsolute = false) {
   const track = slider.querySelector('.card-slider-track');
   const dots = slider.querySelectorAll('.card-slider-dot');
   const badge = slider.querySelector('.card-slider-badge');
-  const total = p.images.length;
+  const total = currentImages.length;
 
   let current = parseInt(slider.dataset.index || '0', 10);
   let nextIndex;
@@ -583,10 +629,90 @@ function checkoutViaWhatsApp() {
 }
 
 /* ============================================================
-   7. QUICK VIEW MODAL
+   7. QUICK VIEW MODAL & COLOR VARIANTS
    ============================================================ */
 let currentQvProductId = null;
 let currentQvIndex = 0;
+
+/**
+ * Switch Product Color Variant (e.g. Green vs Yellow for Semi silk Saree)
+ */
+function selectProductColor(productId, colorId) {
+  const p = PRODUCTS.find(prod => prod.id === productId);
+  if (!p || !p.colors) return;
+  const col = p.colors.find(c => c.id === colorId);
+  if (!col) return;
+
+  p.selectedColor = colorId;
+  p.image = col.image;
+  p.images = col.images;
+
+  // 1. If Quick View modal is currently open for this product:
+  const modal = document.getElementById('quick-view-overlay');
+  if (modal && modal.classList.contains('open') && currentQvProductId === productId) {
+    currentQvIndex = 0;
+    // Update main image
+    const mainImg = document.getElementById('qv-main-img');
+    if (mainImg) {
+      mainImg.style.opacity = '0.4';
+      mainImg.src = col.images[0];
+      setTimeout(() => { mainImg.style.opacity = '1'; }, 70);
+    }
+    // Update counter
+    const counter = document.getElementById('qv-counter-cur');
+    if (counter) counter.textContent = '1';
+    const totalEl = document.querySelector('.qv-slider-counter');
+    if (totalEl) totalEl.innerHTML = `<span id="qv-counter-cur">1</span> / ${col.images.length}`;
+
+    // Update thumbnails row
+    const thumbsRow = document.querySelector('.qv-thumbs-row');
+    if (thumbsRow) {
+      thumbsRow.innerHTML = col.images.map((img, i) => `
+        <button type="button" class="qv-thumb-btn ${i === 0 ? 'active' : ''}" data-index="${i}" onclick="selectQuickViewImage(${p.id}, ${i})" aria-label="View photo ${i + 1}">
+          <img src="${img}" alt="${p.name} view ${i + 1}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+        </button>
+      `).join('');
+    }
+
+    // Update active color buttons in modal
+    const qvBtns = document.querySelectorAll('.qv-color-btn');
+    qvBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.color === colorId);
+    });
+  }
+
+  // 2. Update the product card on the shop page
+  const card = document.querySelector(`.product-card[data-id="${productId}"]`);
+  if (card) {
+    const slider = card.querySelector('.card-slider');
+    if (slider) {
+      slider.dataset.index = '0';
+      const badge = slider.querySelector('.card-slider-badge');
+      if (badge) badge.textContent = `1 / ${col.images.length}`;
+
+      const track = slider.querySelector('.card-slider-track');
+      if (track) {
+        track.style.transform = 'translateX(0%)';
+        track.innerHTML = col.images.map((img, i) => `
+          <img src="${img}" alt="${p.name} - View ${i + 1}" class="card-slider-img" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+        `).join('');
+      }
+
+      const dots = slider.querySelector('.card-slider-dots');
+      if (dots) {
+        dots.innerHTML = col.images.map((_, i) => `
+          <span class="card-slider-dot ${i === 0 ? 'active' : ''}" data-id="${p.id}" data-index="${i}" aria-label="Photo ${i + 1}"></span>
+        `).join('');
+      }
+    }
+
+    // Update swatch pills on card
+    const swatchPills = card.querySelectorAll('.color-swatch-pill');
+    swatchPills.forEach(pill => {
+      pill.classList.toggle('active', pill.dataset.color === colorId);
+    });
+  }
+}
 
 function openQuickView(productId) {
   const p = PRODUCTS.find(prod => prod.id === productId);
@@ -598,28 +724,31 @@ function openQuickView(productId) {
 
   currentQvProductId = productId;
   currentQvIndex = 0;
-  const hasMultipleImages = p.images && p.images.length > 1;
+  const activeColorObj = p.colors ? p.colors.find(c => c.id === (p.selectedColor || p.colors[0].id)) : null;
+  const currentImages = activeColorObj ? activeColorObj.images : p.images;
+  const currentPrimary = activeColorObj ? activeColorObj.image : p.image;
+  const hasMultipleImages = currentImages && currentImages.length > 1;
 
   content.innerHTML = `
     ${hasMultipleImages ? `
       <div class="modal-img-box qv-slider-box">
         <div class="qv-main-display">
-          <img id="qv-main-img" src="${p.images[0]}" alt="${p.name}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+          <img id="qv-main-img" src="${currentImages[0]}" alt="${p.name}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
           <button type="button" class="qv-slider-btn qv-slider-prev" onclick="slideQuickView(${p.id}, -1)" aria-label="Previous view">‹</button>
           <button type="button" class="qv-slider-btn qv-slider-next" onclick="slideQuickView(${p.id}, 1)" aria-label="Next view">›</button>
-          <div class="qv-slider-counter"><span id="qv-counter-cur">1</span> / ${p.images.length}</div>
+          <div class="qv-slider-counter"><span id="qv-counter-cur">1</span> / ${currentImages.length}</div>
         </div>
         <div class="qv-thumbs-row">
-          ${p.images.map((img, i) => `
+          ${currentImages.map((img, i) => `
             <button type="button" class="qv-thumb-btn ${i === 0 ? 'active' : ''}" data-index="${i}" onclick="selectQuickViewImage(${p.id}, ${i})" aria-label="View photo ${i + 1}">
-              <img src="${img}" alt="${p.name} view ${i + 1}" />
+              <img src="${img}" alt="${p.name} view ${i + 1}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
             </button>
           `).join('')}
         </div>
       </div>
     ` : `
       <div class="modal-img-box">
-        <img src="${p.image}" alt="${p.name}" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+        <img src="${currentPrimary}" alt="${p.name}" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
       </div>
     `}
     <div class="modal-details-box">
@@ -629,6 +758,20 @@ function openQuickView(productId) {
         <span class="modal-price-now">${formatINR(p.price)}</span>
       </div>
 
+      ${p.colors && p.colors.length > 1 ? `
+        <div class="modal-color-picker">
+          <span class="modal-color-label">Available Colors:</span>
+          <div class="modal-color-options">
+            ${p.colors.map(c => `
+              <button type="button" class="qv-color-btn ${c.id === (p.selectedColor || p.colors[0].id) ? 'active' : ''}" data-id="${p.id}" data-color="${c.id}" onclick="selectProductColor(${p.id}, '${c.id}')" aria-label="${c.name}">
+                <span class="qv-color-circle" style="background: ${c.hex}; border: 1.5px solid ${c.borderHex || '#D4AF70'};"></span>
+                <span class="qv-color-text">${c.name}</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      ` : ''}
+
       <p class="modal-desc-text">${p.description || ''}</p>
 
       <div class="modal-actions">
@@ -636,7 +779,7 @@ function openQuickView(productId) {
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
           <span>Buy Now</span>
         </button>
-        <a href="https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent('Hello CB TRENDZ! I want to enquire about ' + p.name + ' (' + formatINR(p.price) + ')')}" target="_blank" rel="noopener noreferrer" class="btn-modal-wa">
+        <a href="https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent('Hello CB TRENDZ! I want to enquire about ' + p.name + (activeColorObj ? ' in ' + activeColorObj.name : '') + ' (' + formatINR(p.price) + ')')}" target="_blank" rel="noopener noreferrer" class="btn-modal-wa">
           💬 Order on WhatsApp
         </a>
       </div>
@@ -649,12 +792,16 @@ function openQuickView(productId) {
 
 function selectQuickViewImage(productId, index) {
   const p = PRODUCTS.find(prod => prod.id === productId);
-  if (!p || !p.images) return;
-  currentQvIndex = Math.max(0, Math.min(p.images.length - 1, index));
+  if (!p) return;
+  const activeColorObj = p.colors ? p.colors.find(c => c.id === (p.selectedColor || p.colors[0].id)) : null;
+  const currentImages = activeColorObj ? activeColorObj.images : p.images;
+  if (!currentImages) return;
+
+  currentQvIndex = Math.max(0, Math.min(currentImages.length - 1, index));
   const mainImg = document.getElementById('qv-main-img');
   if (mainImg) {
     mainImg.style.opacity = '0.4';
-    mainImg.src = p.images[currentQvIndex];
+    mainImg.src = currentImages[currentQvIndex];
     setTimeout(() => { mainImg.style.opacity = '1'; }, 70);
   }
   const counter = document.getElementById('qv-counter-cur');
@@ -665,8 +812,12 @@ function selectQuickViewImage(productId, index) {
 
 function slideQuickView(productId, dir) {
   const p = PRODUCTS.find(prod => prod.id === productId);
-  if (!p || !p.images) return;
-  const nextIdx = (currentQvIndex + dir + p.images.length) % p.images.length;
+  if (!p) return;
+  const activeColorObj = p.colors ? p.colors.find(c => c.id === (p.selectedColor || p.colors[0].id)) : null;
+  const currentImages = activeColorObj ? activeColorObj.images : p.images;
+  if (!currentImages || currentImages.length <= 1) return;
+
+  const nextIdx = (currentQvIndex + dir + currentImages.length) % currentImages.length;
   selectQuickViewImage(productId, nextIdx);
 }
 
@@ -826,6 +977,17 @@ function initEvents() {
         const id = parseInt(sliderDot.dataset.id, 10);
         const index = parseInt(sliderDot.dataset.index, 10);
         if (id !== undefined && !isNaN(index)) slideCardImage(id, index, true);
+        return;
+      }
+
+      // 3. Color Swatch Pill click (e.g. Green vs Yellow for Semi silk Saree)
+      const swatchPill = e.target.closest('.color-swatch-pill');
+      if (swatchPill) {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = parseInt(swatchPill.dataset.id, 10);
+        const color = swatchPill.dataset.color;
+        if (id && color) selectProductColor(id, color);
         return;
       }
 
@@ -1610,12 +1772,16 @@ function backToDetailsStep() {
 function buyNowSingleProduct(productId) {
   const p = PRODUCTS.find(item => item.id === productId);
   if (!p) return;
+  const activeColor = p.colors ? p.colors.find(c => c.id === (p.selectedColor || p.colors[0].id)) : null;
+  const itemName = activeColor ? `${p.name} - ${activeColor.name}` : p.name;
+  const itemImg = activeColor ? activeColor.image : p.image;
   currentCheckoutItems = [{
     id: p.id,
     quantity: 1,
-    name: p.name,
+    name: itemName,
     price: p.price,
-    image: p.image
+    image: itemImg,
+    color: activeColor ? activeColor.name : undefined
   }];
   // Opens Step 1 with saree details, price breakdown, and delivery form
   openCheckoutModalWithItems(currentCheckoutItems);

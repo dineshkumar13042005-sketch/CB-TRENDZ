@@ -110,7 +110,18 @@ function findOrder(identifier) {
 const SERVER_CATALOG = {
   1: { id: 1, name: 'Kanchi cotton Saree', price: 1, category: 'cotton', image: 'images/IMG_6513.jpg', images: ['images/IMG_6513.jpg', 'images/IMG_6511.jpg', 'images/IMG_6510.jpg'] },
   2: { id: 2, name: 'Semi silk Saree', price: 850, category: 'silk', image: 'images/Teal and Gold Banarasi Saree Fold.png' },
-  3: { id: 3, name: 'Semi silk Saree', price: 650, category: 'silk', image: 'images/IMG_6517_enhanced_straight.jpg', images: ['images/IMG_6517_enhanced_straight.jpg', 'images/IMG_6518_enhanced_straight.jpg'] },
+  3: {
+    id: 3,
+    name: 'Semi silk Saree',
+    price: 650,
+    category: 'silk',
+    image: 'images/IMG_6517_enhanced_straight.jpg',
+    images: ['images/IMG_6517_enhanced_straight.jpg', 'images/IMG_6518_enhanced_straight.jpg'],
+    colors: [
+      { id: 'green', name: 'Olive Green', hex: '#7A8C18', borderHex: '#0892A5', image: 'images/IMG_6517_enhanced_straight.jpg', images: ['images/IMG_6517_enhanced_straight.jpg', 'images/IMG_6518_enhanced_straight.jpg'] },
+      { id: 'yellow', name: 'Mustard Yellow', hex: '#E5A510', borderHex: '#B2184B', image: 'images/IMG_6514_enhanced_straight.jpg', images: ['images/IMG_6514_enhanced_straight.jpg', 'images/IMG_6515_enhanced_straight.jpg', 'images/IMG_6516_enhanced_straight.jpg'] }
+    ]
+  },
   4: { id: 4, name: 'Daily wear Georgette Saree', price: 550, category: 'party', image: 'images/Folded_floral_yellow_saree_displ…_f635d66d_2K.jpg' },
   5: { id: 5, name: 'Moonga Silk Saree', price: 1150, category: 'designer', image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg' },
   6: { id: 6, name: 'Linen silk Saree', price: 799, category: 'silk', image: 'images/image.png_1dbc01cd_2K.jpg' },
