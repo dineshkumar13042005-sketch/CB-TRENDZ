@@ -15,7 +15,20 @@ const products = [
       { id: "yellow", name: "Mustard Yellow", hex: "#E5A510", borderHex: "#B2184B", image: "images/IMG_6514_enhanced_straight.jpg", images: ["images/IMG_6514_enhanced_straight.jpg", "images/IMG_6515_enhanced_straight.jpg", "images/IMG_6516_enhanced_straight.jpg"] }
     ]
   },
-  { id: 4, name: "Daily wear Georgette Saree", category: "Party Wear Sarees", price: 550, image: "images/Folded_floral_yellow_saree_displ…_f635d66d_2K.jpg" },
+  {
+    id: 4,
+    name: "Daily wear Georgette Saree",
+    category: "Party Wear Sarees",
+    price: 550,
+    image: "images/IMG_6523_enhanced_straight.jpg",
+    images: ["images/IMG_6523_enhanced_straight.jpg", "images/IMG_6524_enhanced_straight.jpg"],
+    colors: [
+      { id: "yellow", name: "Mustard Yellow", label: "Yellow", hex: "#C99A1C", borderHex: "#D4AF70", image: "images/IMG_6523_enhanced_straight.jpg", images: ["images/IMG_6523_enhanced_straight.jpg", "images/IMG_6524_enhanced_straight.jpg"] },
+      { id: "red", name: "Festive Red", label: "Red", hex: "#A7171C", borderHex: "#D4AF70", image: "images/IMG_6525_enhanced_straight.jpg", images: ["images/IMG_6525_enhanced_straight.jpg", "images/IMG_6526_enhanced_straight.jpg"] },
+      { id: "pink", name: "Coral Pink", label: "Pink", hex: "#E65D65", borderHex: "#D4AF70", image: "images/IMG_6527_enhanced_straight.jpg", images: ["images/IMG_6527_enhanced_straight.jpg", "images/IMG_6528_enhanced_straight.jpg"] },
+      { id: "violet", name: "Royal Violet", label: "Violet", hex: "#2E1E5B", borderHex: "#6A4E9E", image: "images/IMG_6529_enhanced_straight.jpg", images: ["images/IMG_6529_enhanced_straight.jpg", "images/IMG_6530_enhanced_straight.jpg", "images/IMG_6531_enhanced_straight.jpg", "images/IMG_6532_enhanced_straight.jpg"] }
+    ]
+  },
   { id: 5, name: "Moonga Silk Saree", category: "Designer Sarees", price: 1150, image: "images/Folded_green_saree_with_border_c449f9bc_2K.jpg" },
   { id: 6, name: "Linen silk Saree", category: "Silk Sarees", price: 799, image: "images/image.png_1dbc01cd_2K.jpg" },
   { id: 7, name: "Shimmer linen Saree", category: "Party Wear Sarees", price: 799, image: "images/image.png_26f0abe6_2K.jpg" },
