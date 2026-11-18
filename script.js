@@ -54,6 +54,7 @@ const PRODUCTS = [
       {
         id: 'green',
         name: 'Olive Green',
+        label: 'Green',
         hex: '#7A8C18',
         borderHex: '#0892A5',
         image: 'images/IMG_6517_enhanced_straight.jpg',
@@ -65,6 +66,7 @@ const PRODUCTS = [
       {
         id: 'yellow',
         name: 'Mustard Yellow',
+        label: 'Yellow',
         hex: '#E5A510',
         borderHex: '#B2184B',
         image: 'images/IMG_6514_enhanced_straight.jpg',
@@ -124,6 +126,45 @@ const PRODUCTS = [
     category: 'cotton',
     image: 'images/Folded Multicolor Silk Saree on White.png',
     description: 'Vibrant multicolor cotton saree with elegant traditional patterns, breathable soft weave, and contrasting borders. Perfect for both casual wear and festive occasions.'
+  },
+  {
+    id: 10,
+    name: 'Designer Embroidered Saree',
+    price: 799,
+    category: 'designer',
+    image: 'images/IMG_6519_enhanced_straight.jpg',
+    images: [
+      'images/IMG_6519_enhanced_straight.jpg',
+      'images/IMG_6520_enhanced_straight.jpg'
+    ],
+    selectedColor: 'green',
+    colors: [
+      {
+        id: 'green',
+        name: 'Emerald Green',
+        label: 'Green',
+        hex: '#1B5E3C',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6519_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6519_enhanced_straight.jpg',
+          'images/IMG_6520_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'red',
+        name: 'Ruby Red',
+        label: 'Red',
+        hex: '#9B111E',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6521_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6521_enhanced_straight.jpg',
+          'images/IMG_6522_enhanced_straight.jpg'
+        ]
+      }
+    ],
+    description: 'Exquisite sheer designer organza saree featuring delicate vertical gold zari stripes and an opulent scalloped floral embroidered border with subtle sequin highlights. Available in rich Emerald Green and celebratory Ruby Red. Lightweight and glamorous for weddings, parties, and celebrations.'
   }
 ];
 
@@ -308,7 +349,7 @@ function renderProducts() {
               ${p.colors.map(c => `
                 <button type="button" class="color-swatch-pill ${c.id === (p.selectedColor || p.colors[0].id) ? 'active' : ''}" data-id="${p.id}" data-color="${c.id}" aria-label="Select ${c.name}">
                   <span class="swatch-dot" style="background: ${c.hex}; border: 1.5px solid ${c.borderHex || '#D4AF70'};"></span>
-                  <span class="swatch-text">${c.id === 'green' ? 'Green' : 'Yellow'}</span>
+                  <span class="swatch-text">${c.label || (c.id === 'green' ? 'Green' : (c.id === 'red' ? 'Red' : (c.id === 'yellow' ? 'Yellow' : c.name)))}</span>
                 </button>
               `).join('')}
             </div>

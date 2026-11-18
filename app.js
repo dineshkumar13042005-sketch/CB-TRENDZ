@@ -20,7 +20,19 @@ const products = [
   { id: 6, name: "Linen silk Saree", category: "Silk Sarees", price: 799, image: "images/image.png_1dbc01cd_2K.jpg" },
   { id: 7, name: "Shimmer linen Saree", category: "Party Wear Sarees", price: 799, image: "images/image.png_26f0abe6_2K.jpg" },
   { id: 8, name: "Cotton Saree", category: "Cotton Sarees", price: 499, image: "images/image.png_f03ac051_2K.jpg" },
-  { id: 9, name: "Cotton Saree", category: "Cotton Sarees", price: 599, image: "images/Folded Multicolor Silk Saree on White.png" }
+  { id: 9, name: "Cotton Saree", category: "Cotton Sarees", price: 599, image: "images/Folded Multicolor Silk Saree on White.png" },
+  {
+    id: 10,
+    name: "Designer Embroidered Saree",
+    category: "Designer Sarees",
+    price: 799,
+    image: "images/IMG_6519_enhanced_straight.jpg",
+    images: ["images/IMG_6519_enhanced_straight.jpg", "images/IMG_6520_enhanced_straight.jpg"],
+    colors: [
+      { id: "green", name: "Emerald Green", label: "Green", hex: "#1B5E3C", borderHex: "#D4AF70", image: "images/IMG_6519_enhanced_straight.jpg", images: ["images/IMG_6519_enhanced_straight.jpg", "images/IMG_6520_enhanced_straight.jpg"] },
+      { id: "red", name: "Ruby Red", label: "Red", hex: "#9B111E", borderHex: "#D4AF70", image: "images/IMG_6521_enhanced_straight.jpg", images: ["images/IMG_6521_enhanced_straight.jpg", "images/IMG_6522_enhanced_straight.jpg"] }
+    ]
+  }
 ];
 
 const money = amount => new Intl.NumberFormat("en-IN", {

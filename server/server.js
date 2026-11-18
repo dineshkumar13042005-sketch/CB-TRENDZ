@@ -127,7 +127,19 @@ const SERVER_CATALOG = {
   6: { id: 6, name: 'Linen silk Saree', price: 799, category: 'silk', image: 'images/image.png_1dbc01cd_2K.jpg' },
   7: { id: 7, name: 'Shimmer linen Saree', price: 799, category: 'party', image: 'images/image.png_26f0abe6_2K.jpg' },
   8: { id: 8, name: 'Cotton Saree', price: 499, category: 'cotton', image: 'images/image.png_f03ac051_2K.jpg' },
-  9: { id: 9, name: 'Cotton Saree', price: 599, category: 'cotton', image: 'images/Folded Multicolor Silk Saree on White.png' }
+  9: { id: 9, name: 'Cotton Saree', price: 599, category: 'cotton', image: 'images/Folded Multicolor Silk Saree on White.png' },
+  10: {
+    id: 10,
+    name: 'Designer Embroidered Saree',
+    price: 799,
+    category: 'designer',
+    image: 'images/IMG_6519_enhanced_straight.jpg',
+    images: ['images/IMG_6519_enhanced_straight.jpg', 'images/IMG_6520_enhanced_straight.jpg'],
+    colors: [
+      { id: 'green', name: 'Emerald Green', label: 'Green', hex: '#1B5E3C', borderHex: '#D4AF70', image: 'images/IMG_6519_enhanced_straight.jpg', images: ['images/IMG_6519_enhanced_straight.jpg', 'images/IMG_6520_enhanced_straight.jpg'] },
+      { id: 'red', name: 'Ruby Red', label: 'Red', hex: '#9B111E', borderHex: '#D4AF70', image: 'images/IMG_6521_enhanced_straight.jpg', images: ['images/IMG_6521_enhanced_straight.jpg', 'images/IMG_6522_enhanced_straight.jpg'] }
+    ]
+  }
 };
 
 // Helper: Calculate and verify cart items against master catalog
