@@ -1249,9 +1249,6 @@ function openQuickView(productId) {
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
           <span>Buy Now</span>
         </button>
-        <a href="https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent('Hello CB TRENDZ! I want to enquire about ' + p.name + (activeColorObj ? ' in ' + activeColorObj.name : '') + ' (' + formatINR(p.price) + ')')}" target="_blank" rel="noopener noreferrer" class="btn-modal-wa">
-          💬 Order on WhatsApp
-        </a>
       </div>
     </div>
   `;
