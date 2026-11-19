@@ -215,6 +215,32 @@ const products = [
         ]
       }
     ]
+  },
+  {
+    id: 18,
+    name: "Rani Pink Copper Border Silk Saree",
+    category: "Silk Sarees",
+    price: 849,
+    image: "images/IMG_6507_enhanced_straight.jpg",
+    images: [
+      "images/IMG_6507_enhanced_straight.jpg",
+      "images/IMG_6508_enhanced_straight.jpg"
+    ],
+    selectedColor: "rani_pink",
+    colors: [
+      {
+        id: "rani_pink",
+        name: "Rani Pink with Copper & Green Border",
+        label: "Rani Pink",
+        hex: "#D81B60",
+        borderHex: "#B87333",
+        image: "images/IMG_6507_enhanced_straight.jpg",
+        images: [
+          "images/IMG_6507_enhanced_straight.jpg",
+          "images/IMG_6508_enhanced_straight.jpg"
+        ]
+      }
+    ]
   }
 ];
 

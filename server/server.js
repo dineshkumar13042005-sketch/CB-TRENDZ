@@ -305,6 +305,17 @@ const SERVER_CATALOG = {
     colors: [
       { id: 'mustard_purple', name: 'Mustard Yellow with Royal Purple Border', label: 'Mustard & Purple', hex: '#C59A1A', borderHex: '#4A1D65', image: 'images/IMG_6502_enhanced_straight.jpg', images: ['images/IMG_6502_enhanced_straight.jpg', 'images/IMG_6505_enhanced_straight.jpg', 'images/IMG_6506_enhanced_straight.jpg'] }
     ]
+  },
+  18: {
+    id: 18,
+    name: 'Rani Pink Copper Border Silk Saree',
+    price: 849,
+    category: 'silk',
+    image: 'images/IMG_6507_enhanced_straight.jpg',
+    images: ['images/IMG_6507_enhanced_straight.jpg', 'images/IMG_6508_enhanced_straight.jpg'],
+    colors: [
+      { id: 'rani_pink', name: 'Rani Pink with Copper & Green Border', label: 'Rani Pink', hex: '#D81B60', borderHex: '#B87333', image: 'images/IMG_6507_enhanced_straight.jpg', images: ['images/IMG_6507_enhanced_straight.jpg', 'images/IMG_6508_enhanced_straight.jpg'] }
+    ]
   }
 };
 
