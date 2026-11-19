@@ -267,6 +267,55 @@ const products = [
         ]
       }
     ]
+  },
+  {
+    id: 20,
+    name: "Rangoli Designer Sequin Georgette Saree",
+    category: "Party Wear Sarees",
+    price: 699,
+    image: "images/IMG_6477.jpg",
+    images: [
+      "images/IMG_6477.jpg"
+    ],
+    selectedColor: "mauve",
+    colors: [
+      {
+        id: "mauve",
+        name: "Mauve Rose",
+        label: "Mauve",
+        hex: "#B85278",
+        borderHex: "#D4AF70",
+        image: "images/IMG_6477.jpg",
+        images: ["images/IMG_6477.jpg"]
+      },
+      {
+        id: "yellow",
+        name: "Mustard Yellow",
+        label: "Yellow",
+        hex: "#D4B826",
+        borderHex: "#D4AF70",
+        image: "images/IMG_6479.jpg",
+        images: ["images/IMG_6479.jpg"]
+      },
+      {
+        id: "sky_blue",
+        name: "Sky Blue",
+        label: "Sky Blue",
+        hex: "#5B9BB0",
+        borderHex: "#D4AF70",
+        image: "images/IMG_6480.jpg",
+        images: ["images/IMG_6480.jpg"]
+      },
+      {
+        id: "violet",
+        name: "Royal Violet",
+        label: "Violet",
+        hex: "#4A1E5C",
+        borderHex: "#D4AF70",
+        image: "images/IMG_6481.jpg",
+        images: ["images/IMG_6481.jpg", "images/IMG_6482.jpg"]
+      }
+    ]
   }
 ];
 

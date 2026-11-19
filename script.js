@@ -784,6 +784,56 @@ const PRODUCTS = [
       }
     ],
     description: 'Stunning Jet Black Bandhani saree adorned with traditional white bandhej pattern motifs, embedded mirror work, an opulent heavy scalloped cutwork gold lace border with genuine mirrors, and vibrant Kalamkari printed inner contrast pleats. Comes with matching blouse piece. Perfect for parties, weddings, and festive celebrations.'
+  },
+  {
+    id: 20,
+    name: 'Rangoli Designer Sequin Georgette Saree',
+    price: 699,
+    category: 'party',
+    image: 'images/IMG_6477.jpg',
+    images: [
+      'images/IMG_6477.jpg'
+    ],
+    selectedColor: 'mauve',
+    colors: [
+      {
+        id: 'mauve',
+        name: 'Mauve Rose',
+        label: 'Mauve',
+        hex: '#B85278',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6477.jpg',
+        images: ['images/IMG_6477.jpg']
+      },
+      {
+        id: 'yellow',
+        name: 'Mustard Yellow',
+        label: 'Yellow',
+        hex: '#D4B826',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6479.jpg',
+        images: ['images/IMG_6479.jpg']
+      },
+      {
+        id: 'sky_blue',
+        name: 'Sky Blue',
+        label: 'Sky Blue',
+        hex: '#5B9BB0',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6480.jpg',
+        images: ['images/IMG_6480.jpg']
+      },
+      {
+        id: 'violet',
+        name: 'Royal Violet',
+        label: 'Violet',
+        hex: '#4A1E5C',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6481.jpg',
+        images: ['images/IMG_6481.jpg', 'images/IMG_6482.jpg']
+      }
+    ],
+    description: 'Chic Rangoli NX exclusive designer saree crafted from soft crushed textured georgette fabric adorned with delicate golden sequin stripe embroidery and artisan handcrafted tassels. Drapes effortlessly and offers a graceful, modern festive look. Available in Mauve, Mustard Yellow, Sky Blue, and Royal Violet.'
   }
 ];
 
