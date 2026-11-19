@@ -13,7 +13,7 @@ const STORE_CONFIG = {
   tagline: 'Ladies Fashion & Accessories',
   whatsappNumber: '918778522690',
   currencySymbol: '₹',
-  itemsPerPage: 16
+  itemsPerPage: 24
 };
 
 // Saree Products Collection
@@ -701,6 +701,35 @@ const PRODUCTS = [
       }
     ],
     description: 'Authentic Kanchipuram finish semi-silk saree adorned with gleaming gold zari floral and geometric borders, traditional medallion buttas, and rich woven pallu. Lightweight with an elegant fall, perfect for weddings, pujas, and celebrations. Available in Royal Violet with Sea Green Border and Mustard Yellow with Maroon Border.'
+  },
+  {
+    id: 17,
+    name: 'Kanchipuram Contrast Zari Silk Saree',
+    price: 899,
+    category: 'silk',
+    image: 'images/IMG_6502_enhanced_straight.jpg',
+    images: [
+      'images/IMG_6502_enhanced_straight.jpg',
+      'images/IMG_6505_enhanced_straight.jpg',
+      'images/IMG_6506_enhanced_straight.jpg'
+    ],
+    selectedColor: 'mustard_purple',
+    colors: [
+      {
+        id: 'mustard_purple',
+        name: 'Mustard Yellow with Royal Purple Border',
+        label: 'Mustard & Purple',
+        hex: '#C59A1A',
+        borderHex: '#4A1D65',
+        image: 'images/IMG_6502_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6502_enhanced_straight.jpg',
+          'images/IMG_6505_enhanced_straight.jpg',
+          'images/IMG_6506_enhanced_straight.jpg'
+        ]
+      }
+    ],
+    description: 'Exquisite traditional Kanchipuram contrast silk saree featuring a radiant mustard gold body with delicate zari pinstripes and geometric square buttas, paired with an opulent royal purple contrast border and pallu intricately woven with gold jacquard floral motifs.'
   }
 ];
 

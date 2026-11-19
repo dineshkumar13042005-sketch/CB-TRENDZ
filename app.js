@@ -187,6 +187,34 @@ const products = [
       { id: "violet_green", name: "Royal Violet with Sea Green Border", label: "Violet & Green", hex: "#3E1854", borderHex: "#2BAE92", image: "images/IMG_6498_enhanced_straight.jpg", images: ["images/IMG_6498_enhanced_straight.jpg", "images/IMG_6497_enhanced_straight.jpg"] },
       { id: "yellow_maroon", name: "Mustard Yellow with Maroon Border", label: "Yellow", hex: "#DCA212", borderHex: "#7E1628", image: "images/IMG_6499_enhanced_straight.jpg", images: ["images/IMG_6499_enhanced_straight.jpg", "images/IMG_6500_enhanced_straight.jpg"] }
     ]
+  },
+  {
+    id: 17,
+    name: "Kanchipuram Contrast Zari Silk Saree",
+    category: "Silk Sarees",
+    price: 899,
+    image: "images/IMG_6502_enhanced_straight.jpg",
+    images: [
+      "images/IMG_6502_enhanced_straight.jpg",
+      "images/IMG_6505_enhanced_straight.jpg",
+      "images/IMG_6506_enhanced_straight.jpg"
+    ],
+    selectedColor: "mustard_purple",
+    colors: [
+      {
+        id: "mustard_purple",
+        name: "Mustard Yellow with Royal Purple Border",
+        label: "Mustard & Purple",
+        hex: "#C59A1A",
+        borderHex: "#4A1D65",
+        image: "images/IMG_6502_enhanced_straight.jpg",
+        images: [
+          "images/IMG_6502_enhanced_straight.jpg",
+          "images/IMG_6505_enhanced_straight.jpg",
+          "images/IMG_6506_enhanced_straight.jpg"
+        ]
+      }
+    ]
   }
 ];
 
