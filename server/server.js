@@ -353,6 +353,17 @@ const SERVER_CATALOG = {
       { id: 'purple', name: 'Royal Purple with Golden Zari', label: 'Purple', hex: '#4B2163', borderHex: '#D4AF70', image: 'images/IMG_6475.jpg', images: ['images/IMG_6475.jpg', 'images/IMG_6474.jpg', 'images/IMG_6476.jpg'] },
       { id: 'pink', name: 'Rani Pink with Golden Zari', label: 'Pink', hex: '#B82860', borderHex: '#D4AF70', image: 'images/IMG_6472.jpg', images: ['images/IMG_6472.jpg', 'images/IMG_6473.jpg'] }
     ]
+  },
+  22: {
+    id: 22,
+    name: 'Royal Blue Contrast Zari Silk Saree',
+    price: 899,
+    category: 'silk',
+    image: 'images/IMG_6467.jpg',
+    images: ['images/IMG_6467.jpg', 'images/image.jpg'],
+    colors: [
+      { id: 'royal_blue', name: 'Royal Blue with Turquoise Cyan Border', label: 'Royal Blue', hex: '#183884', borderHex: '#18A2B8', image: 'images/IMG_6467.jpg', images: ['images/IMG_6467.jpg', 'images/image.jpg'] }
+    ]
   }
 };
 

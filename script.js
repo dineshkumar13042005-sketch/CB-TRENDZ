@@ -875,6 +875,33 @@ const PRODUCTS = [
       }
     ],
     description: 'Majestic traditional Kanchipuram silk saree featuring classic kattam checks woven with radiant gold zari threads, accompanied by a magnificent heritage Temple Gopuram architectural zari pallu. Suited for weddings, temple festivals, and auspicious ceremonies. Available in Royal Purple and Rani Pink.'
+  },
+  {
+    id: 22,
+    name: 'Royal Blue Contrast Zari Silk Saree',
+    price: 899,
+    category: 'silk',
+    image: 'images/IMG_6467.jpg',
+    images: [
+      'images/IMG_6467.jpg',
+      'images/image.jpg'
+    ],
+    selectedColor: 'royal_blue',
+    colors: [
+      {
+        id: 'royal_blue',
+        name: 'Royal Blue with Turquoise Cyan Border',
+        label: 'Royal Blue',
+        hex: '#183884',
+        borderHex: '#18A2B8',
+        image: 'images/IMG_6467.jpg',
+        images: [
+          'images/IMG_6467.jpg',
+          'images/image.jpg'
+        ]
+      }
+    ],
+    description: 'Exquisite traditional silk saree in majestic royal blue adorned with delicate silver zari pinstripes and floral buttas, contrasted with an opulent turquoise cyan zari woven border and grand brocade pallu. Perfect for festive celebrations, weddings, and traditional events.'
   }
 ];
 

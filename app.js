@@ -356,6 +356,32 @@ const products = [
         ]
       }
     ]
+  },
+  {
+    id: 22,
+    name: "Royal Blue Contrast Zari Silk Saree",
+    category: "Silk Sarees",
+    price: 899,
+    image: "images/IMG_6467.jpg",
+    images: [
+      "images/IMG_6467.jpg",
+      "images/image.jpg"
+    ],
+    selectedColor: "royal_blue",
+    colors: [
+      {
+        id: "royal_blue",
+        name: "Royal Blue with Turquoise Cyan Border",
+        label: "Royal Blue",
+        hex: "#183884",
+        borderHex: "#18A2B8",
+        image: "images/IMG_6467.jpg",
+        images: [
+          "images/IMG_6467.jpg",
+          "images/image.jpg"
+        ]
+      }
+    ]
   }
 ];
 
