@@ -136,7 +136,19 @@ const SERVER_CATALOG = {
       { id: 'violet', name: 'Royal Violet', label: 'Violet', hex: '#2E1E5B', borderHex: '#6A4E9E', image: 'images/IMG_6529_enhanced_straight.jpg', images: ['images/IMG_6529_enhanced_straight.jpg', 'images/IMG_6530_enhanced_straight.jpg', 'images/IMG_6531_enhanced_straight.jpg', 'images/IMG_6532_enhanced_straight.jpg'] }
     ]
   },
-  5: { id: 5, name: 'Moonga Silk Saree', price: 1150, category: 'designer', image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg' },
+  5: {
+    id: 5,
+    name: 'Moonga Silk Saree',
+    price: 1150,
+    category: 'designer',
+    image: 'images/IMG_6535_enhanced_straight.jpg',
+    images: ['images/IMG_6535_enhanced_straight.jpg', 'images/IMG_6536_enhanced_straight.jpg'],
+    colors: [
+      { id: 'sage_green', name: 'Sage Green', label: 'Sage Green', hex: '#8FA88B', borderHex: '#4B6347', image: 'images/IMG_6535_enhanced_straight.jpg', images: ['images/IMG_6535_enhanced_straight.jpg', 'images/IMG_6536_enhanced_straight.jpg'] },
+      { id: 'lite_green', name: 'Lite Green', label: 'Lite Green', hex: '#9EC264', borderHex: '#5B8023', image: 'images/IMG_6538_enhanced_straight.jpg', images: ['images/IMG_6538_enhanced_straight.jpg', 'images/IMG_6539_enhanced_straight.jpg'] },
+      { id: 'lite_violet', name: 'Lite Violet', label: 'Lite Violet', hex: '#A48EB6', borderHex: '#5E4970', image: 'images/IMG_6542_enhanced_straight.jpg', images: ['images/IMG_6542_enhanced_straight.jpg', 'images/IMG_6543_enhanced_straight.jpg'] }
+    ]
+  },
   6: { id: 6, name: 'Linen silk Saree', price: 799, category: 'silk', image: 'images/image.png_1dbc01cd_2K.jpg' },
   7: { id: 7, name: 'Shimmer linen Saree', price: 799, category: 'party', image: 'images/image.png_26f0abe6_2K.jpg' },
   8: { id: 8, name: 'Cotton Saree', price: 499, category: 'cotton', image: 'images/image.png_f03ac051_2K.jpg' },

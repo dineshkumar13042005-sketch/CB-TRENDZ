@@ -149,8 +149,51 @@ const PRODUCTS = [
     name: 'Moonga Silk Saree',
     price: 1150,
     category: 'designer',
-    image: 'images/Folded_green_saree_with_border_c449f9bc_2K.jpg',
-    description: 'Peacock teal sheer designer organza saree detailed with artisan zari embroidery and modern scalloped borders.'
+    image: 'images/IMG_6535_enhanced_straight.jpg',
+    images: [
+      'images/IMG_6535_enhanced_straight.jpg',
+      'images/IMG_6536_enhanced_straight.jpg'
+    ],
+    selectedColor: 'sage_green',
+    colors: [
+      {
+        id: 'sage_green',
+        name: 'Sage Green',
+        label: 'Sage Green',
+        hex: '#8FA88B',
+        borderHex: '#4B6347',
+        image: 'images/IMG_6535_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6535_enhanced_straight.jpg',
+          'images/IMG_6536_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'lite_green',
+        name: 'Lite Green',
+        label: 'Lite Green',
+        hex: '#9EC264',
+        borderHex: '#5B8023',
+        image: 'images/IMG_6538_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6538_enhanced_straight.jpg',
+          'images/IMG_6539_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'lite_violet',
+        name: 'Lite Violet',
+        label: 'Lite Violet',
+        hex: '#A48EB6',
+        borderHex: '#5E4970',
+        image: 'images/IMG_6542_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6542_enhanced_straight.jpg',
+          'images/IMG_6543_enhanced_straight.jpg'
+        ]
+      }
+    ],
+    description: 'Exquisite authentic Amor Munga Silk Saree featuring delicate handloom texture, elegant botanical floral motif prints, contrasting woven border stripes, and rich hand-knotted black tassels. Comes with matching running blouse piece. Available in Sage Green, Lite Green, and Lite Violet.'
   },
   {
     id: 6,
