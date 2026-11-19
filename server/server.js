@@ -364,6 +364,17 @@ const SERVER_CATALOG = {
     colors: [
       { id: 'royal_blue', name: 'Royal Blue with Turquoise Cyan Border', label: 'Royal Blue', hex: '#183884', borderHex: '#18A2B8', image: 'images/IMG_6467.jpg', images: ['images/IMG_6467.jpg', 'images/image.jpg'] }
     ]
+  },
+  23: {
+    id: 23,
+    name: 'Golden Shimmer Tissue Silk Saree',
+    price: 899,
+    category: 'silk',
+    image: 'images/IMG_6471.jpg',
+    images: ['images/IMG_6471.jpg', 'images/IMG_6470.jpg'],
+    colors: [
+      { id: 'gold', name: 'Metallic Champagne Gold', label: 'Gold', hex: '#D4AF37', borderHex: '#E6CA65', image: 'images/IMG_6471.jpg', images: ['images/IMG_6471.jpg', 'images/IMG_6470.jpg'] }
+    ]
   }
 };
 

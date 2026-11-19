@@ -382,6 +382,32 @@ const products = [
         ]
       }
     ]
+  },
+  {
+    id: 23,
+    name: "Golden Shimmer Tissue Silk Saree",
+    category: "Silk Sarees",
+    price: 899,
+    image: "images/IMG_6471.jpg",
+    images: [
+      "images/IMG_6471.jpg",
+      "images/IMG_6470.jpg"
+    ],
+    selectedColor: "gold",
+    colors: [
+      {
+        id: "gold",
+        name: "Metallic Champagne Gold",
+        label: "Gold",
+        hex: "#D4AF37",
+        borderHex: "#E6CA65",
+        image: "images/IMG_6471.jpg",
+        images: [
+          "images/IMG_6471.jpg",
+          "images/IMG_6470.jpg"
+        ]
+      }
+    ]
   }
 ];
 

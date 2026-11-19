@@ -902,6 +902,33 @@ const PRODUCTS = [
       }
     ],
     description: 'Exquisite traditional silk saree in majestic royal blue adorned with delicate silver zari pinstripes and floral buttas, contrasted with an opulent turquoise cyan zari woven border and grand brocade pallu. Perfect for festive celebrations, weddings, and traditional events.'
+  },
+  {
+    id: 23,
+    name: 'Golden Shimmer Tissue Silk Saree',
+    price: 899,
+    category: 'silk',
+    image: 'images/IMG_6471.jpg',
+    images: [
+      'images/IMG_6471.jpg',
+      'images/IMG_6470.jpg'
+    ],
+    selectedColor: 'gold',
+    colors: [
+      {
+        id: 'gold',
+        name: 'Metallic Champagne Gold',
+        label: 'Gold',
+        hex: '#D4AF37',
+        borderHex: '#E6CA65',
+        image: 'images/IMG_6471.jpg',
+        images: [
+          'images/IMG_6471.jpg',
+          'images/IMG_6470.jpg'
+        ]
+      }
+    ],
+    description: 'Radiant metallic antique gold tissue silk saree woven with lustrous golden zari threads, featuring an elegant chevron texture, diamond jaal pallu, and finished with rich handcrafted golden zari tassels (kuchu). Perfect for weddings, receptions, and festive celebrations.'
   }
 ];
 
