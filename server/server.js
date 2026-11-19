@@ -375,6 +375,17 @@ const SERVER_CATALOG = {
     colors: [
       { id: 'gold', name: 'Metallic Champagne Gold', label: 'Gold', hex: '#D4AF37', borderHex: '#E6CA65', image: 'images/IMG_6471.jpg', images: ['images/IMG_6471.jpg', 'images/IMG_6470.jpg'] }
     ]
+  },
+  24: {
+    id: 24,
+    name: 'Champagne Gold Brocade Silk Saree',
+    price: 899,
+    category: 'silk',
+    image: 'images/IMG_6485.jpg',
+    images: ['images/IMG_6485.jpg', 'images/IMG_6486.jpg'],
+    colors: [
+      { id: 'gold_purple', name: 'Champagne Gold with Royal Purple Border', label: 'Gold & Purple', hex: '#D1C27D', borderHex: '#521469', image: 'images/IMG_6485.jpg', images: ['images/IMG_6485.jpg', 'images/IMG_6486.jpg'] }
+    ]
   }
 };
 

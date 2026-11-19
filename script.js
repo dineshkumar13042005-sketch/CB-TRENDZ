@@ -929,6 +929,33 @@ const PRODUCTS = [
       }
     ],
     description: 'Radiant metallic antique gold tissue silk saree woven with lustrous golden zari threads, featuring an elegant chevron texture, diamond jaal pallu, and finished with rich handcrafted golden zari tassels (kuchu). Perfect for weddings, receptions, and festive celebrations.'
+  },
+  {
+    id: 24,
+    name: 'Champagne Gold Brocade Silk Saree',
+    price: 899,
+    category: 'silk',
+    image: 'images/IMG_6485.jpg',
+    images: [
+      'images/IMG_6485.jpg',
+      'images/IMG_6486.jpg'
+    ],
+    selectedColor: 'gold_purple',
+    colors: [
+      {
+        id: 'gold_purple',
+        name: 'Champagne Gold with Royal Purple Border',
+        label: 'Gold & Purple',
+        hex: '#D1C27D',
+        borderHex: '#521469',
+        image: 'images/IMG_6485.jpg',
+        images: [
+          'images/IMG_6485.jpg',
+          'images/IMG_6486.jpg'
+        ]
+      }
+    ],
+    description: 'Regal Kanchipuram brocade silk saree in radiant champagne gold featuring an all-over floral jaal weave, complemented by a majestic royal purple border enriched with traditional golden zari motifs. Ideal for grand weddings, receptions, and festive celebrations.'
   }
 ];
 

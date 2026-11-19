@@ -408,6 +408,32 @@ const products = [
         ]
       }
     ]
+  },
+  {
+    id: 24,
+    name: "Champagne Gold Brocade Silk Saree",
+    category: "Silk Sarees",
+    price: 899,
+    image: "images/IMG_6485.jpg",
+    images: [
+      "images/IMG_6485.jpg",
+      "images/IMG_6486.jpg"
+    ],
+    selectedColor: "gold_purple",
+    colors: [
+      {
+        id: "gold_purple",
+        name: "Champagne Gold with Royal Purple Border",
+        label: "Gold & Purple",
+        hex: "#D1C27D",
+        borderHex: "#521469",
+        image: "images/IMG_6485.jpg",
+        images: [
+          "images/IMG_6485.jpg",
+          "images/IMG_6486.jpg"
+        ]
+      }
+    ]
   }
 ];
 
