@@ -13,7 +13,7 @@ const STORE_CONFIG = {
   tagline: 'Ladies Fashion & Accessories',
   whatsappNumber: '918778522690',
   currencySymbol: '₹',
-  itemsPerPage: 12
+  itemsPerPage: 16
 };
 
 // Saree Products Collection
@@ -489,6 +489,57 @@ const PRODUCTS = [
       }
     ],
     description: 'Traditional handloom finish semi-silk saree adorned with intricate antique gold zari diamond woven borders, delicate butta motifs, and hand-knotted tassel pallu. Lightweight, regal drape ideal for temple visits, weddings, and festive celebrations. Available in Royal Violet, Jet Black, Crimson Red, Sapphire Blue, Yellow-Green, and Yellow-Violet.'
+  },
+  {
+    id: 13,
+    name: 'Handloom Contrast Zari Silk Saree',
+    price: 699,
+    category: 'silk',
+    image: 'images/IMG_6584_enhanced_straight.jpg',
+    images: [
+      'images/IMG_6584_enhanced_straight.jpg',
+      'images/IMG_6585_enhanced_straight.jpg'
+    ],
+    selectedColor: 'green_black',
+    colors: [
+      {
+        id: 'green_black',
+        name: 'Parrot Green with Black',
+        label: 'Green & Black',
+        hex: '#8CA818',
+        borderHex: '#1A1A1A',
+        image: 'images/IMG_6584_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6584_enhanced_straight.jpg',
+          'images/IMG_6585_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'orange_red',
+        name: 'Mustard Orange with Red',
+        label: 'Red & Orange',
+        hex: '#E5A012',
+        borderHex: '#C2185B',
+        image: 'images/IMG_6586_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6586_enhanced_straight.jpg',
+          'images/IMG_6587_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'blue_black',
+        name: 'Jet Black with Royal Blue',
+        label: 'Blue & Black',
+        hex: '#1A1A1A',
+        borderHex: '#1976D2',
+        image: 'images/IMG_6588_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6588_enhanced_straight.jpg',
+          'images/IMG_6589_enhanced_straight.jpg'
+        ]
+      }
+    ],
+    description: 'Distinctive dual-tone contrast handloom semi-silk saree featuring traditional paisley and temple border motifs in antique gold zari, finished with handcrafted matching tassels. Available in Parrot Green with Black, Mustard Orange with Red, and Jet Black with Royal Blue.'
   }
 ];
 

@@ -219,6 +219,19 @@ const SERVER_CATALOG = {
       { id: 'yellow_green', name: 'Light Yellow with Green', label: 'Yellow-Green', hex: '#709E18', borderHex: '#E6CF42', image: 'images/IMG_6579_enhanced_straight.jpg', images: ['images/IMG_6579_enhanced_straight.jpg', 'images/IMG_6578_enhanced_straight.jpg'] },
       { id: 'yellow_violet', name: 'Light Yellow with Violet', label: 'Yellow-Violet', hex: '#6A1E5C', borderHex: '#A89E18', image: 'images/IMG_6580_enhanced_straight.jpg', images: ['images/IMG_6580_enhanced_straight.jpg', 'images/IMG_6581_enhanced_straight.jpg'] }
     ]
+  },
+  13: {
+    id: 13,
+    name: 'Handloom Contrast Zari Silk Saree',
+    price: 699,
+    category: 'silk',
+    image: 'images/IMG_6584_enhanced_straight.jpg',
+    images: ['images/IMG_6584_enhanced_straight.jpg', 'images/IMG_6585_enhanced_straight.jpg'],
+    colors: [
+      { id: 'green_black', name: 'Parrot Green with Black', label: 'Green & Black', hex: '#8CA818', borderHex: '#1A1A1A', image: 'images/IMG_6584_enhanced_straight.jpg', images: ['images/IMG_6584_enhanced_straight.jpg', 'images/IMG_6585_enhanced_straight.jpg'] },
+      { id: 'orange_red', name: 'Mustard Orange with Red', label: 'Red & Orange', hex: '#E5A012', borderHex: '#C2185B', image: 'images/IMG_6586_enhanced_straight.jpg', images: ['images/IMG_6586_enhanced_straight.jpg', 'images/IMG_6587_enhanced_straight.jpg'] },
+      { id: 'blue_black', name: 'Jet Black with Royal Blue', label: 'Blue & Black', hex: '#1A1A1A', borderHex: '#1976D2', image: 'images/IMG_6588_enhanced_straight.jpg', images: ['images/IMG_6588_enhanced_straight.jpg', 'images/IMG_6589_enhanced_straight.jpg'] }
+    ]
   }
 };
 
