@@ -281,8 +281,13 @@ const PRODUCTS = [
     name: 'Cotton Saree',
     price: 599,
     category: 'cotton',
-    image: 'images/Folded Multicolor Silk Saree on White.png',
-    description: 'Vibrant multicolor cotton saree with elegant traditional patterns, breathable soft weave, and contrasting borders. Perfect for both casual wear and festive occasions.'
+    image: 'images/IMG_6555_enhanced_straight.jpg',
+    images: [
+      'images/IMG_6555_enhanced_straight.jpg',
+      'images/IMG_6557_enhanced_straight.jpg',
+      'images/IMG_6558_enhanced_straight.jpg'
+    ],
+    description: 'Vibrant multicolor Look N Like exclusive fancy cotton saree featuring modern geometric prism motifs, contrasting green temple border, and elegant bronze-gold zari pallu. Breathable, comfortable, and perfect for casual and festive occasions.'
   },
   {
     id: 10,

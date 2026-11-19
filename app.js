@@ -58,7 +58,18 @@ const products = [
     ]
   },
   { id: 8, name: "Cotton Saree", category: "Cotton Sarees", price: 499, image: "images/image.png_f03ac051_2K.jpg" },
-  { id: 9, name: "Cotton Saree", category: "Cotton Sarees", price: 599, image: "images/Folded Multicolor Silk Saree on White.png" },
+  {
+    id: 9,
+    name: 'Cotton Saree',
+    category: 'Cotton Sarees',
+    price: 599,
+    image: 'images/IMG_6555_enhanced_straight.jpg',
+    images: [
+      'images/IMG_6555_enhanced_straight.jpg',
+      'images/IMG_6557_enhanced_straight.jpg',
+      'images/IMG_6558_enhanced_straight.jpg'
+    ]
+  },
   {
     id: 10,
     name: "Designer Embroidered Saree",
