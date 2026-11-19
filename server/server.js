@@ -232,6 +232,19 @@ const SERVER_CATALOG = {
       { id: 'orange_red', name: 'Mustard Orange with Red', label: 'Red & Orange', hex: '#E5A012', borderHex: '#C2185B', image: 'images/IMG_6586_enhanced_straight.jpg', images: ['images/IMG_6586_enhanced_straight.jpg', 'images/IMG_6587_enhanced_straight.jpg'] },
       { id: 'blue_black', name: 'Jet Black with Royal Blue', label: 'Blue & Black', hex: '#1A1A1A', borderHex: '#1976D2', image: 'images/IMG_6588_enhanced_straight.jpg', images: ['images/IMG_6588_enhanced_straight.jpg', 'images/IMG_6589_enhanced_straight.jpg'] }
     ]
+  },
+  14: {
+    id: 14,
+    name: 'Royal Kanjivaram Brocade Silk Saree',
+    price: 1299,
+    category: 'wedding',
+    image: 'images/IMG_6488_enhanced_straight.jpg',
+    images: ['images/IMG_6488_enhanced_straight.jpg'],
+    colors: [
+      { id: 'magenta', name: 'Royal Magenta', label: 'Magenta', hex: '#8E1658', borderHex: '#D4AF70', image: 'images/IMG_6488_enhanced_straight.jpg', images: ['images/IMG_6488_enhanced_straight.jpg'] },
+      { id: 'red', name: 'Crimson Red', label: 'Red', hex: '#B31828', borderHex: '#D4AF70', image: 'images/IMG_6489_enhanced_straight.jpg', images: ['images/IMG_6489_enhanced_straight.jpg', 'images/IMG_6490_enhanced_straight.jpg'] },
+      { id: 'green_border', name: 'Copper with Mint Green Border', label: 'Light Green Border', hex: '#6B2337', borderHex: '#38B29C', image: 'images/IMG_6491_enhanced_straight.jpg', images: ['images/IMG_6491_enhanced_straight.jpg', 'images/IMG_6492_enhanced_straight.jpg'] }
+    ]
   }
 };
 

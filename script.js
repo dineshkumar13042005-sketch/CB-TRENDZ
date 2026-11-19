@@ -540,6 +540,55 @@ const PRODUCTS = [
       }
     ],
     description: 'Distinctive dual-tone contrast handloom semi-silk saree featuring traditional paisley and temple border motifs in antique gold zari, finished with handcrafted matching tassels. Available in Parrot Green with Black, Mustard Orange with Red, and Jet Black with Royal Blue.'
+  },
+  {
+    id: 14,
+    name: 'Royal Kanjivaram Brocade Silk Saree',
+    price: 1299,
+    category: 'wedding',
+    image: 'images/IMG_6488_enhanced_straight.jpg',
+    images: [
+      'images/IMG_6488_enhanced_straight.jpg'
+    ],
+    selectedColor: 'magenta',
+    colors: [
+      {
+        id: 'magenta',
+        name: 'Royal Magenta',
+        label: 'Magenta',
+        hex: '#8E1658',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6488_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6488_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'red',
+        name: 'Crimson Red',
+        label: 'Red',
+        hex: '#B31828',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6489_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6489_enhanced_straight.jpg',
+          'images/IMG_6490_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'green_border',
+        name: 'Copper with Mint Green Border',
+        label: 'Light Green Border',
+        hex: '#6B2337',
+        borderHex: '#38B29C',
+        image: 'images/IMG_6491_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6491_enhanced_straight.jpg',
+          'images/IMG_6492_enhanced_straight.jpg'
+        ]
+      }
+    ],
+    description: 'Magnificent royal bridal Kanjivaram silk saree adorned with opulent all-over antique gold zari floral jaal weaving, grand meenakari pallu, and intricately woven border. Exquisite drape perfect for weddings, receptions, and grand festivities. Available in Royal Magenta, Crimson Red, and Copper with Mint Green Border.'
   }
 ];
 
