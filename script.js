@@ -834,6 +834,47 @@ const PRODUCTS = [
       }
     ],
     description: 'Chic Rangoli NX exclusive designer saree crafted from soft crushed textured georgette fabric adorned with delicate golden sequin stripe embroidery and artisan handcrafted tassels. Drapes effortlessly and offers a graceful, modern festive look. Available in Mauve, Mustard Yellow, Sky Blue, and Royal Violet.'
+  },
+  {
+    id: 21,
+    name: 'Temple Gopuram Checkered Silk Saree',
+    price: 899,
+    category: 'silk',
+    image: 'images/IMG_6475.jpg',
+    images: [
+      'images/IMG_6475.jpg',
+      'images/IMG_6474.jpg',
+      'images/IMG_6476.jpg'
+    ],
+    selectedColor: 'purple',
+    colors: [
+      {
+        id: 'purple',
+        name: 'Royal Purple with Golden Zari',
+        label: 'Purple',
+        hex: '#4B2163',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6475.jpg',
+        images: [
+          'images/IMG_6475.jpg',
+          'images/IMG_6474.jpg',
+          'images/IMG_6476.jpg'
+        ]
+      },
+      {
+        id: 'pink',
+        name: 'Rani Pink with Golden Zari',
+        label: 'Pink',
+        hex: '#B82860',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6472.jpg',
+        images: [
+          'images/IMG_6472.jpg',
+          'images/IMG_6473.jpg'
+        ]
+      }
+    ],
+    description: 'Majestic traditional Kanchipuram silk saree featuring classic kattam checks woven with radiant gold zari threads, accompanied by a magnificent heritage Temple Gopuram architectural zari pallu. Suited for weddings, temple festivals, and auspicious ceremonies. Available in Royal Purple and Rani Pink.'
   }
 ];
 

@@ -341,6 +341,18 @@ const SERVER_CATALOG = {
       { id: 'sky_blue', name: 'Sky Blue', label: 'Sky Blue', hex: '#5B9BB0', borderHex: '#D4AF70', image: 'images/IMG_6480.jpg', images: ['images/IMG_6480.jpg'] },
       { id: 'violet', name: 'Royal Violet', label: 'Violet', hex: '#4A1E5C', borderHex: '#D4AF70', image: 'images/IMG_6481.jpg', images: ['images/IMG_6481.jpg', 'images/IMG_6482.jpg'] }
     ]
+  },
+  21: {
+    id: 21,
+    name: 'Temple Gopuram Checkered Silk Saree',
+    price: 899,
+    category: 'silk',
+    image: 'images/IMG_6475.jpg',
+    images: ['images/IMG_6475.jpg', 'images/IMG_6474.jpg', 'images/IMG_6476.jpg'],
+    colors: [
+      { id: 'purple', name: 'Royal Purple with Golden Zari', label: 'Purple', hex: '#4B2163', borderHex: '#D4AF70', image: 'images/IMG_6475.jpg', images: ['images/IMG_6475.jpg', 'images/IMG_6474.jpg', 'images/IMG_6476.jpg'] },
+      { id: 'pink', name: 'Rani Pink with Golden Zari', label: 'Pink', hex: '#B82860', borderHex: '#D4AF70', image: 'images/IMG_6472.jpg', images: ['images/IMG_6472.jpg', 'images/IMG_6473.jpg'] }
+    ]
   }
 };
 

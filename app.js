@@ -316,6 +316,46 @@ const products = [
         images: ["images/IMG_6481.jpg", "images/IMG_6482.jpg"]
       }
     ]
+  },
+  {
+    id: 21,
+    name: "Temple Gopuram Checkered Silk Saree",
+    category: "Silk Sarees",
+    price: 899,
+    image: "images/IMG_6475.jpg",
+    images: [
+      "images/IMG_6475.jpg",
+      "images/IMG_6474.jpg",
+      "images/IMG_6476.jpg"
+    ],
+    selectedColor: "purple",
+    colors: [
+      {
+        id: "purple",
+        name: "Royal Purple with Golden Zari",
+        label: "Purple",
+        hex: "#4B2163",
+        borderHex: "#D4AF70",
+        image: "images/IMG_6475.jpg",
+        images: [
+          "images/IMG_6475.jpg",
+          "images/IMG_6474.jpg",
+          "images/IMG_6476.jpg"
+        ]
+      },
+      {
+        id: "pink",
+        name: "Rani Pink with Golden Zari",
+        label: "Pink",
+        hex: "#B82860",
+        borderHex: "#D4AF70",
+        image: "images/IMG_6472.jpg",
+        images: [
+          "images/IMG_6472.jpg",
+          "images/IMG_6473.jpg"
+        ]
+      }
+    ]
   }
 ];
 

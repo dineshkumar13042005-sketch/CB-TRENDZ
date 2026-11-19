@@ -5,3 +5,12 @@ data/orders.json
 server/data/orders.json
 .DS_Store
 Thumbs.db
+
+# Large media & archive files
+*.zip
+*.mp4
+*.pdf
+Cymatics - 2020 Melody Collection/
+Digitroo-solution-final_Folder (1)/
+jpegmini_optimized/
+
