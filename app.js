@@ -96,6 +96,22 @@ const products = [
       { id: "white", name: "Pristine White", label: "White", hex: "#F7F5F0", borderHex: "#C5BCAB", image: "images/IMG_6565_enhanced_straight.jpg", images: ["images/IMG_6565_enhanced_straight.jpg", "images/IMG_6566_enhanced_straight.jpg"] },
       { id: "red", name: "Cherry Red", label: "Red", hex: "#A61732", borderHex: "#D4AF70", image: "images/IMG_6568_enhanced_straight.jpg", images: ["images/IMG_6568_enhanced_straight.jpg", "images/IMG_6569_enhanced_straight.jpg"] }
     ]
+  },
+  {
+    id: 12,
+    name: "Traditional Zari Silk Saree",
+    category: "Silk Sarees",
+    price: 750,
+    image: "images/IMG_6570_enhanced_straight.jpg",
+    images: ["images/IMG_6570_enhanced_straight.jpg", "images/IMG_6571_enhanced_straight.jpg"],
+    colors: [
+      { id: "violet", name: "Royal Violet", label: "Violet", hex: "#4B174A", borderHex: "#D4AF70", image: "images/IMG_6570_enhanced_straight.jpg", images: ["images/IMG_6570_enhanced_straight.jpg", "images/IMG_6571_enhanced_straight.jpg"] },
+      { id: "black", name: "Jet Black", label: "Black", hex: "#1A1A1A", borderHex: "#D4AF70", image: "images/IMG_6573_enhanced_straight.jpg", images: ["images/IMG_6573_enhanced_straight.jpg", "images/IMG_6572_enhanced_straight.jpg"] },
+      { id: "red", name: "Crimson Red", label: "Red", hex: "#99141D", borderHex: "#D4AF70", image: "images/IMG_6574_enhanced_straight.jpg", images: ["images/IMG_6574_enhanced_straight.jpg", "images/IMG_6575_enhanced_straight.jpg"] },
+      { id: "blue", name: "Sapphire Blue", label: "Blue", hex: "#1557A8", borderHex: "#D4AF70", image: "images/IMG_6576_enhanced_straight.jpg", images: ["images/IMG_6576_enhanced_straight.jpg", "images/IMG_6577_enhanced_straight.jpg"] },
+      { id: "yellow_green", name: "Light Yellow with Green", label: "Yellow-Green", hex: "#709E18", borderHex: "#E6CF42", image: "images/IMG_6579_enhanced_straight.jpg", images: ["images/IMG_6579_enhanced_straight.jpg", "images/IMG_6578_enhanced_straight.jpg"] },
+      { id: "yellow_violet", name: "Light Yellow with Violet", label: "Yellow-Violet", hex: "#6A1E5C", borderHex: "#A89E18", image: "images/IMG_6580_enhanced_straight.jpg", images: ["images/IMG_6580_enhanced_straight.jpg", "images/IMG_6581_enhanced_straight.jpg"] }
+    ]
   }
 ];
 
