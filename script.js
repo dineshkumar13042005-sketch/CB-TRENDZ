@@ -589,6 +589,45 @@ const PRODUCTS = [
       }
     ],
     description: 'Magnificent royal bridal Kanjivaram silk saree adorned with opulent all-over antique gold zari floral jaal weaving, grand meenakari pallu, and intricately woven border. Exquisite drape perfect for weddings, receptions, and grand festivities. Available in Royal Magenta, Crimson Red, and Copper with Mint Green Border.'
+  },
+  {
+    id: 15,
+    name: 'Classic Kanchi Contrast Silk Saree',
+    price: 899,
+    category: 'silk',
+    image: 'images/IMG_6493_enhanced_straight.jpg',
+    images: [
+      'images/IMG_6493_enhanced_straight.jpg',
+      'images/IMG_6494_enhanced_straight.jpg'
+    ],
+    selectedColor: 'red_mint',
+    colors: [
+      {
+        id: 'red_mint',
+        name: 'Crimson Red with Mint Border',
+        label: 'Red & Mint',
+        hex: '#B31828',
+        borderHex: '#4CB8A5',
+        image: 'images/IMG_6493_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6493_enhanced_straight.jpg',
+          'images/IMG_6494_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'lite_green',
+        name: 'Emerald Green with Maroon Border',
+        label: 'Lite Green',
+        hex: '#1D7A56',
+        borderHex: '#8B1E2D',
+        image: 'images/IMG_6495_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6495_enhanced_straight.jpg',
+          'images/IMG_6496_enhanced_straight.jpg'
+        ]
+      }
+    ],
+    description: 'Traditional handloom finish Kanchi pattu silk saree featuring rich antique gold zari contrast borders, delicate gold butta motifs, and an opulent woven pallu. Graceful drape suited for auspicious occasions, temple ceremonies, and festivals. Available in Crimson Red with Mint Border and Emerald Green with Maroon Border.'
   }
 ];
 

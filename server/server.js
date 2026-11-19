@@ -245,6 +245,18 @@ const SERVER_CATALOG = {
       { id: 'red', name: 'Crimson Red', label: 'Red', hex: '#B31828', borderHex: '#D4AF70', image: 'images/IMG_6489_enhanced_straight.jpg', images: ['images/IMG_6489_enhanced_straight.jpg', 'images/IMG_6490_enhanced_straight.jpg'] },
       { id: 'green_border', name: 'Copper with Mint Green Border', label: 'Light Green Border', hex: '#6B2337', borderHex: '#38B29C', image: 'images/IMG_6491_enhanced_straight.jpg', images: ['images/IMG_6491_enhanced_straight.jpg', 'images/IMG_6492_enhanced_straight.jpg'] }
     ]
+  },
+  15: {
+    id: 15,
+    name: 'Classic Kanchi Contrast Silk Saree',
+    price: 899,
+    category: 'silk',
+    image: 'images/IMG_6493_enhanced_straight.jpg',
+    images: ['images/IMG_6493_enhanced_straight.jpg', 'images/IMG_6494_enhanced_straight.jpg'],
+    colors: [
+      { id: 'red_mint', name: 'Crimson Red with Mint Border', label: 'Red & Mint', hex: '#B31828', borderHex: '#4CB8A5', image: 'images/IMG_6493_enhanced_straight.jpg', images: ['images/IMG_6493_enhanced_straight.jpg', 'images/IMG_6494_enhanced_straight.jpg'] },
+      { id: 'lite_green', name: 'Emerald Green with Maroon Border', label: 'Lite Green', hex: '#1D7A56', borderHex: '#8B1E2D', image: 'images/IMG_6495_enhanced_straight.jpg', images: ['images/IMG_6495_enhanced_straight.jpg', 'images/IMG_6496_enhanced_straight.jpg'] }
+    ]
   }
 };
 
