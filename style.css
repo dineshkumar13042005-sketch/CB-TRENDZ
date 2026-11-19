@@ -672,40 +672,14 @@ ul {
 }
 
 /* ============================================================
-   HOVER POP-UP WINDOW (Shows Details with Price on Mouse Hover)
+   HOVER POP-UP WINDOW (Disabled to keep product cards clean)
    ============================================================ */
 .thumb-hover-popup {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(180deg, rgba(46, 7, 16, 0.72) 0%, rgba(42, 5, 14, 0.96) 28%, #2A050E 100%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 10px 10px 12px;
-  border-top: 1.5px solid rgba(212, 175, 112, 0.75);
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.45);
-  color: #FFFFFF;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px) scale(0.97);
-  transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.35s;
-  z-index: 6;
-  pointer-events: none;
-  max-height: 85%;
-  overflow: hidden;
+  display: none !important;
 }
 
-/* Open pop-up window when user puts mouse on the photo or card */
-.product-thumb:hover .thumb-hover-popup,
-.product-card:hover .thumb-hover-popup {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
+.product-card {
+  cursor: pointer;
 }
 
 .popup-spec-tag {

@@ -663,47 +663,13 @@ function renderProducts() {
   grid.innerHTML = pageProducts.map(p => {
     const isWish = wishlist.includes(p.id);
     const activeColorObj = p.colors ? p.colors.find(c => c.id === (p.selectedColor || p.colors[0].id)) : null;
-    const currentImages = activeColorObj ? activeColorObj.images : p.images;
     const currentPrimary = activeColorObj ? activeColorObj.image : p.image;
-    const hasMultipleImages = currentImages && currentImages.length > 1;
 
     return `
       <article class="product-card" data-id="${p.id}">
         <!-- Image Thumbnail -->
         <div class="product-thumb">
-          ${hasMultipleImages ? `
-            <div class="card-slider" data-id="${p.id}" data-index="0">
-              <div class="card-slider-badge">1 / ${currentImages.length}</div>
-              <div class="card-slider-track">
-                ${currentImages.map((img, i) => `
-                  <img src="${img}" alt="${p.name} - View ${i + 1}" class="card-slider-img" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-                `).join('')}
-              </div>
-              <button type="button" class="card-slider-btn card-slider-prev" data-id="${p.id}" data-dir="-1" aria-label="Previous photo">‹</button>
-              <button type="button" class="card-slider-btn card-slider-next" data-id="${p.id}" data-dir="1" aria-label="Next photo">›</button>
-              <div class="card-slider-dots">
-                ${currentImages.map((_, i) => `
-                  <span class="card-slider-dot ${i === 0 ? 'active' : ''}" data-id="${p.id}" data-index="${i}" aria-label="Photo ${i + 1}"></span>
-                `).join('')}
-              </div>
-            </div>
-          ` : `
-            <img src="${currentPrimary}" alt="${p.name}" loading="lazy" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-            <!-- Hover Pop-Up Window Showing Saree Details & Price for single images -->
-            <div class="thumb-hover-popup" role="region" aria-label="Saree preview">
-              <h4 class="popup-title">${p.name}</h4>
-              <div class="popup-price-row">
-                <span class="popup-price">${formatINR(p.price)}</span>
-              </div>
-              <p class="popup-desc">${p.description || ''}</p>
-              <div class="popup-action-row">
-                <button type="button" class="btn-popup-buynow btn-card-buynow" data-id="${p.id}">
-                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                  <span>Buy Now</span>
-                </button>
-              </div>
-            </div>
-          `}
+          <img src="${currentPrimary}" alt="${p.name}" loading="lazy" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
           <button class="product-wish-btn ${isWish ? 'active' : ''}" data-id="${p.id}" aria-label="Add ${p.name} to wishlist" title="Add to wishlist">
             ${isWish ? '♥' : '♡'}
           </button>
@@ -716,19 +682,6 @@ function renderProducts() {
           <div class="product-price-line">
             <span class="price-now">${formatINR(p.price)}</span>
           </div>
-
-          <!-- Color Swatches (if product has multiple colors) -->
-          ${p.colors && p.colors.length > 1 ? `
-            <div class="card-color-swatches" data-id="${p.id}">
-              <span class="card-color-label">Color:</span>
-              ${p.colors.map(c => `
-                <button type="button" class="color-swatch-pill ${c.id === (p.selectedColor || p.colors[0].id) ? 'active' : ''}" data-id="${p.id}" data-color="${c.id}" aria-label="Select ${c.name}">
-                  <span class="swatch-dot" style="background: ${c.hex}; border: 1.5px solid ${c.borderHex || '#D4AF70'};"></span>
-                  <span class="swatch-text">${c.label || c.name}</span>
-                </button>
-              `).join('')}
-            </div>
-          ` : ''}
 
           <!-- Only Buy Now Button with Effects -->
           <div class="product-btn-group">
@@ -1100,33 +1053,10 @@ function selectProductColor(productId, colorId) {
   // 2. Update the product card on the shop page
   const card = document.querySelector(`.product-card[data-id="${productId}"]`);
   if (card) {
-    const slider = card.querySelector('.card-slider');
-    if (slider) {
-      slider.dataset.index = '0';
-      const badge = slider.querySelector('.card-slider-badge');
-      if (badge) badge.textContent = `1 / ${col.images.length}`;
-
-      const track = slider.querySelector('.card-slider-track');
-      if (track) {
-        track.style.transform = 'translateX(0%)';
-        track.innerHTML = col.images.map((img, i) => `
-          <img src="${img}" alt="${p.name} - View ${i + 1}" class="card-slider-img" loading="lazy" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-        `).join('');
-      }
-
-      const dots = slider.querySelector('.card-slider-dots');
-      if (dots) {
-        dots.innerHTML = col.images.map((_, i) => `
-          <span class="card-slider-dot ${i === 0 ? 'active' : ''}" data-id="${p.id}" data-index="${i}" aria-label="Photo ${i + 1}"></span>
-        `).join('');
-      }
+    const cardImg = card.querySelector('.product-thumb img');
+    if (cardImg) {
+      cardImg.src = col.image || col.images[0];
     }
-
-    // Update swatch pills on card
-    const swatchPills = card.querySelectorAll('.color-swatch-pill');
-    swatchPills.forEach(pill => {
-      pill.classList.toggle('active', pill.dataset.color === colorId);
-    });
   }
 }
 
@@ -1435,11 +1365,10 @@ function initEvents() {
         return;
       }
 
-      // Clicking photo thumbnail opens Quick View (only if not clicking a button or dot)
-      const thumb = e.target.closest('.product-thumb');
-      if (thumb && !e.target.closest('button') && !e.target.closest('.card-slider-dot')) {
-        const card = thumb.closest('.product-card');
-        const id = parseInt(card?.dataset?.id, 10);
+      // Clicking anywhere on saree card (thumbnail, title, details) except buttons opens Quick View
+      const card = e.target.closest('.product-card');
+      if (card && !e.target.closest('button') && !e.target.closest('a')) {
+        const id = parseInt(card.dataset.id, 10);
         if (id) openQuickView(id);
         return;
       }
