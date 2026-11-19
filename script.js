@@ -283,11 +283,35 @@ const PRODUCTS = [
     category: 'cotton',
     image: 'images/IMG_6555_enhanced_straight.jpg',
     images: [
-      'images/IMG_6555_enhanced_straight.jpg',
-      'images/IMG_6557_enhanced_straight.jpg',
-      'images/IMG_6558_enhanced_straight.jpg'
+      'images/IMG_6555_enhanced_straight.jpg'
     ],
-    description: 'Vibrant multicolor Look N Like exclusive fancy cotton saree featuring modern geometric prism motifs, contrasting green temple border, and elegant bronze-gold zari pallu. Breathable, comfortable, and perfect for casual and festive occasions.'
+    selectedColor: 'brown',
+    colors: [
+      {
+        id: 'brown',
+        name: 'Terracotta Brown',
+        label: 'Brown',
+        hex: '#8B4513',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6555_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6555_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'green',
+        name: 'Emerald Green',
+        label: 'Green',
+        hex: '#1E7E34',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6557_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6557_enhanced_straight.jpg',
+          'images/IMG_6558_enhanced_straight.jpg'
+        ]
+      }
+    ],
+    description: 'Vibrant multicolor Look N Like exclusive fancy cotton saree featuring modern geometric motifs, temple borders, and elegant bronze-gold zari pallu. Breathable, comfortable, and perfect for casual and festive occasions. Available in Terracotta Brown and Emerald Green.'
   },
   {
     id: 10,
@@ -1146,35 +1170,7 @@ function selectProductColor(productId, colorId) {
   // 1. If Quick View modal is currently open for this product:
   const modal = document.getElementById('quick-view-overlay');
   if (modal && modal.classList.contains('open') && currentQvProductId === productId) {
-    currentQvIndex = 0;
-    // Update main image
-    const mainImg = document.getElementById('qv-main-img');
-    if (mainImg) {
-      mainImg.style.opacity = '0.4';
-      mainImg.src = col.images[0];
-      setTimeout(() => { mainImg.style.opacity = '1'; }, 70);
-    }
-    // Update counter
-    const counter = document.getElementById('qv-counter-cur');
-    if (counter) counter.textContent = '1';
-    const totalEl = document.querySelector('.qv-slider-counter');
-    if (totalEl) totalEl.innerHTML = `<span id="qv-counter-cur">1</span> / ${col.images.length}`;
-
-    // Update thumbnails row
-    const thumbsRow = document.querySelector('.qv-thumbs-row');
-    if (thumbsRow) {
-      thumbsRow.innerHTML = col.images.map((img, i) => `
-        <button type="button" class="qv-thumb-btn ${i === 0 ? 'active' : ''}" data-index="${i}" onclick="selectQuickViewImage(${p.id}, ${i})" aria-label="View photo ${i + 1}">
-          <img src="${img}" alt="${p.name} view ${i + 1}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
-        </button>
-      `).join('');
-    }
-
-    // Update active color buttons in modal
-    const qvBtns = document.querySelectorAll('.qv-color-btn');
-    qvBtns.forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.color === colorId);
-    });
+    openQuickView(productId);
   }
 
   // 2. Update the product card on the shop page
@@ -1220,8 +1216,10 @@ function openQuickView(productId) {
         </div>
       </div>
     ` : `
-      <div class="modal-img-box">
-        <img src="${currentPrimary}" alt="${p.name}" style="object-position: center center; object-fit: cover;" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+      <div class="modal-img-box qv-slider-box">
+        <div class="qv-main-display">
+          <img id="qv-main-img" src="${currentPrimary}" alt="${p.name}" onerror="this.onerror=null; this.src='images/saree1.jpg';" />
+        </div>
       </div>
     `}
     <div class="modal-details-box">

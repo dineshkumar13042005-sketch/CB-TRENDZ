@@ -65,9 +65,33 @@ const products = [
     price: 599,
     image: 'images/IMG_6555_enhanced_straight.jpg',
     images: [
-      'images/IMG_6555_enhanced_straight.jpg',
-      'images/IMG_6557_enhanced_straight.jpg',
-      'images/IMG_6558_enhanced_straight.jpg'
+      'images/IMG_6555_enhanced_straight.jpg'
+    ],
+    selectedColor: 'brown',
+    colors: [
+      {
+        id: 'brown',
+        name: 'Terracotta Brown',
+        label: 'Brown',
+        hex: '#8B4513',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6555_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6555_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'green',
+        name: 'Emerald Green',
+        label: 'Green',
+        hex: '#1E7E34',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6557_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6557_enhanced_straight.jpg',
+          'images/IMG_6558_enhanced_straight.jpg'
+        ]
+      }
     ]
   },
   {
