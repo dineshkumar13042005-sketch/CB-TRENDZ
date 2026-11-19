@@ -1236,9 +1236,8 @@ function openQuickView(productId) {
           <span class="modal-color-label">Available Colors:</span>
           <div class="modal-color-options">
             ${p.colors.map(c => `
-              <button type="button" class="qv-color-btn ${c.id === (p.selectedColor || p.colors[0].id) ? 'active' : ''}" data-id="${p.id}" data-color="${c.id}" onclick="selectProductColor(${p.id}, '${c.id}')" aria-label="${c.name}">
-                <span class="qv-color-circle" style="background: ${c.hex}; border: 1.5px solid ${c.borderHex || '#D4AF70'};"></span>
-                <span class="qv-color-text">${c.name}</span>
+              <button type="button" class="qv-color-btn ${c.id === (p.selectedColor || p.colors[0].id) ? 'active' : ''}" data-id="${p.id}" data-color="${c.id}" onclick="selectProductColor(${p.id}, '${c.id}')" title="${c.name}" aria-label="${c.name}">
+                <span class="qv-color-circle" style="background: ${c.hex}; border: 2.5px solid ${c.borderHex || '#D4AF70'};"></span>
               </button>
             `).join('')}
           </div>
