@@ -131,18 +131,28 @@ const PRODUCTS = [
         id: 'violet',
         name: 'Royal Violet',
         label: 'Violet',
-        hex: '#2E1E5B',
-        borderHex: '#6A4E9E',
+        hex: '#3E2468',
+        borderHex: '#D4AF70',
         image: 'images/IMG_6529_enhanced_straight.jpg',
         images: [
           'images/IMG_6529_enhanced_straight.jpg',
-          'images/IMG_6530_enhanced_straight.jpg',
+          'images/IMG_6530_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'blue',
+        name: 'Royal Blue',
+        label: 'Blue',
+        hex: '#162866',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6531_enhanced_straight.jpg',
+        images: [
           'images/IMG_6531_enhanced_straight.jpg',
           'images/IMG_6532_enhanced_straight.jpg'
         ]
       }
     ],
-    description: 'Charming daily wear georgette saree crafted with soft lightweight fabric, vibrant hibiscus floral digital prints, and subtle gold zari border weave. Comes with matching blouse piece. Available in Mustard Yellow, Festive Red, Coral Pink, and Royal Violet.'
+    description: 'Charming daily wear georgette saree crafted with soft lightweight fabric, vibrant hibiscus floral digital prints, and subtle gold zari border weave. Comes with matching blouse piece. Available in Mustard Yellow, Festive Red, Coral Pink, Royal Violet, and Royal Blue.'
   },
   {
     id: 5,
