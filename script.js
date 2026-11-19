@@ -628,6 +628,45 @@ const PRODUCTS = [
       }
     ],
     description: 'Traditional handloom finish Kanchi pattu silk saree featuring rich antique gold zari contrast borders, delicate gold butta motifs, and an opulent woven pallu. Graceful drape suited for auspicious occasions, temple ceremonies, and festivals. Available in Crimson Red with Mint Border and Emerald Green with Maroon Border.'
+  },
+  {
+    id: 16,
+    name: 'Traditional Butta Kanchipuram Silk Saree',
+    price: 799,
+    category: 'silk',
+    image: 'images/IMG_6498_enhanced_straight.jpg',
+    images: [
+      'images/IMG_6498_enhanced_straight.jpg',
+      'images/IMG_6497_enhanced_straight.jpg'
+    ],
+    selectedColor: 'violet_green',
+    colors: [
+      {
+        id: 'violet_green',
+        name: 'Royal Violet with Sea Green Border',
+        label: 'Violet & Green',
+        hex: '#3E1854',
+        borderHex: '#2BAE92',
+        image: 'images/IMG_6498_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6498_enhanced_straight.jpg',
+          'images/IMG_6497_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'yellow_maroon',
+        name: 'Mustard Yellow with Maroon Border',
+        label: 'Yellow',
+        hex: '#DCA212',
+        borderHex: '#7E1628',
+        image: 'images/IMG_6499_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6499_enhanced_straight.jpg',
+          'images/IMG_6500_enhanced_straight.jpg'
+        ]
+      }
+    ],
+    description: 'Authentic Kanchipuram finish semi-silk saree adorned with gleaming gold zari floral and geometric borders, traditional medallion buttas, and rich woven pallu. Lightweight with an elegant fall, perfect for weddings, pujas, and celebrations. Available in Royal Violet with Sea Green Border and Mustard Yellow with Maroon Border.'
   }
 ];
 

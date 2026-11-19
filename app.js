@@ -150,6 +150,18 @@ const products = [
       { id: "red_mint", name: "Crimson Red with Mint Border", label: "Red & Mint", hex: "#B31828", borderHex: "#4CB8A5", image: "images/IMG_6493_enhanced_straight.jpg", images: ["images/IMG_6493_enhanced_straight.jpg", "images/IMG_6494_enhanced_straight.jpg"] },
       { id: "lite_green", name: "Emerald Green with Maroon Border", label: "Lite Green", hex: "#1D7A56", borderHex: "#8B1E2D", image: "images/IMG_6495_enhanced_straight.jpg", images: ["images/IMG_6495_enhanced_straight.jpg", "images/IMG_6496_enhanced_straight.jpg"] }
     ]
+  },
+  {
+    id: 16,
+    name: "Traditional Butta Kanchipuram Silk Saree",
+    category: "Silk Sarees",
+    price: 799,
+    image: "images/IMG_6498_enhanced_straight.jpg",
+    images: ["images/IMG_6498_enhanced_straight.jpg", "images/IMG_6497_enhanced_straight.jpg"],
+    colors: [
+      { id: "violet_green", name: "Royal Violet with Sea Green Border", label: "Violet & Green", hex: "#3E1854", borderHex: "#2BAE92", image: "images/IMG_6498_enhanced_straight.jpg", images: ["images/IMG_6498_enhanced_straight.jpg", "images/IMG_6497_enhanced_straight.jpg"] },
+      { id: "yellow_maroon", name: "Mustard Yellow with Maroon Border", label: "Yellow", hex: "#DCA212", borderHex: "#7E1628", image: "images/IMG_6499_enhanced_straight.jpg", images: ["images/IMG_6499_enhanced_straight.jpg", "images/IMG_6500_enhanced_straight.jpg"] }
+    ]
   }
 ];
 
