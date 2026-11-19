@@ -757,6 +757,33 @@ const PRODUCTS = [
       }
     ],
     description: 'Opulent traditional silk saree in an alluring Rani Pink tone, embellished with delicate micro-buttas, a striking metallic copper zari border with deep bottle green contrast tipping, and a rich textured zari pallu. Graceful, lustrous, and ideal for weddings and celebrations.'
+  },
+  {
+    id: 19,
+    name: 'Black Bandhani Mirror Work Saree',
+    price: 1100,
+    category: 'party',
+    image: 'images/IMG_6483.jpg',
+    images: [
+      'images/IMG_6483.jpg',
+      'images/IMG_6484.jpg'
+    ],
+    selectedColor: 'black',
+    colors: [
+      {
+        id: 'black',
+        name: 'Jet Black with Gold Mirror Border',
+        label: 'Black',
+        hex: '#181818',
+        borderHex: '#D4AF70',
+        image: 'images/IMG_6483.jpg',
+        images: [
+          'images/IMG_6483.jpg',
+          'images/IMG_6484.jpg'
+        ]
+      }
+    ],
+    description: 'Stunning Jet Black Bandhani saree adorned with traditional white bandhej pattern motifs, embedded mirror work, an opulent heavy scalloped cutwork gold lace border with genuine mirrors, and vibrant Kalamkari printed inner contrast pleats. Comes with matching blouse piece. Perfect for parties, weddings, and festive celebrations.'
   }
 ];
 

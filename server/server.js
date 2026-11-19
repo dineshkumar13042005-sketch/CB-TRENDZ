@@ -316,6 +316,17 @@ const SERVER_CATALOG = {
     colors: [
       { id: 'rani_pink', name: 'Rani Pink with Copper & Green Border', label: 'Rani Pink', hex: '#D81B60', borderHex: '#B87333', image: 'images/IMG_6507_enhanced_straight.jpg', images: ['images/IMG_6507_enhanced_straight.jpg', 'images/IMG_6508_enhanced_straight.jpg'] }
     ]
+  },
+  19: {
+    id: 19,
+    name: 'Black Bandhani Mirror Work Saree',
+    price: 1100,
+    category: 'party',
+    image: 'images/IMG_6483.jpg',
+    images: ['images/IMG_6483.jpg', 'images/IMG_6484.jpg'],
+    colors: [
+      { id: 'black', name: 'Jet Black with Gold Mirror Border', label: 'Black', hex: '#181818', borderHex: '#D4AF70', image: 'images/IMG_6483.jpg', images: ['images/IMG_6483.jpg', 'images/IMG_6484.jpg'] }
+    ]
   }
 };
 

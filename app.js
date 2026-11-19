@@ -241,6 +241,32 @@ const products = [
         ]
       }
     ]
+  },
+  {
+    id: 19,
+    name: "Black Bandhani Mirror Work Saree",
+    category: "Party Wear Sarees",
+    price: 1100,
+    image: "images/IMG_6483.jpg",
+    images: [
+      "images/IMG_6483.jpg",
+      "images/IMG_6484.jpg"
+    ],
+    selectedColor: "black",
+    colors: [
+      {
+        id: "black",
+        name: "Jet Black with Gold Mirror Border",
+        label: "Black",
+        hex: "#181818",
+        borderHex: "#D4AF70",
+        image: "images/IMG_6483.jpg",
+        images: [
+          "images/IMG_6483.jpg",
+          "images/IMG_6484.jpg"
+        ]
+      }
+    ]
   }
 ];
 
