@@ -150,7 +150,20 @@ const SERVER_CATALOG = {
     ]
   },
   6: { id: 6, name: 'Linen silk Saree', price: 799, category: 'silk', image: 'images/image.png_1dbc01cd_2K.jpg' },
-  7: { id: 7, name: 'Shimmer linen Saree', price: 799, category: 'party', image: 'images/image.png_26f0abe6_2K.jpg' },
+  7: {
+    id: 7,
+    name: 'Shimmer linen Saree',
+    price: 799,
+    category: 'party',
+    image: 'images/IMG_6544_enhanced_straight.jpg',
+    images: ['images/IMG_6544_enhanced_straight.jpg', 'images/IMG_6545_enhanced_straight.jpg'],
+    colors: [
+      { id: 'pink', name: 'Blush Pink', label: 'Pink', hex: '#D88CA3', borderHex: '#9A4B62', image: 'images/IMG_6544_enhanced_straight.jpg', images: ['images/IMG_6544_enhanced_straight.jpg', 'images/IMG_6545_enhanced_straight.jpg'] },
+      { id: 'brown', name: 'Terracotta Brown', label: 'Brown', hex: '#9B5738', borderHex: '#5C2B14', image: 'images/IMG_6547_enhanced_straight.jpg', images: ['images/IMG_6547_enhanced_straight.jpg', 'images/IMG_6548_enhanced_straight.jpg'] },
+      { id: 'orange', name: 'Lite Orange', label: 'Lite Orange', hex: '#E58C46', borderHex: '#A05118', image: 'images/IMG_6549_enhanced_straight.jpg', images: ['images/IMG_6549_enhanced_straight.jpg', 'images/IMG_6550_enhanced_straight.jpg'] },
+      { id: 'green', name: 'Meadow Green', label: 'Green', hex: '#3E8E41', borderHex: '#1F5C22', image: 'images/IMG_6551_enhanced_straight.jpg', images: ['images/IMG_6551_enhanced_straight.jpg', 'images/IMG_6552_enhanced_straight.jpg', 'images/IMG_6553_enhanced_straight.jpg', 'images/IMG_6554_enhanced_straight.jpg'] }
+    ]
+  },
   8: { id: 8, name: 'Cotton Saree', price: 499, category: 'cotton', image: 'images/image.png_f03ac051_2K.jpg' },
   9: { id: 9, name: 'Cotton Saree', price: 599, category: 'cotton', image: 'images/Folded Multicolor Silk Saree on White.png' },
   10: {

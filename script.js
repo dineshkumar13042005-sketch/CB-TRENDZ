@@ -208,8 +208,65 @@ const PRODUCTS = [
     name: 'Shimmer linen Saree',
     price: 799,
     category: 'party',
-    image: 'images/image.png_26f0abe6_2K.jpg',
-    description: 'Exquisite shimmer linen saree with subtle metallic sheen and graceful drape. Perfect blend of breathable comfort and festive glamour.'
+    image: 'images/IMG_6544_enhanced_straight.jpg',
+    images: [
+      'images/IMG_6544_enhanced_straight.jpg',
+      'images/IMG_6545_enhanced_straight.jpg'
+    ],
+    selectedColor: 'pink',
+    colors: [
+      {
+        id: 'pink',
+        name: 'Blush Pink',
+        label: 'Pink',
+        hex: '#D88CA3',
+        borderHex: '#9A4B62',
+        image: 'images/IMG_6544_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6544_enhanced_straight.jpg',
+          'images/IMG_6545_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'brown',
+        name: 'Terracotta Brown',
+        label: 'Brown',
+        hex: '#9B5738',
+        borderHex: '#5C2B14',
+        image: 'images/IMG_6547_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6547_enhanced_straight.jpg',
+          'images/IMG_6548_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'orange',
+        name: 'Lite Orange',
+        label: 'Lite Orange',
+        hex: '#E58C46',
+        borderHex: '#A05118',
+        image: 'images/IMG_6549_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6549_enhanced_straight.jpg',
+          'images/IMG_6550_enhanced_straight.jpg'
+        ]
+      },
+      {
+        id: 'green',
+        name: 'Meadow Green',
+        label: 'Green',
+        hex: '#3E8E41',
+        borderHex: '#1F5C22',
+        image: 'images/IMG_6551_enhanced_straight.jpg',
+        images: [
+          'images/IMG_6551_enhanced_straight.jpg',
+          'images/IMG_6552_enhanced_straight.jpg',
+          'images/IMG_6553_enhanced_straight.jpg',
+          'images/IMG_6554_enhanced_straight.jpg'
+        ]
+      }
+    ],
+    description: 'Exquisite Saakshi shimmer linen saree woven with subtle metallic gold zari threads, intricate artistic prints, and elegant borders. Available in Blush Pink, Terracotta Brown, Lite Orange, and Meadow Green.'
   },
   {
     id: 8,
