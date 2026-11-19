@@ -81,6 +81,21 @@ const products = [
       { id: "green", name: "Emerald Green", label: "Green", hex: "#1B5E3C", borderHex: "#D4AF70", image: "images/IMG_6519_enhanced_straight.jpg", images: ["images/IMG_6519_enhanced_straight.jpg", "images/IMG_6520_enhanced_straight.jpg"] },
       { id: "red", name: "Ruby Red", label: "Red", hex: "#9B111E", borderHex: "#D4AF70", image: "images/IMG_6521_enhanced_straight.jpg", images: ["images/IMG_6521_enhanced_straight.jpg", "images/IMG_6522_enhanced_straight.jpg"] }
     ]
+  },
+  {
+    id: 11,
+    name: "CB Trendz Floral Shimmer Saree",
+    category: "Designer Sarees",
+    price: 899,
+    image: "images/IMG_6559_enhanced_straight.jpg",
+    images: ["images/IMG_6559_enhanced_straight.jpg", "images/IMG_6560_enhanced_straight.jpg"],
+    colors: [
+      { id: "wine", name: "Wine Maroon", label: "Wine", hex: "#4A1521", borderHex: "#D4AF70", image: "images/IMG_6559_enhanced_straight.jpg", images: ["images/IMG_6559_enhanced_straight.jpg", "images/IMG_6560_enhanced_straight.jpg"] },
+      { id: "pink", name: "Rose Pink", label: "Pink", hex: "#D96B87", borderHex: "#D4AF70", image: "images/IMG_6561_enhanced_straight.jpg", images: ["images/IMG_6561_enhanced_straight.jpg", "images/IMG_6562_enhanced_straight.jpg"] },
+      { id: "violet", name: "Soft Violet", label: "Violet", hex: "#9B7EAA", borderHex: "#D4AF70", image: "images/IMG_6563_enhanced_straight.jpg", images: ["images/IMG_6563_enhanced_straight.jpg", "images/IMG_6564_enhanced_straight.jpg"] },
+      { id: "white", name: "Pristine White", label: "White", hex: "#F7F5F0", borderHex: "#C5BCAB", image: "images/IMG_6565_enhanced_straight.jpg", images: ["images/IMG_6565_enhanced_straight.jpg", "images/IMG_6566_enhanced_straight.jpg"] },
+      { id: "red", name: "Cherry Red", label: "Red", hex: "#A61732", borderHex: "#D4AF70", image: "images/IMG_6568_enhanced_straight.jpg", images: ["images/IMG_6568_enhanced_straight.jpg", "images/IMG_6569_enhanced_straight.jpg"] }
+    ]
   }
 ];
 
