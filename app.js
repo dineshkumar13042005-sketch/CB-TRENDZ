@@ -411,9 +411,9 @@ const products = [
   },
   {
     id: 24,
-    name: "Champagne Gold Brocade Silk Saree",
+    name: "Bridal tissue pure silk saree",
     category: "Silk Sarees",
-    price: 899,
+    price: 4499,
     image: "images/IMG_6485.jpg",
     images: [
       "images/IMG_6485.jpg",

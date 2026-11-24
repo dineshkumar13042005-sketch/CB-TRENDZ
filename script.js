@@ -932,8 +932,8 @@ const PRODUCTS = [
   },
   {
     id: 24,
-    name: 'Champagne Gold Brocade Silk Saree',
-    price: 899,
+    name: 'Bridal tissue pure silk saree',
+    price: 4499,
     category: 'silk',
     image: 'images/IMG_6485.jpg',
     images: [
@@ -955,7 +955,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Regal Kanchipuram brocade silk saree in radiant champagne gold featuring an all-over floral jaal weave, complemented by a majestic royal purple border enriched with traditional golden zari motifs. Ideal for grand weddings, receptions, and festive celebrations.'
+    description: 'Regal bridal tissue pure silk saree in radiant champagne gold featuring an all-over floral jaal weave, complemented by a majestic royal purple border enriched with traditional golden zari motifs. Ideal for grand weddings, receptions, and festive celebrations.'
   }
 ];
 

@@ -378,8 +378,8 @@ const SERVER_CATALOG = {
   },
   24: {
     id: 24,
-    name: 'Champagne Gold Brocade Silk Saree',
-    price: 899,
+    name: 'Bridal tissue pure silk saree',
+    price: 4499,
     category: 'silk',
     image: 'images/IMG_6485.jpg',
     images: ['images/IMG_6485.jpg', 'images/IMG_6486.jpg'],
