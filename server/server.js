@@ -344,8 +344,8 @@ const SERVER_CATALOG = {
   },
   21: {
     id: 21,
-    name: 'Temple Gopuram Checkered Silk Saree',
-    price: 899,
+    name: 'Semi silk saree',
+    price: 850,
     category: 'silk',
     image: 'images/IMG_6475.jpg',
     images: ['images/IMG_6475.jpg', 'images/IMG_6474.jpg', 'images/IMG_6476.jpg'],

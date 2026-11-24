@@ -837,8 +837,8 @@ const PRODUCTS = [
   },
   {
     id: 21,
-    name: 'Temple Gopuram Checkered Silk Saree',
-    price: 899,
+    name: 'Semi silk saree',
+    price: 850,
     category: 'silk',
     image: 'images/IMG_6475.jpg',
     images: [
@@ -874,7 +874,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Majestic traditional Kanchipuram silk saree featuring classic kattam checks woven with radiant gold zari threads, accompanied by a magnificent heritage Temple Gopuram architectural zari pallu. Suited for weddings, temple festivals, and auspicious ceremonies. Available in Royal Purple and Rani Pink.'
+    description: 'Majestic traditional semi silk saree featuring classic kattam checks woven with radiant gold zari threads, accompanied by a magnificent heritage Temple Gopuram architectural zari pallu. Suited for weddings, temple festivals, and auspicious ceremonies. Available in Royal Purple and Rani Pink.'
   },
   {
     id: 22,
