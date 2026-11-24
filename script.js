@@ -733,8 +733,8 @@ const PRODUCTS = [
   },
   {
     id: 18,
-    name: 'Rani Pink Copper Border Silk Saree',
-    price: 849,
+    name: 'Semi silk saree',
+    price: 1050,
     category: 'silk',
     image: 'images/IMG_6507_enhanced_straight.jpg',
     images: [
@@ -756,7 +756,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Opulent traditional silk saree in an alluring Rani Pink tone, embellished with delicate micro-buttas, a striking metallic copper zari border with deep bottle green contrast tipping, and a rich textured zari pallu. Graceful, lustrous, and ideal for weddings and celebrations.'
+    description: 'Opulent traditional semi silk saree in an alluring Rani Pink tone, embellished with delicate micro-buttas, a striking metallic copper zari border with deep bottle green contrast tipping, and a rich textured zari pallu. Graceful, lustrous, and ideal for weddings and celebrations.'
   },
   {
     id: 19,

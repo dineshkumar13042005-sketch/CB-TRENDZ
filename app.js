@@ -218,9 +218,9 @@ const products = [
   },
   {
     id: 18,
-    name: "Rani Pink Copper Border Silk Saree",
+    name: "Semi silk saree",
     category: "Silk Sarees",
-    price: 849,
+    price: 1050,
     image: "images/IMG_6507_enhanced_straight.jpg",
     images: [
       "images/IMG_6507_enhanced_straight.jpg",
