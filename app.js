@@ -190,9 +190,9 @@ const products = [
   },
   {
     id: 17,
-    name: "Kanchipuram Contrast Zari Silk Saree",
+    name: "Soft silk saree",
     category: "Silk Sarees",
-    price: 899,
+    price: 3499,
     image: "images/IMG_6502_enhanced_straight.jpg",
     images: [
       "images/IMG_6502_enhanced_straight.jpg",

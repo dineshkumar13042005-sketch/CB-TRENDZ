@@ -704,8 +704,8 @@ const PRODUCTS = [
   },
   {
     id: 17,
-    name: 'Kanchipuram Contrast Zari Silk Saree',
-    price: 899,
+    name: 'Soft silk saree',
+    price: 3499,
     category: 'silk',
     image: 'images/IMG_6502_enhanced_straight.jpg',
     images: [
@@ -729,7 +729,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Exquisite traditional Kanchipuram contrast silk saree featuring a radiant mustard gold body with delicate zari pinstripes and geometric square buttas, paired with an opulent royal purple contrast border and pallu intricately woven with gold jacquard floral motifs.'
+    description: 'Exquisite traditional soft silk saree featuring a radiant mustard gold body with delicate zari pinstripes and geometric square buttas, paired with an opulent royal purple contrast border and pallu intricately woven with gold jacquard floral motifs.'
   },
   {
     id: 18,
