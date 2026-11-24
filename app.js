@@ -1,7 +1,7 @@
 const WHATSAPP_NUMBER = "918778522690";
 
 const products = [
-  { id: 1, name: "Kanchi cotton Saree", category: "Cotton Sarees", price: 1, image: "images/IMG_6513.jpg", images: ["images/IMG_6513.jpg", "images/IMG_6511.jpg", "images/IMG_6510.jpg"] },
+  { id: 1, name: "Kanchi cotton Saree", category: "Cotton Sarees", price: 1350, image: "images/IMG_6513.jpg", images: ["images/IMG_6513.jpg", "images/IMG_6511.jpg", "images/IMG_6510.jpg"] },
   { id: 2, name: "Semi silk Saree", category: "Silk Sarees", price: 850, image: "images/Teal and Gold Banarasi Saree Fold.png" },
   {
     id: 3,

@@ -21,7 +21,7 @@ const PRODUCTS = [
   {
     id: 1,
     name: 'Kanchi cotton Saree',
-    price: 1,
+    price: 1350,
     category: 'cotton',
     image: 'images/IMG_6513.jpg',
     images: [
