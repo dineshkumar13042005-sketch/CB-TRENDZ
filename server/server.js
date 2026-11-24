@@ -285,8 +285,8 @@ const SERVER_CATALOG = {
   },
   16: {
     id: 16,
-    name: 'Traditional Butta Kanchipuram Silk Saree',
-    price: 799,
+    name: 'Soft silk saree',
+    price: 3499,
     category: 'silk',
     image: 'images/IMG_6498_enhanced_straight.jpg',
     images: ['images/IMG_6498_enhanced_straight.jpg', 'images/IMG_6497_enhanced_straight.jpg'],

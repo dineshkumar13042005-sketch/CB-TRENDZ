@@ -665,8 +665,8 @@ const PRODUCTS = [
   },
   {
     id: 16,
-    name: 'Traditional Butta Kanchipuram Silk Saree',
-    price: 799,
+    name: 'Soft silk saree',
+    price: 3499,
     category: 'silk',
     image: 'images/IMG_6498_enhanced_straight.jpg',
     images: [
@@ -700,7 +700,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Authentic Kanchipuram finish semi-silk saree adorned with gleaming gold zari floral and geometric borders, traditional medallion buttas, and rich woven pallu. Lightweight with an elegant fall, perfect for weddings, pujas, and celebrations. Available in Royal Violet with Sea Green Border and Mustard Yellow with Maroon Border.'
+    description: 'Authentic soft silk saree adorned with gleaming gold zari floral and geometric borders, traditional medallion buttas, and rich woven pallu. Lightweight with an elegant fall, perfect for weddings, pujas, and celebrations. Available in Royal Violet with Sea Green Border and Mustard Yellow with Maroon Border.'
   },
   {
     id: 17,
