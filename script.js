@@ -760,7 +760,7 @@ const PRODUCTS = [
   },
   {
     id: 19,
-    name: 'Black Bandhani Mirror Work Saree',
+    name: 'Semi modal silk saree',
     price: 1100,
     category: 'party',
     image: 'images/IMG_6483.jpg',
@@ -783,7 +783,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Stunning Jet Black Bandhani saree adorned with traditional white bandhej pattern motifs, embedded mirror work, an opulent heavy scalloped cutwork gold lace border with genuine mirrors, and vibrant Kalamkari printed inner contrast pleats. Comes with matching blouse piece. Perfect for parties, weddings, and festive celebrations.'
+    description: 'Stunning semi modal silk saree adorned with traditional white bandhej pattern motifs, embedded mirror work, an opulent heavy scalloped cutwork gold lace border with genuine mirrors, and vibrant Kalamkari printed inner contrast pleats. Comes with matching blouse piece. Perfect for parties, weddings, and festive celebrations.'
   },
   {
     id: 20,

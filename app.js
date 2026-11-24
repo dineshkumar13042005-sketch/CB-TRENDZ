@@ -244,7 +244,7 @@ const products = [
   },
   {
     id: 19,
-    name: "Black Bandhani Mirror Work Saree",
+    name: "Semi modal silk saree",
     category: "Party Wear Sarees",
     price: 1100,
     image: "images/IMG_6483.jpg",

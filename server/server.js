@@ -319,7 +319,7 @@ const SERVER_CATALOG = {
   },
   19: {
     id: 19,
-    name: 'Black Bandhani Mirror Work Saree',
+    name: 'Semi modal silk saree',
     price: 1100,
     category: 'party',
     image: 'images/IMG_6483.jpg',
