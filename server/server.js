@@ -330,8 +330,8 @@ const SERVER_CATALOG = {
   },
   20: {
     id: 20,
-    name: 'Rangoli Designer Sequin Georgette Saree',
-    price: 699,
+    name: 'Crush chiffon saree',
+    price: 750,
     category: 'party',
     image: 'images/IMG_6477.jpg',
     images: ['images/IMG_6477.jpg'],

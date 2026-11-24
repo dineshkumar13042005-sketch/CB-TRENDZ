@@ -787,8 +787,8 @@ const PRODUCTS = [
   },
   {
     id: 20,
-    name: 'Rangoli Designer Sequin Georgette Saree',
-    price: 699,
+    name: 'Crush chiffon saree',
+    price: 750,
     category: 'party',
     image: 'images/IMG_6477.jpg',
     images: [
@@ -833,7 +833,7 @@ const PRODUCTS = [
         images: ['images/IMG_6481.jpg', 'images/IMG_6482.jpg']
       }
     ],
-    description: 'Chic Rangoli NX exclusive designer saree crafted from soft crushed textured georgette fabric adorned with delicate golden sequin stripe embroidery and artisan handcrafted tassels. Drapes effortlessly and offers a graceful, modern festive look. Available in Mauve, Mustard Yellow, Sky Blue, and Royal Violet.'
+    description: 'Chic Rangoli NX exclusive designer saree crafted from soft crush chiffon fabric adorned with delicate golden sequin stripe embroidery and artisan handcrafted tassels. Drapes effortlessly and offers a graceful, modern festive look. Available in Mauve, Mustard Yellow, Sky Blue, and Royal Violet.'
   },
   {
     id: 21,

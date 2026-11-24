@@ -270,9 +270,9 @@ const products = [
   },
   {
     id: 20,
-    name: "Rangoli Designer Sequin Georgette Saree",
+    name: "Crush chiffon saree",
     category: "Party Wear Sarees",
-    price: 699,
+    price: 750,
     image: "images/IMG_6477.jpg",
     images: [
       "images/IMG_6477.jpg"
