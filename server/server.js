@@ -367,8 +367,8 @@ const SERVER_CATALOG = {
   },
   23: {
     id: 23,
-    name: 'Golden Shimmer Tissue Silk Saree',
-    price: 899,
+    name: 'Golden soft tissue saree',
+    price: 850,
     category: 'silk',
     image: 'images/IMG_6471.jpg',
     images: ['images/IMG_6471.jpg', 'images/IMG_6470.jpg'],

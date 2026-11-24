@@ -385,9 +385,9 @@ const products = [
   },
   {
     id: 23,
-    name: "Golden Shimmer Tissue Silk Saree",
+    name: "Golden soft tissue saree",
     category: "Silk Sarees",
-    price: 899,
+    price: 850,
     image: "images/IMG_6471.jpg",
     images: [
       "images/IMG_6471.jpg",

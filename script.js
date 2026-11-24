@@ -905,8 +905,8 @@ const PRODUCTS = [
   },
   {
     id: 23,
-    name: 'Golden Shimmer Tissue Silk Saree',
-    price: 899,
+    name: 'Golden soft tissue saree',
+    price: 850,
     category: 'silk',
     image: 'images/IMG_6471.jpg',
     images: [
@@ -928,7 +928,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Radiant metallic antique gold tissue silk saree woven with lustrous golden zari threads, featuring an elegant chevron texture, diamond jaal pallu, and finished with rich handcrafted golden zari tassels (kuchu). Perfect for weddings, receptions, and festive celebrations.'
+    description: 'Radiant golden soft tissue saree woven with lustrous golden zari threads, featuring an elegant chevron texture, diamond jaal pallu, and finished with rich handcrafted golden zari tassels (kuchu). Perfect for weddings, receptions, and festive celebrations.'
   },
   {
     id: 24,
