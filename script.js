@@ -325,8 +325,8 @@ const PRODUCTS = [
   },
   {
     id: 10,
-    name: 'Designer Embroidered Saree',
-    price: 799,
+    name: 'Net designer saree',
+    price: 2149,
     category: 'designer',
     image: 'images/IMG_6519_enhanced_straight.jpg',
     images: [
@@ -360,7 +360,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Exquisite sheer designer organza saree featuring delicate vertical gold zari stripes and an opulent scalloped floral embroidered border with subtle sequin highlights. Available in rich Emerald Green and celebratory Ruby Red. Lightweight and glamorous for weddings, parties, and celebrations.'
+    description: 'Exquisite net designer saree featuring delicate vertical gold zari stripes and an opulent scalloped floral embroidered border with subtle sequin highlights. Available in rich Emerald Green and celebratory Ruby Red. Lightweight and glamorous for weddings, parties, and celebrations.'
   },
   {
     id: 11,

@@ -204,8 +204,8 @@ const SERVER_CATALOG = {
   },
   10: {
     id: 10,
-    name: 'Designer Embroidered Saree',
-    price: 799,
+    name: 'Net designer saree',
+    price: 2149,
     category: 'designer',
     image: 'images/IMG_6519_enhanced_straight.jpg',
     images: ['images/IMG_6519_enhanced_straight.jpg', 'images/IMG_6520_enhanced_straight.jpg'],

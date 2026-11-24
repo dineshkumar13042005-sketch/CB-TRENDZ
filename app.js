@@ -97,9 +97,9 @@ const products = [
   },
   {
     id: 10,
-    name: "Designer Embroidered Saree",
+    name: "Net designer saree",
     category: "Designer Sarees",
-    price: 799,
+    price: 2149,
     image: "images/IMG_6519_enhanced_straight.jpg",
     images: ["images/IMG_6519_enhanced_straight.jpg", "images/IMG_6520_enhanced_straight.jpg"],
     colors: [
