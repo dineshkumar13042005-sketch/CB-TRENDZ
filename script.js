@@ -364,8 +364,8 @@ const PRODUCTS = [
   },
   {
     id: 11,
-    name: 'CB Trendz Floral Shimmer Saree',
-    price: 899,
+    name: 'Designer chiffon saree',
+    price: 1249,
     category: 'designer',
     image: 'images/IMG_6559_enhanced_straight.jpg',
     images: [
@@ -435,7 +435,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Exclusive CB Trendz festive shimmer saree featuring vibrant multicolor floral thread embroidery, delicate crystal stonework highlights, and an exquisite scalloped lace border. Lightweight, fluid drape with matching blouse piece. Available in Wine Maroon, Rose Pink, Soft Violet, Pristine White, and Cherry Red.'
+    description: 'Exclusive designer chiffon saree featuring vibrant multicolor floral thread embroidery, delicate crystal stonework highlights, and an exquisite scalloped lace border. Lightweight, fluid drape with matching blouse piece. Available in Wine Maroon, Rose Pink, Soft Violet, Pristine White, and Cherry Red.'
   },
   {
     id: 12,

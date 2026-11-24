@@ -216,8 +216,8 @@ const SERVER_CATALOG = {
   },
   11: {
     id: 11,
-    name: 'CB Trendz Floral Shimmer Saree',
-    price: 899,
+    name: 'Designer chiffon saree',
+    price: 1249,
     category: 'designer',
     image: 'images/IMG_6559_enhanced_straight.jpg',
     images: ['images/IMG_6559_enhanced_straight.jpg', 'images/IMG_6560_enhanced_straight.jpg'],
