@@ -166,9 +166,9 @@ const products = [
   },
   {
     id: 15,
-    name: "Classic Kanchi Contrast Silk Saree",
+    name: "Soft silk saree",
     category: "Silk Sarees",
-    price: 899,
+    price: 3499,
     image: "images/IMG_6493_enhanced_straight.jpg",
     images: ["images/IMG_6493_enhanced_straight.jpg", "images/IMG_6494_enhanced_straight.jpg"],
     colors: [

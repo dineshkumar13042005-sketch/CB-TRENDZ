@@ -626,8 +626,8 @@ const PRODUCTS = [
   },
   {
     id: 15,
-    name: 'Classic Kanchi Contrast Silk Saree',
-    price: 899,
+    name: 'Soft silk saree',
+    price: 3499,
     category: 'silk',
     image: 'images/IMG_6493_enhanced_straight.jpg',
     images: [
@@ -661,7 +661,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Traditional handloom finish Kanchi pattu silk saree featuring rich antique gold zari contrast borders, delicate gold butta motifs, and an opulent woven pallu. Graceful drape suited for auspicious occasions, temple ceremonies, and festivals. Available in Crimson Red with Mint Border and Emerald Green with Maroon Border.'
+    description: 'Traditional handloom finish soft silk saree featuring rich antique gold zari contrast borders, delicate gold butta motifs, and an opulent woven pallu. Graceful drape suited for auspicious occasions, temple ceremonies, and festivals. Available in Crimson Red with Mint Border and Emerald Green with Maroon Border.'
   },
   {
     id: 16,
