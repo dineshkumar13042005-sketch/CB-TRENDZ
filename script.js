@@ -439,9 +439,9 @@ const PRODUCTS = [
   },
   {
     id: 12,
-    name: 'Traditional Zari Silk Saree',
-    price: 750,
-    category: 'silk',
+    name: 'Celebrity inspired cotton saree',
+    price: 1059,
+    category: 'cotton',
     image: 'images/IMG_6570_enhanced_straight.jpg',
     images: [
       'images/IMG_6570_enhanced_straight.jpg',
@@ -522,7 +522,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Traditional handloom finish semi-silk saree adorned with intricate antique gold zari diamond woven borders, delicate butta motifs, and hand-knotted tassel pallu. Lightweight, regal drape ideal for temple visits, weddings, and festive celebrations. Available in Royal Violet, Jet Black, Crimson Red, Sapphire Blue, Yellow-Green, and Yellow-Violet.'
+    description: 'Celebrity inspired cotton saree adorned with intricate antique gold zari diamond woven borders, delicate butta motifs, and hand-knotted tassel pallu. Lightweight, regal drape ideal for temple visits, weddings, and festive celebrations. Available in Royal Violet, Jet Black, Crimson Red, Sapphire Blue, Yellow-Green, and Yellow-Violet.'
   },
   {
     id: 13,

@@ -124,9 +124,9 @@ const products = [
   },
   {
     id: 12,
-    name: "Traditional Zari Silk Saree",
-    category: "Silk Sarees",
-    price: 750,
+    name: "Celebrity inspired cotton saree",
+    category: "Cotton Sarees",
+    price: 1059,
     image: "images/IMG_6570_enhanced_straight.jpg",
     images: ["images/IMG_6570_enhanced_straight.jpg", "images/IMG_6571_enhanced_straight.jpg"],
     colors: [
