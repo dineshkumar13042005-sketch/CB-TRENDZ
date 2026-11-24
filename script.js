@@ -526,9 +526,9 @@ const PRODUCTS = [
   },
   {
     id: 13,
-    name: 'Handloom Contrast Zari Silk Saree',
-    price: 699,
-    category: 'silk',
+    name: 'Kalyani cotton saree',
+    price: 1050,
+    category: 'cotton',
     image: 'images/IMG_6584_enhanced_straight.jpg',
     images: [
       'images/IMG_6584_enhanced_straight.jpg',
@@ -573,7 +573,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Distinctive dual-tone contrast handloom semi-silk saree featuring traditional paisley and temple border motifs in antique gold zari, finished with handcrafted matching tassels. Available in Parrot Green with Black, Mustard Orange with Red, and Jet Black with Royal Blue.'
+    description: 'Distinctive dual-tone contrast Kalyani cotton saree featuring traditional paisley and temple border motifs in antique gold zari, finished with handcrafted matching tassels. Available in Parrot Green with Black, Mustard Orange with Red, and Jet Black with Royal Blue.'
   },
   {
     id: 14,

@@ -247,9 +247,9 @@ const SERVER_CATALOG = {
   },
   13: {
     id: 13,
-    name: 'Handloom Contrast Zari Silk Saree',
-    price: 699,
-    category: 'silk',
+    name: 'Kalyani cotton saree',
+    price: 1050,
+    category: 'cotton',
     image: 'images/IMG_6584_enhanced_straight.jpg',
     images: ['images/IMG_6584_enhanced_straight.jpg', 'images/IMG_6585_enhanced_straight.jpg'],
     colors: [
