@@ -359,9 +359,9 @@ const products = [
   },
   {
     id: 22,
-    name: "Royal Blue Contrast Zari Silk Saree",
+    name: "Semi banarasi saree",
     category: "Silk Sarees",
-    price: 899,
+    price: 1100,
     image: "images/IMG_6467.jpg",
     images: [
       "images/IMG_6467.jpg",

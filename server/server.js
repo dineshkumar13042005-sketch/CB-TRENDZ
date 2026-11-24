@@ -356,8 +356,8 @@ const SERVER_CATALOG = {
   },
   22: {
     id: 22,
-    name: 'Royal Blue Contrast Zari Silk Saree',
-    price: 899,
+    name: 'Semi banarasi saree',
+    price: 1100,
     category: 'silk',
     image: 'images/IMG_6467.jpg',
     images: ['images/IMG_6467.jpg', 'images/image.jpg'],

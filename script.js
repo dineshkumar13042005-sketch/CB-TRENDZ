@@ -878,8 +878,8 @@ const PRODUCTS = [
   },
   {
     id: 22,
-    name: 'Royal Blue Contrast Zari Silk Saree',
-    price: 899,
+    name: 'Semi banarasi saree',
+    price: 1100,
     category: 'silk',
     image: 'images/IMG_6467.jpg',
     images: [
@@ -901,7 +901,7 @@ const PRODUCTS = [
         ]
       }
     ],
-    description: 'Exquisite traditional silk saree in majestic royal blue adorned with delicate silver zari pinstripes and floral buttas, contrasted with an opulent turquoise cyan zari woven border and grand brocade pallu. Perfect for festive celebrations, weddings, and traditional events.'
+    description: 'Exquisite semi banarasi saree in majestic royal blue adorned with delicate silver zari pinstripes and floral buttas, contrasted with an opulent turquoise cyan zari woven border and grand brocade pallu. Perfect for festive celebrations, weddings, and traditional events.'
   },
   {
     id: 23,
